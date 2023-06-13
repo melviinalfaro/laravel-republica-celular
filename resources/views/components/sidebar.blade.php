@@ -21,6 +21,12 @@
                     </a>
                 </li>
                 <li class="nav-link">
+                    <a href="{{ route('productos') }}" class="{{ Request::is('productos') ? 'active' : '' }}">
+                        <i class="icon material-icons-round">inventory_2</i>
+                        <span class="text nav-text">Inventario</span>
+                    </a>
+                </li>
+                <li class="nav-link">
                     <a href="">
                         <i class="icon material-icons-round">group</i>
                         <span class="text nav-text">Usuarios</span>

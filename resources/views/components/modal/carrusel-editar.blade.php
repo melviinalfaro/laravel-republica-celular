@@ -22,12 +22,12 @@
                             <div class="columna col-md-5">
                                 <div class="form-group">
                                     <label for="nombre-input-editar{{ $carrusel->id }}"
-                                        class="label-nombre text-color">{{ __('Nombre') }}</label>
+                                        class="label-nombre text-color">{{ __('Título') }}</label>
                                     <input type="text" name="nombre" autofocus class="form-control"
                                         id="nombre-input-editar{{ $carrusel->id }}" value="{{ $carrusel->nombre }}"
                                         required form="modalForm{{ $carrusel->id }}">
                                     <div class="invalid-feedback invalid-feedback-nombre-editar{{ $carrusel->id }}">Por
-                                        favor ingresa un nombre válido</div>
+                                        favor ingresa un título válido</div>
                                 </div>
                                 <div class="form-group">
                                     <label for="image-upload-input-editar{{ $carrusel->id }}"

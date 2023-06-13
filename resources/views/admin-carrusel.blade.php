@@ -3,14 +3,14 @@
 @section('title', 'Imágenes del carrusel')
 
 @section('content')
-<div class="container-fluid p-3">
+<div class="container-lg p-3">
     <h3 class="titulo pb-2">Imágenes del carrusel</h3>
     <div class="table-responsive py-3">
         <table id="miTabla" class="table table-hover">
             <thead>
                 <tr>
                     <th scope="col" class="text-center">#</th>
-                    <th scope="col">Nombre</th>
+                    <th scope="col">Título</th>
                     <th scope="col">Imagen</th>
                     <th scope="col">Acciones</th>
                 </tr>
@@ -32,7 +32,7 @@
                                 </button>
                             </div>
 
-                            <x-modal.ver :carrusel="$carrusel" />
+                            <x-modal.carrusel-ver :carrusel="$carrusel" />
 
                             <div class="btn-group m-1" role="group" data-bs-toggle="modal"
                                 data-bs-target="#modalEditar{{ $carrusel->id }}">
@@ -41,7 +41,7 @@
                                 </button>
                             </div>
 
-                            <x-modal.editar :carrusel="$carrusel" />
+                            <x-modal.carrusel-editar :carrusel="$carrusel" />
 
                             <div class="btn-group m-1" role="group" data-bs-toggle="modal"
                                 data-bs-target="#confirmacionModal{{ $carrusel->id }}">
@@ -50,7 +50,7 @@
                                 </button>
                             </div>
 
-                            <x-modal.eliminar :carrusel="$carrusel" />
+                            <x-modal.carrusel-eliminar :carrusel="$carrusel" />
                         </div>
                     </td>
                 </tr>
@@ -60,9 +60,9 @@
     </div>
 </div>
 
-<x-modal.agregar />
+<x-modal.carrusel-agregar />
 
-<x-utils.boton-flotante />
+<x-utils.btn-add-carrusel />
 
 <x-utils.notificaciones />
 

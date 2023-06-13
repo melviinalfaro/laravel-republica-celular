@@ -9,7 +9,7 @@
         </div>
 
         <div class="buscador">
-            <input type="text" name="text" class="input-buscar" id="input" placeholder="Buscar teléfono">
+            <input type="text" name="text" class="input-buscar" id="input" placeholder="Buscar">
             <label class="icono-buscar" for="input">
                 <i class="material-icons-round">search</i>
             </label>
