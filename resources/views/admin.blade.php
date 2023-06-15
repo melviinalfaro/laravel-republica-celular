@@ -34,12 +34,6 @@
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Next</span>
                     </button>
-                    <a href="{{ route('ver.carrusel') }}">
-                        <button class="btn-imagenes btn btn-primary">
-                            <i class="material-icons-round">add_photo_alternate</i>
-                            Imágenes
-                        </button>
-                    </a>
                     <h3 class="titulo-productos">Carrusel publicitario</h3>
                 </div>
             </div>
@@ -70,15 +64,10 @@
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Next</span>
                     </button>
-                    <a href="{{ route('productos') }}">
-                        <button class="btn-imagenes btn btn-primary">
-                            <i class="material-icons-round">inventory_2</i>
-                            Productos
-                        </button>
-                    </a>
                     <h3 class="titulo-productos">Agregados recientemente</h3>
                 </div>
             </div>
         </div>
+        <x-utils.btn-add />
     </div>
 @endsection

@@ -16,19 +16,19 @@
             <ul class="menu-links">
                 <li class="nav-link">
                     <a href="{{ route('admin') }}" class="{{ Request::is('admin') ? 'active' : '' }}">
-                        <i class="icon material-icons-round">home</i>
+                        <i class="icon material-icons-outlined">home</i>
                         <span class="text nav-text">Inicio</span>
                     </a>
                 </li>
                 <li class="nav-link">
                     <a href="{{ route('productos') }}" class="{{ Request::is('productos') ? 'active' : '' }}">
-                        <i class="icon material-icons-round">inventory_2</i>
+                        <i class="icon material-icons-outlined">inventory_2</i>
                         <span class="text nav-text">Inventario</span>
                     </a>
                 </li>
                 <li class="nav-link">
                     <a href="">
-                        <i class="icon material-icons-round">group</i>
+                        <i class="icon material-icons-outlined">account_circle</i>
                         <span class="text nav-text">Usuarios</span>
                     </a>
                 </li>
@@ -38,13 +38,13 @@
         <div class="medium-content">
             <li class="">
                 <a href="#">
-                    <i class="icon material-icons-round">account_circle</i>
+                    <i class="icon material-icons-outlined">face</i>
                     <span class="text nav-text">Mi perfil</span>
                 </a>
             </li>
             <li class="">
                 <a href="#">
-                    <i class="icon material-icons-round">settings</i>
+                    <i class="icon material-icons-outlined">settings</i>
                     <span class="text nav-text">Configuración</span>
                 </a>
             </li>
@@ -53,15 +53,15 @@
         <div class="bottom-content">
             <li class="">
                 <a href="{{ route('cerrar.sesion') }}">
-                    <i class="icon material-icons-round">logout</i>
+                    <i class="icon material-icons-outlined">logout</i>
                     <span class="text nav-text">Cerrar sesión</span>
                 </a>
             </li>
 
             <li class="mode">
                 <div class="sun-moon">
-                    <i class="icon material-icons-round sun">light_mode</i>
-                    <i class="icon material-icons-round moon">dark_mode</i>
+                    <i class="icon material-icons-outlined sun">light_mode</i>
+                    <i class="icon material-icons-outlined moon">dark_mode</i>
                 </div>
                 <span class="mode-text text">Oscuro</span>
 
