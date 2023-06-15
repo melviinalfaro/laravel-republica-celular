@@ -528,7 +528,7 @@ h3 {
 
 .modal-content {
     border-top-color: var(--sidebar-text);
-    background-color: var(--body-color);
+    background-color: var(--sidebar-color);
 }
 
 .btn-cerrar {
