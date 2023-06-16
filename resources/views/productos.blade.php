@@ -10,10 +10,11 @@
                 <thead>
                     <tr>
                         <th scope="col" class="text-center">#</th>
-                        <th scope="col">Título</th>
+                        <th scope="col">Nombre</th>
                         <th scope="col">Imagen</th>
                         <th scope="col">Precio</th>
-                        <th scope="col">Disponibilidad</th>
+                        <th scope="col">Categoría</th>
+                        <th scope="col">En stock</th>
                         <th scope="col">Acciones</th>
                     </tr>
                 </thead>

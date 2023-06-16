@@ -27,27 +27,30 @@
                     </a>
                 </li>
                 <li class="nav-link">
+                    <a href="#">
+                        <i class="icon material-icons-outlined">shopping_cart</i>
+                        <span class="text nav-text">Pedidos</span>
+                    </a>
+                </li>
+                <li class="nav-link">
+                    <a href="#">
+                        <i class="icon material-icons-outlined">delivery_dining</i>
+                        <span class="text nav-text">Entregas</span>
+                    </a>
+                </li>
+                <li class="nav-link">
+                    <a href="#">
+                        <i class="icon material-icons-outlined">people</i>
+                        <span class="text nav-text">Clientes</span>
+                    </a>
+                </li>
+                <li class="nav-link">
                     <a href="">
                         <i class="icon material-icons-outlined">account_circle</i>
                         <span class="text nav-text">Usuarios</span>
                     </a>
                 </li>
             </ul>
-        </div>
-
-        <div class="medium-content">
-            <li class="">
-                <a href="#">
-                    <i class="icon material-icons-outlined">face</i>
-                    <span class="text nav-text">Mi perfil</span>
-                </a>
-            </li>
-            <li class="">
-                <a href="#">
-                    <i class="icon material-icons-outlined">settings</i>
-                    <span class="text nav-text">Configuración</span>
-                </a>
-            </li>
         </div>
 
         <div class="bottom-content">

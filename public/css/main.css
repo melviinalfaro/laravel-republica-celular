@@ -1022,6 +1022,12 @@ input:checked + .slider:before {
     right: 20px;
 }
 
+.dropdown-cuenta {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+}
+
 .dropdown li {
     height: 50px;
     padding: 1rem;

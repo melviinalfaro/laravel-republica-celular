@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5 text-color" id="exampleModalLabel">Agregar producto</h1>
+                <h1 class="modal-title fs-5 text-color" id="exampleModalLabel">Agregar un producto</h1>
                 <button class="btn-cerrar">
                     <i class="icon material-icons-round" data-bs-dismiss="modal">close</i>
                 </button>
@@ -16,10 +16,10 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="nombre-input" class="label-file text-color">{{ __('Título') }}</label>
+                                    <label for="nombre-input" class="label-file text-color">{{ __('Nombre') }}</label>
                                     <input type="text" name="nombre" autofocus class="form-control"
                                         id="nombre-input" required>
-                                    <div class="invalid-feedback invalid-feedback-nombre">Por favor ingresa un título
+                                    <div class="invalid-feedback invalid-feedback-nombre">Por favor ingresa un nombre
                                         válido</div>
                                 </div>
                                 <div class="form-group">

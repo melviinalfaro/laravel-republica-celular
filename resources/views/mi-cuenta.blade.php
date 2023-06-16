@@ -22,9 +22,6 @@
 <body>
     <div class="login">
         <div class="form">
-            <div class="logo-container">
-                <img src="{{ asset('images/logo.svg') }}" alt="Logo" class="logo">
-            </div>
             <form method="POST" action="{{ route('inicio.sesion') }}">
                 @csrf
                 <h2>Inicio de sesión</h2>

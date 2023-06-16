@@ -19,67 +19,7 @@
             <i class="material-icons-outlined dropdown__icon icon">add_photo_alternate</i>
             <a href="{{ route('ver.carrusel') }}" class="dropdown__name text">Carrusel</a>
         </li>
-
-        <li class="dropdown__item">
-            <i class="material-icons-outlined dropdown__icon icon">account_circle</i>
-            <a href="#" class="dropdown__name text">Usuario</a>
-        </li>
     </ul>
 </div>
 
-<script>
-    const toggleDropdown = (content, button) => {
-        const dropdownContent = document.getElementById(content),
-            dropdownButton = document.getElementById(button);
-
-        let isDropdownOpen = false;
-        let isHovering = false;
-
-        const openDropdown = () => {
-            dropdownContent.classList.add("show-dropdown");
-            isDropdownOpen = true;
-        };
-
-        const closeDropdown = () => {
-            dropdownContent.classList.remove("show-dropdown");
-            isDropdownOpen = false;
-        };
-
-        const handleButtonClick = () => {
-            if (isDropdownOpen) {
-                closeDropdown();
-            } else {
-                openDropdown();
-            }
-        };
-
-        const handleOutsideClick = (event) => {
-            if (!dropdownContent.contains(event.target) && !dropdownButton.contains(event.target)) {
-                closeDropdown();
-            }
-        };
-
-        const handleHover = () => {
-            if (!isDropdownOpen && isHovering) {
-                openDropdown();
-            }
-        };
-
-        dropdownButton.addEventListener("click", handleButtonClick);
-        dropdownButton.addEventListener("mouseover", () => {
-            isHovering = true;
-            handleHover();
-        });
-        dropdownButton.addEventListener("mouseout", () => {
-            isHovering = false;
-            handleHover();
-        });
-        dropdownContent.addEventListener("click", (event) => {
-            event.stopPropagation();
-        });
-
-        document.addEventListener("click", handleOutsideClick);
-    };
-
-    toggleDropdown("dropdown-content", "dropdown-button");
-</script>
+<script src="{{ asset('js/btn-add.js') }}"></script>
