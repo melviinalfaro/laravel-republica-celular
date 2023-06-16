@@ -3,7 +3,7 @@
 @section('title', 'Administrador')
 
 @section('content')
-    <div class="container-lg p-3">
+    <div class="container-lg">
         <h3 class="titulo pb-2">Panel administrativo</h3>
 
         <div class="row py-3">
@@ -69,5 +69,6 @@
             </div>
         </div>
         <x-utils.btn-add />
+        <x-utils.btn-cuenta />
     </div>
 @endsection

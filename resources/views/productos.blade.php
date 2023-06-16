@@ -64,9 +64,10 @@
     </div>
 
     <x-modal.producto-agregar />
+    <x-modal.categoria-agregar />
+    <x-modal.marca-agregar />
 
     <x-utils.btn-add-producto />
-
     <x-utils.notificaciones />
 
     </div>

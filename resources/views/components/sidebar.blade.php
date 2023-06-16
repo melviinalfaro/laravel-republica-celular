@@ -28,20 +28,14 @@
                 </li>
                 <li class="nav-link">
                     <a href="#">
-                        <i class="icon material-icons-outlined">shopping_cart</i>
-                        <span class="text nav-text">Pedidos</span>
-                    </a>
-                </li>
-                <li class="nav-link">
-                    <a href="#">
                         <i class="icon material-icons-outlined">delivery_dining</i>
                         <span class="text nav-text">Entregas</span>
                     </a>
                 </li>
                 <li class="nav-link">
                     <a href="#">
-                        <i class="icon material-icons-outlined">people</i>
-                        <span class="text nav-text">Clientes</span>
+                        <i class="icon material-icons-outlined">storefront</i>
+                        <span class="text nav-text">Proveedores</span>
                     </a>
                 </li>
                 <li class="nav-link">
@@ -54,13 +48,6 @@
         </div>
 
         <div class="bottom-content">
-            <li class="">
-                <a href="{{ route('cerrar.sesion') }}">
-                    <i class="icon material-icons-outlined">logout</i>
-                    <span class="text nav-text">Cerrar sesión</span>
-                </a>
-            </li>
-
             <li class="mode">
                 <div class="sun-moon">
                     <i class="icon material-icons-outlined sun">light_mode</i>
