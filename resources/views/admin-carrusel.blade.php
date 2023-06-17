@@ -3,7 +3,7 @@
 @section('title', 'Imágenes del carrusel')
 
 @section('content')
-    <div class="container-lg p-3">
+    <div class="container-lg">
         <h3 class="titulo pb-2">Imágenes del carrusel</h3>
         <div class="table-responsive py-3">
             <table id="miTabla" class="table table-hover">
@@ -63,8 +63,8 @@
     <x-modal.carrusel-agregar />
 
     <x-utils.btn-add-carrusel />
-
     <x-utils.notificaciones />
+    <x-utils.btn-cuenta />
 
     </div>
 @endsection

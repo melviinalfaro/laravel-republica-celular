@@ -69,6 +69,7 @@
 
     <x-utils.btn-add-producto />
     <x-utils.notificaciones />
+    <x-utils.btn-cuenta />
 
     </div>
 @endsection

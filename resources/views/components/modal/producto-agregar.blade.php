@@ -12,7 +12,7 @@
                 novalidate>
                 @csrf
                 <div class="modal-body">
-                    <div class="container-fluid">
+                    <div class="container-fluid px-0">
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
@@ -103,7 +103,7 @@
                                                 class="toggle-input" required>
                                             <label for="stock-toggle" class="toggle-label"></label>
                                         </div>
-                                        <span class="availability-text text-color">Disponible</span>
+                                        <span class="availability-text text-color">No</span>
                                     </div>
                                     <div class="invalid-feedback invalid-feedback-color">Por favor selecciona una
                                         opción válida</div>
@@ -121,7 +121,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="image-upload-input"
-                                        class="label-file text-color">{{ __('Imagen') }}</label>
+                                        class="label-file text-color">{{ __('Imagen principal') }}</label>
                                     <label for="image-upload-input" class="file-upload-producto">
                                         <p>Selecciona la imagen</p>
                                         <span class="image-upload-name"></span>

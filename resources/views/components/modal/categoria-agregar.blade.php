@@ -12,7 +12,12 @@
                 novalidate>
                 @csrf
                 <div class="modal-body">
-                    ...
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-6 text-color">Mostrar categorías</div>
+                            <div class="col-md-6 text-color">Agregar categoría</div>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>

@@ -3,10 +3,8 @@
 @section('title', 'Administrador')
 
 @section('content')
-    <div class="container-lg">
-        <h3 class="titulo pb-2">Panel administrativo</h3>
-
-        <div class="row py-3">
+    <div class="container-lg py-3">
+        <div class="row">
             <div class="col-md-6">
                 <div id="carruselPublicidad" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
