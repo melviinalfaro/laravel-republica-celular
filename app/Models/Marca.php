@@ -12,7 +12,7 @@ class Marca extends Model
     protected $table = 'marcas';
 
     protected $fillable = [
-        'nombre', 'fabricante'
+        'nombre'
     ];
 
     public function productos()

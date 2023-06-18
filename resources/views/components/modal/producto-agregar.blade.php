@@ -8,8 +8,8 @@
                     <i class="icon material-icons-round" data-bs-dismiss="modal">close</i>
                 </button>
             </div>
-            <form id="carruselForm" method="POST" action="" class="form" enctype="multipart/form-data"
-                novalidate>
+            <form id="productoForm" method="POST" action="" class="form"
+                enctype="multipart/form-data" novalidate>
                 @csrf
                 <div class="modal-body">
                     <div class="container-fluid px-0">
@@ -20,7 +20,7 @@
                                     <input type="text" name="nombre" autofocus class="form-control"
                                         id="nombre-input" required>
                                     <div class="invalid-feedback invalid-feedback-nombre">Por favor ingresa un nombre
-                                        válido</div>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="precio-input" class="label-file text-color">{{ __('Precio') }}</label>
@@ -28,21 +28,20 @@
                                         id="precio-input" required pattern="[0-9]+(\.[0-9]+)?" min="0"
                                         step="0.01" placeholder="0.00">
                                     <div class="invalid-feedback invalid-feedback-precio">Por favor ingresa un precio
-                                        válido</div>
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="categoria-input"
+                                    <label for="categoria-select"
                                         class="label-file text-color">{{ __('Categoría') }}</label>
-                                    <select name="categoria" id="categoria-input" class="form-control">
+                                    <select name="categoria" id="categoria-select" class="form-control">
                                         <option value="">Selecciona una categoría</option>
-                                        <option value="agregar">Agrega una categoría</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="estado-input" class="label-file text-color">{{ __('Estado') }}</label>
-                                    <select name="estado" id="estado-input" class="form-control">
+                                    <label for="estado-select" class="label-file text-color">{{ __('Estado') }}</label>
+                                    <select name="estado" id="estado-select" class="form-control">
                                         <option value="">Selecciona el estado</option>
                                         <option value="nuevo">Nuevo</option>
                                         <option value="categoria_a">Categoría A</option>
@@ -50,12 +49,14 @@
                                         <option value="usado">Usado</option>
                                         <option value="reacondicionado">Reacondicionado</option>
                                     </select>
+                                    <div class="invalid-feedback invalid-feedback-estado">Por favor selecciona un estado
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="estado-input"
+                                    <label for="storage-select"
                                         class="label-file text-color">{{ __('Almacenamiento') }}</label>
-                                    <select name="estado" id="estado-input" class="form-control">
-                                        <option value="">Selecciona la cantidad</option>
+                                    <select name="almacenamiento" id="storage-select" class="form-control">
+                                        <option value="">Selecciona el espacio</option>
                                         <option value="16">16GB</option>
                                         <option value="32">32GB</option>
                                         <option value="64">64GB</option>
@@ -63,13 +64,15 @@
                                         <option value="256">256GB</option>
                                         <option value="512">512GB</option>
                                         <option value="1">1TB</option>
+                                        <option value="nodisponible">No disponible</option>
                                     </select>
+                                    <div class="invalid-feedback invalid-feedback-storage">Por favor selecciona un
+                                        espacio</div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="marca-input" class="label-file text-color">{{ __('Marca') }}</label>
-                                    <select name="marca" id="marca-input" class="form-control">
+                                    <label for="marca-select" class="label-file text-color">{{ __('Marca') }}</label>
+                                    <select name="marca" id="marca-select" class="form-control">
                                         <option value="">Selecciona una marca</option>
-                                        <option value="agregar">Agrega una marca</option>
                                     </select>
                                 </div>
                             </div>
@@ -79,12 +82,12 @@
                                     <input type="text" name="color" autofocus class="form-control" id="color-input"
                                         required>
                                     <div class="invalid-feedback invalid-feedback-color">Por favor ingresa un color
-                                        válido</div>
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="liberacion-input"
+                                    <label for="liberacion-select"
                                         class="label-file text-color">{{ __('Liberación') }}</label>
-                                    <select name="liberacion" id="liberacion-input" class="form-control">
+                                    <select name="liberacion" id="liberacion-select" class="form-control">
                                         <option value="">Selecciona la liberación</option>
                                         <option value="fabrica">Desbloqueado de Fábrica</option>
                                         <option value="tigo">Tigo</option>
@@ -92,7 +95,10 @@
                                         <option value="claro">Claro</option>
                                         <option value="rsim">Liberación Rsim</option>
                                         <option value="express">Liberación Express</option>
+                                        <option value="nodisponible">No disponible</option>
                                     </select>
+                                    <div class="invalid-feedback invalid-feedback-liberacion">Por favor selecciona una
+                                        liberación</div>
                                 </div>
                                 <div class="form-group">
                                     <label for="stock-toggle"
@@ -105,8 +111,9 @@
                                         </div>
                                         <span class="availability-text text-color">No</span>
                                     </div>
-                                    <div class="invalid-feedback invalid-feedback-color">Por favor selecciona una
-                                        opción válida</div>
+                                    <div class="invalid-feedback invalid-feedback-venta">Por favor selecciona una
+                                        opción</div>
+                                    <input type="hidden" name="stock" id="stock-input" value="false">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -115,7 +122,7 @@
                                         class="label-file text-color">{{ __('Descripción del producto') }}</label>
                                     <textarea name="descripcion" autofocus class="form-control" id="descripcion-input" required></textarea>
                                     <div class="invalid-feedback invalid-feedback-descripcion">Por favor ingresa una
-                                        descripción válida</div>
+                                        descripción</div>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -143,3 +150,5 @@
         </div>
     </div>
 </div>
+
+<script src="{{ 'js/producto.js' }}"></script>

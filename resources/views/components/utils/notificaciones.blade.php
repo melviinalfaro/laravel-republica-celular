@@ -10,9 +10,11 @@
 
 
 @if (session('error'))
-    <div class="notificacion">
-        <div id="alertElement" class="alert alert-danger fade show alert-custom" role="alert">
+    <figure class="notificacion">
+        <div class="cuerpo">
+            <i class="material-icons-round icono">check_circle</i>
             {{ session('error') }}
         </div>
-    </div>
+        <div class="progreso"></div>
+    </figure>
 @endif

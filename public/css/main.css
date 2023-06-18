@@ -754,6 +754,10 @@ select {
     flex-wrap: wrap;
 }
 
+.titulo-tabla {
+    background-color: var(--sidebar-color);
+}
+
 .table-scroll {
     height: 250px;
     overflow-y: auto;

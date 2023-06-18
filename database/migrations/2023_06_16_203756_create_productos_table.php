@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateProductosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('descripcion');
             $table->boolean('stock');
             $table->string('estado');
-            $table->string('almacenamiento');
-            $table->string('liberacion');
+            $table->string('almacenamiento')->nullable();
+            $table->string('liberacion')->nullable();
             $table->string('color');
             $table->unsignedBigInteger('categoria_id')->nullable();
             $table->foreign('categoria_id')->references('id')->on('categorias');
@@ -37,4 +37,4 @@ return new class extends Migration
     {
         Schema::dropIfExists('productos');
     }
-};
+}
