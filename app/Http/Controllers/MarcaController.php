@@ -24,15 +24,16 @@ class MarcaController extends Controller
         }
     }
 
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        try {
-            $marca = Marca::findOrFail($id);
-            $marca->delete();
+        // Lógica para eliminar la marca con el ID proporcionado
+        $marca = Marca::find($id);
 
-            return response()->json(['success' => true, 'message' => 'Marca eliminada correctamente.']);
-        } catch (\Exception $e) {
-            return response()->json(['success' => false, 'error' => 'No se pudo eliminar la marca: ' . $e->getMessage()]);
+        if ($marca) {
+            $marca->delete();
+            return response()->json(['success' => true, 'message' => 'Marca eliminada correctamente']);
+        } else {
+            return response()->json(['success' => false, 'error' => 'No se pudo encontrar la marca']);
         }
     }
 }

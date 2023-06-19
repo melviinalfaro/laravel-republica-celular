@@ -484,6 +484,10 @@ h3 {
     background-color: var(--sidebar-color);
 }
 
+.add-modal {
+    border-right: 1px solid var(--sidebar-text);
+}
+
 .btn-cerrar {
     --bs-btn-close-opacity: 0.5;
     --bs-btn-close-hover-opacity: 0.75;
@@ -759,7 +763,7 @@ select {
 }
 
 .table-scroll {
-    height: 250px;
+    height: 205px;
     overflow-y: auto;
 }
 
