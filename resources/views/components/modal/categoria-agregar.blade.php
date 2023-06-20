@@ -21,12 +21,12 @@
                                         <tbody>
                                             @foreach ($categorias as $categoria)
                                                 <tr>
-                                                    <td>{{ $categoria->nombre }}</td>
+                                                    <td style='vertical-align: middle;'>{{ $categoria->nombre }}</td>
                                                     <td data-label="Acciones">
                                                         <div class="d-flex flex-column align-items-center">
                                                             <div class="btn-group m-1" role="group">
                                                                 <button type="button"
-                                                                    class="btn btn-light btn-eliminar-categoria"
+                                                                    class="btn btn-danger btn-eliminar-categoria"
                                                                     data-id="{{ $categoria->id }}">
                                                                     <i class="material-icons-outlined">delete</i>
                                                                 </button>

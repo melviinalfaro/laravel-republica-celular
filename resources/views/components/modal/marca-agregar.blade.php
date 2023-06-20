@@ -21,12 +21,12 @@
                                         <tbody>
                                             @foreach ($marcas as $marca)
                                                 <tr>
-                                                    <td>{{ $marca->nombre }}</td>
+                                                    <td style='vertical-align: middle;'>{{ $marca->nombre }}</td>
                                                     <td data-label="Acciones">
                                                         <div class="d-flex flex-column align-items-center">
                                                             <div class="btn-group m-1" role="group">
                                                                 <button type="button"
-                                                                    class="btn btn-light btn-eliminar-marca"
+                                                                    class="btn btn-danger btn-eliminar-marca"
                                                                     data-id="{{ $marca->id }}">
                                                                     <i class="material-icons-outlined">delete</i>
                                                                 </button>

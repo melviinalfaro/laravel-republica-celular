@@ -48,12 +48,16 @@ $(document).ready(function () {
                             formMarca.trigger("reset");
 
                             var nuevaFila = $("<tr>")
-                                .append($("<td>").text(response.data.nombre))
+                                .append(
+                                    $(
+                                        "<td style='vertical-align: middle;'>"
+                                    ).text(response.data.nombre)
+                                )
                                 .append(
                                     $("<td>").html(
                                         '<div class="d-flex flex-column align-items-center">' +
                                             '<div class="btn-group m-1" role="group">' +
-                                            '<button type="button" class="btn btn-light btn-eliminar-marca" data-id="' +
+                                            '<button type="button" class="btn btn-danger btn-eliminar-marca" data-id="' +
                                             response.data.id +
                                             '">' +
                                             '<i class="material-icons-outlined">delete</i>' +
