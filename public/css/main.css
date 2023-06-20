@@ -59,7 +59,7 @@ body.dark {
     --toggle-color: #1b309d;
     --text-color: #e7e7e7;
 
-    --btn-primary-bg: #00497D;
+    --btn-primary-bg: #00497d;
     --btn-primary-color: #e7e7e7;
     --btn-primary-hover: #023c66;
     --btn-danger-bg: #af0345;
@@ -327,8 +327,8 @@ body.dark .mode .sun-moon i.moon {
 
 .toggle-switch .switch {
     position: relative;
-    height: 30px;
     width: 55px;
+    height: 30px;
     border-radius: 25px;
     background-color: #ccc;
     transition: var(--tran-04);
@@ -337,22 +337,21 @@ body.dark .mode .sun-moon i.moon {
 .switch::before {
     content: "";
     position: absolute;
-    height: 20px;
-    width: 20px;
+    top: 2px;
+    left: 3px;
+    width: 26px;
+    height: 26px;
+    background-color: #fff;
     border-radius: 50%;
-    top: 50%;
-    left: 5px;
-    transform: translateY(-50%);
-    background-color: #ffffff;
-    transition: var(--tran-04);
+    transition: var(--tran-05);
 }
 
 body.dark .toggle-switch .switch {
-    background-color: #0061a4;
+    background-color: rgb(0, 221, 80);
 }
 
 body.dark .switch::before {
-    left: 30px;
+    left: 26px;
 }
 
 body.dark .home .text {
@@ -1276,8 +1275,8 @@ input:checked + .slider:before {
     position: absolute;
     top: 0;
     left: 0;
-    width: 60px;
-    height: 34px;
+    width: 55px;
+    height: 30px;
     background-color: #dc3535;
     border-radius: 17px;
     cursor: pointer;
@@ -1287,9 +1286,9 @@ input:checked + .slider:before {
     content: "";
     position: absolute;
     top: 2px;
-    left: 2px;
-    width: 30px;
-    height: 30px;
+    left: 3px;
+    width: 26px;
+    height: 26px;
     background-color: #fff;
     border-radius: 50%;
     transition: all 0.3s;
@@ -1300,7 +1299,7 @@ input:checked + .slider:before {
 }
 
 .toggle-switch-venta .toggle-input:checked + .toggle-label:after {
-    transform: translateX(26px);
+    transform: translateX(23px);
 }
 
 /* Botones */
