@@ -488,6 +488,11 @@ h3 {
     border-right: 1px solid var(--sidebar-text);
 }
 
+.td-marca {
+    text-align: center;
+    vertical-align: middle;
+}
+
 .btn-cerrar {
     --bs-btn-close-opacity: 0.5;
     --bs-btn-close-hover-opacity: 0.75;

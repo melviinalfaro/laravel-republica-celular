@@ -26,7 +26,7 @@
                                                         <div class="d-flex flex-column align-items-center">
                                                             <div class="btn-group m-1" role="group">
                                                                 <button type="button"
-                                                                    class="btn btn-light btn-eliminar"
+                                                                    class="btn btn-light btn-eliminar-marca"
                                                                     data-id="{{ $marca->id }}">
                                                                     <i class="material-icons-outlined">delete</i>
                                                                 </button>
@@ -55,8 +55,8 @@
                 </div>
                 <div class="modal-footer d-flex justify-content-between">
                     <div class="d-flex align-items-center">
-                        <div id="mensaje-success" style="display: none;"></div>
-                        <div id="mensaje-eliminado" style="display: none;"></div>
+                        <div id="mensaje-success-marca" style="display: none;"></div>
+                        <div id="mensaje-eliminado-marca" style="display: none;"></div>
                     </div>
 
                     <div>

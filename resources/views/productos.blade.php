@@ -64,7 +64,7 @@
     </div>
 
     <x-modal.producto-agregar />
-    <x-modal.categoria-agregar />
+    <x-modal.categoria-agregar :categorias="$categorias" />
 
     <x-modal.marca-agregar :marcas="$marcas" />
 

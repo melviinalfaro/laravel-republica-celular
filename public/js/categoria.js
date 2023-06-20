@@ -1,29 +1,29 @@
 $(document).ready(function () {
-    const formMarca = $("#marcaForm");
-    const nombreMarcaInput = $("#marca-input");
-    const invalidNombreMarcaFeedback = $(".invalid-feedback-marca");
+    const formCategoria = $("#categoriaForm");
+    const nombreCategoriaInput = $("#categoria-input");
+    const invalidNombreCategoriaFeedback = $(".invalid-feedback-categoria");
 
-    nombreMarcaInput.on("input", () => {
-        nombreMarcaInput.removeClass("is-invalid");
-        invalidNombreMarcaFeedback.hide();
+    nombreCategoriaInput.on("input", () => {
+        nombreCategoriaInput.removeClass("is-invalid");
+        invalidNombreCategoriaFeedback.hide();
     });
 
-    $("#subirModalMarca").on("hidden.bs.modal", function () {
-        formMarca[0].reset();
-        nombreMarcaInput.removeClass("is-invalid");
-        invalidNombreMarcaFeedback.hide();
+    $("#subirModalCategoria").on("hidden.bs.modal", function () {
+        formCategoria[0].reset();
+        nombreCategoriaInput.removeClass("is-invalid");
+        invalidNombreCategoriaFeedback.hide();
     });
 
-    $("#subirModalMarca").on("shown.bs.modal", function () {
-        formMarca.off("submit");
+    $("#subirModalCategoria").on("shown.bs.modal", function () {
+        formCategoria.off("submit");
 
-        formMarca.on("submit", function (event) {
+        formCategoria.on("submit", function (event) {
             event.preventDefault();
-            const nombreInput = nombreMarcaInput.val();
+            const nombreInput = nombreCategoriaInput.val();
 
             if (!nombreInput) {
-                nombreMarcaInput.addClass("is-invalid");
-                invalidNombreMarcaFeedback.show();
+                nombreCategoriaInput.addClass("is-invalid");
+                invalidNombreCategoriaFeedback.show();
             } else {
                 $.ajaxSetup({
                     headers: {
@@ -34,18 +34,18 @@ $(document).ready(function () {
                 });
 
                 $.ajax({
-                    url: formMarca.attr("action"),
+                    url: formCategoria.attr("action"),
                     type: "POST",
-                    data: formMarca.serialize(),
+                    data: formCategoria.serialize(),
                     dataType: "json",
                     success: function (response) {
                         if (response.success) {
-                            $("#mensaje-success-marca")
+                            $("#mensaje-success-categoria")
                                 .removeClass("text-danger")
                                 .addClass("text-success")
                                 .text(response.message)
                                 .show();
-                            formMarca.trigger("reset");
+                            formCategoria.trigger("reset");
 
                             var nuevaFila = $("<tr>")
                                 .append($("<td>").text(response.data.nombre))
@@ -53,7 +53,7 @@ $(document).ready(function () {
                                     $("<td>").html(
                                         '<div class="d-flex flex-column align-items-center">' +
                                             '<div class="btn-group m-1" role="group">' +
-                                            '<button type="button" class="btn btn-light btn-eliminar-marca" data-id="' +
+                                            '<button type="button" class="btn btn-light btn-eliminar-categoria" data-id="' +
                                             response.data.id +
                                             '">' +
                                             '<i class="material-icons-outlined">delete</i>' +
@@ -63,17 +63,17 @@ $(document).ready(function () {
                                     )
                                 );
 
-                            $("#subirModalMarca")
+                            $("#subirModalCategoria")
                                 .find("tbody")
                                 .append(nuevaFila);
 
-                            $("#mensaje-success-marca")
+                            $("#mensaje-success-categoria")
                                 .removeClass("text-danger")
                                 .addClass("text-success")
-                                .text("Marca guardada exitosamente.")
+                                .text("Categoría guardada exitosamente.")
                                 .show();
                             setTimeout(function () {
-                                $("#mensaje-success-marca").hide();
+                                $("#mensaje-success-categoria").hide();
                             }, 4000);
                         } else {
                             alert("No se pudo guardar");
@@ -86,12 +86,12 @@ $(document).ready(function () {
             }
         });
 
-        $(document).off("click", ".btn-eliminar-marca");
+        $(document).off("click", ".btn-eliminar-categoria");
 
-        $(document).on("click", ".btn-eliminar-marca", function (event) {
+        $(document).on("click", ".btn-eliminar-categoria", function (event) {
             event.preventDefault();
 
-            var marcaId = $(this).data("id");
+            var categoriaId = $(this).data("id");
             var row = $(this).closest("tr");
 
             $.ajaxSetup({
@@ -103,22 +103,22 @@ $(document).ready(function () {
             });
 
             $.ajax({
-                url: "/eliminar/marca/" + marcaId,
+                url: "/eliminar/categoria/" + categoriaId,
                 type: "DELETE",
                 dataType: "json",
                 success: function (response) {
                     if (response.success) {
                         row.remove();
-                        $("#mensaje-eliminado-marca")
+                        $("#mensaje-eliminado-categoria")
                             .removeClass("text-danger")
                             .addClass("text-success")
-                            .text("Marca eliminada exitosamente.")
+                            .text("Categoría eliminada exitosamente.")
                             .show();
                         setTimeout(function () {
-                            $("#mensaje-eliminado-marca").hide();
+                            $("#mensaje-eliminado-categoria").hide();
                         }, 4000);
                     } else {
-                        alert("No se pudo eliminar la marca");
+                        alert("No se pudo eliminar la categoría: ");
                     }
                 },
                 error: function (xhr) {

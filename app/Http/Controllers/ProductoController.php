@@ -5,16 +5,20 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Marca;
+use App\Models\Categoria;
 use App\Models\Producto;
 
 class ProductoController extends Controller
 {
     public function index()
     {
-        $productos = Producto::with('marcas')->get();
+        $productos = Producto::with('marcas', 'categorias')->get();
         $marcas = Marca::all();
-        return view('productos', compact('productos', 'marcas'));
+        $categorias = Categoria::all();
+        
+        return view('productos', compact('productos', 'marcas', 'categorias'));
     }
+
 
 
     // public function store(Request $request)

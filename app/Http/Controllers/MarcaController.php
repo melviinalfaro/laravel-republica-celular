@@ -26,7 +26,6 @@ class MarcaController extends Controller
 
     public function destroy(Request $request, $id)
     {
-        // Lógica para eliminar la marca con el ID proporcionado
         $marca = Marca::find($id);
 
         if ($marca) {
