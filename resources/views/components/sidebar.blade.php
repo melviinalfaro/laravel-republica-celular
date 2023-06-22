@@ -6,7 +6,7 @@
             </span>
 
             <div class="text logo-text">
-                <span class="name">República Celular</span>
+                <span class="sidebar-brand">República Celular</span>
             </div>
         </div>
     </header>

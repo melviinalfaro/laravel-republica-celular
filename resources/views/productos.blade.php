@@ -3,10 +3,9 @@
 @section('title', 'Inventario de productos')
 
 @section('content')
-    <div class="container-lg p-3">
-        <h3 class="titulo pb-2">Inventario de productos</h3>
+    <div class="container-lg py-3">
         <div class="table-responsive py-3">
-            <table id="miTabla" class="table table-hover">
+            <table id="miTabla" class="table">
                 <thead>
                     <tr>
                         <th scope="col" class="text-center">#</th>
