@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Marca;
+use App\Models\Capacidad;
 
-class MarcaController extends Controller
-{   
+class CapacidadController extends Controller
+{
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -14,11 +14,11 @@ class MarcaController extends Controller
         ]);
 
         try {
-            $marca = new Marca();
-            $marca->nombre = $request->input('nombre');
-            $marca->save();
+            $capacidad = new Capacidad();
+            $capacidad->nombre = $request->input('nombre');
+            $capacidad->save();
 
-            return response()->json(['success' => true, 'message' => 'Guardado exitosamente.', 'data' => $marca]);
+            return response()->json(['success' => true, 'message' => 'Guardado exitosamente.', 'data' => $capacidad]);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'error' => 'No se pudo guardar: ' . $e->getMessage()]);
         }
@@ -26,11 +26,11 @@ class MarcaController extends Controller
 
     public function destroy(Request $request, $id)
     {
-        $marca = Marca::find($id);
+        $capacidad = Capacidad::find($id);
 
-        if ($marca) {
-            $marca->delete();
-            return response()->json(['success' => true, 'message' => 'Marca eliminada correctamente']);
+        if ($capacidad) {
+            $capacidad->delete();
+            return response()->json(['success' => true, 'message' => 'Marca eliminada exitosamente']);
         } else {
             return response()->json(['success' => false, 'error' => 'No se pudo encontrar la marca']);
         }

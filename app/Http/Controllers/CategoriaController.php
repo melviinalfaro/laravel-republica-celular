@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Categoria;
 
 class CategoriaController extends Controller
-{
+{   
     public function store(Request $request)
     {
         $this->validate($request, [

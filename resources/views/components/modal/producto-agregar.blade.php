@@ -8,8 +8,8 @@
                     <i class="icon material-icons-round" data-bs-dismiss="modal">close</i>
                 </button>
             </div>
-            <form id="productoForm" method="POST" action="" class="form"
-                enctype="multipart/form-data" novalidate>
+            <form id="productoForm" method="POST" action="" class="form" enctype="multipart/form-data"
+                novalidate>
                 @csrf
                 <div class="modal-body">
                     <div class="container-fluid px-0">
@@ -34,7 +34,10 @@
                                     <label for="categoria-select"
                                         class="label-file text-color">{{ __('Categoría') }}</label>
                                     <select name="categoria" id="categoria-select" class="form-control">
-                                        <option value="">Selecciona una categoría</option>
+                                        <option value="" disabled selected>Seleccione la categoría</option>
+                                        @foreach ($categorias as $categoria)
+                                            <option value="{{ $categoria->id }}">{{ $categoria->nombre }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -56,15 +59,10 @@
                                     <label for="storage-select"
                                         class="label-file text-color">{{ __('Almacenamiento') }}</label>
                                     <select name="almacenamiento" id="storage-select" class="form-control">
-                                        <option value="">Selecciona el espacio</option>
-                                        <option value="16">16GB</option>
-                                        <option value="32">32GB</option>
-                                        <option value="64">64GB</option>
-                                        <option value="128">128GB</option>
-                                        <option value="256">256GB</option>
-                                        <option value="512">512GB</option>
-                                        <option value="1">1TB</option>
-                                        <option value="nodisponible">No disponible</option>
+                                        <option value="" disabled selected>Seleccione la capacidad</option>
+                                        @foreach ($capacidades as $capacidad)
+                                            <option value="{{ $capacidad->id }}">{{ $capacidad->nombre }}</option>
+                                        @endforeach
                                     </select>
                                     <div class="invalid-feedback invalid-feedback-storage">Por favor selecciona un
                                         espacio</div>
@@ -72,7 +70,10 @@
                                 <div class="form-group">
                                     <label for="marca-select" class="label-file text-color">{{ __('Marca') }}</label>
                                     <select name="marca" id="marca-select" class="form-control">
-                                        <option value="">Selecciona una marca</option>
+                                        <option value="" disabled selected>Seleccione la marca</option>
+                                        @foreach ($marcas as $marca)
+                                            <option value="{{ $marca->id }}">{{ $marca->nombre }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>

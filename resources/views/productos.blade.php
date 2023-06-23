@@ -62,9 +62,9 @@
         </div>
     </div>
 
-    <x-modal.producto-agregar />
+    <x-modal.producto-agregar :categorias="$categorias" :marcas="$marcas" :capacidades="$capacidades" />
     <x-modal.categoria-agregar :categorias="$categorias" />
-
+    <x-modal.capacidad-agregar :capacidades="$capacidades" />
     <x-modal.marca-agregar :marcas="$marcas" />
 
     <x-utils.btn-add-producto />

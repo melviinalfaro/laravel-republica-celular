@@ -6,17 +6,19 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Marca;
 use App\Models\Categoria;
+use App\Models\Capacidad;
 use App\Models\Producto;
 
 class ProductoController extends Controller
 {
     public function index()
     {
-        $productos = Producto::with('marcas', 'categorias')->get();
+        $productos = Producto::with('marcas', 'categorias', 'capacidades')->get();
         $marcas = Marca::all();
         $categorias = Categoria::all();
+        $capacidades = Capacidad::all();
         
-        return view('productos', compact('productos', 'marcas', 'categorias'));
+        return view('productos', compact('productos', 'marcas', 'categorias', 'capacidades'));
     }
 
 

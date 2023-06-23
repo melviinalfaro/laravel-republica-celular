@@ -10,8 +10,20 @@
     </button>
 
     <ul class="dropdown__menu">
-        <li class="dropdown__item" data-bs-toggle="modal" data-bs-target="#subirModalMarca">
+        <li class="dropdown__item" data-bs-toggle="modal" data-bs-target="#subirModalCapacidad">
+            <i class="material-icons-outlined dropdown__icon icon">storage</i>
+            <a href="#" class="dropdown__name text">Capacidad</a>
+        </li>
+        <li class="dropdown__item" data-bs-toggle="modal" data-bs-target="#subirModalLiberacion">
+            <i class="material-icons-outlined dropdown__icon icon">sim_card</i>
+            <a href="#" class="dropdown__name text">Tipo de liberación</a>
+        </li>
+        <li class="dropdown__item" data-bs-toggle="modal" data-bs-target="#subirModalEstado">
             <i class="material-icons-outlined dropdown__icon icon">verified</i>
+            <a href="#" class="dropdown__name text">Estado</a>
+        </li>
+        <li class="dropdown__item" data-bs-toggle="modal" data-bs-target="#subirModalMarca">
+            <i class="material-icons-outlined dropdown__icon icon">loyalty</i>
             <a href="#" class="dropdown__name text">Marca</a>
         </li>
         <li class="dropdown__item" data-bs-toggle="modal" data-bs-target="#subirModalCategoria">
