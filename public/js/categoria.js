@@ -48,9 +48,9 @@ $(document).ready(function () {
                             formCategoria.trigger("reset");
 
                             var nuevaFila = $("<tr>")
-                                .append($("<td style='vertical-align: middle;'>").text(response.data.nombre))
+                                .append($("<td class='td-modal'>").text(response.data.nombre))
                                 .append(
-                                    $("<td>").html(
+                                    $("<td class='td-modal'>").html(
                                         '<div class="d-flex flex-column align-items-center">' +
                                             '<div class="btn-group m-1" role="group">' +
                                             '<button type="button" class="btn btn-danger btn-eliminar-categoria" data-id="' +
@@ -65,7 +65,7 @@ $(document).ready(function () {
 
                             $("#subirModalCategoria")
                                 .find("tbody")
-                                .append(nuevaFila);
+                                .prepend(nuevaFila);
 
                             $("#mensaje-success-categoria")
                                 .removeClass("text-danger")

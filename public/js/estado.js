@@ -1,29 +1,29 @@
 $(document).ready(function () {
-    const formCapacidad = $("#capacidadForm");
-    const nombreCapacidadInput = $("#capacidad-input");
-    const invalidNombreCapacidadFeedback = $(".invalid-feedback-capacidad");
+    const formEstado = $("#estadoForm");
+    const nombreEstadoInput = $("#estado-input");
+    const invalidNombreEstadoFeedback = $(".invalid-feedback-estado");
 
-    nombreCapacidadInput.on("input", () => {
-        nombreCapacidadInput.removeClass("is-invalid");
-        invalidNombreCapacidadFeedback.hide();
+    nombreEstadoInput.on("input", () => {
+        nombreEstadoInput.removeClass("is-invalid");
+        invalidNombreEstadoFeedback.hide();
     });
 
-    $("#subirModalCapacidad").on("hidden.bs.modal", function () {
-        formCapacidad[0].reset();
-        nombreCapacidadInput.removeClass("is-invalid");
-        invalidNombreCapacidadFeedback.hide();
+    $("#subirModalEstado").on("hidden.bs.modal", function () {
+        formEstado[0].reset();
+        nombreEstadoInput.removeClass("is-invalid");
+        invalidNombreEstadoFeedback.hide();
     });
 
-    $("#subirModalCapacidad").on("shown.bs.modal", function () {
-        formCapacidad.off("submit");
+    $("#subirModalEstado").on("shown.bs.modal", function () {
+        formEstado.off("submit");
 
-        formCapacidad.on("submit", function (event) {
+        formEstado.on("submit", function (event) {
             event.preventDefault();
-            const nombreInput = nombreCapacidadInput.val();
+            const nombreInput = nombreEstadoInput.val();
 
             if (!nombreInput) {
-                nombreCapacidadInput.addClass("is-invalid");
-                invalidNombreCapacidadFeedback.show();
+                nombreEstadoInput.addClass("is-invalid");
+                invalidNombreEstadoFeedback.show();
             } else {
                 $.ajaxSetup({
                     headers: {
@@ -34,30 +34,30 @@ $(document).ready(function () {
                 });
 
                 $.ajax({
-                    url: formCapacidad.attr("action"),
+                    url: formEstado.attr("action"),
                     type: "POST",
-                    data: formCapacidad.serialize(),
+                    data: formEstado.serialize(),
                     dataType: "json",
                     success: function (response) {
                         if (response.success) {
-                            $("#mensaje-success-capacidad")
+                            $("#mensaje-success-estado")
                                 .removeClass("text-danger")
                                 .addClass("text-success")
                                 .text(response.message)
                                 .show();
-                            formCapacidad.trigger("reset");
+                            formEstado.trigger("reset");
 
                             var nuevaFila = $("<tr>")
                                 .append(
-                                    $(
-                                        "<td class='td-modal'>"
-                                    ).text(response.data.nombre)
+                                    $("<td class='td-modal'>").text(
+                                        response.data.nombre
+                                    )
                                 )
                                 .append(
                                     $("<td class='td-modal'>").html(
                                         '<div class="d-flex flex-column align-items-center">' +
                                             '<div class="btn-group m-1" role="group">' +
-                                            '<button type="button" class="btn btn-danger btn-eliminar-capacidad" data-id="' +
+                                            '<button type="button" class="btn btn-danger btn-eliminar-estado" data-id="' +
                                             response.data.id +
                                             '">' +
                                             '<i class="material-icons-outlined">delete</i>' +
@@ -67,17 +67,17 @@ $(document).ready(function () {
                                     )
                                 );
 
-                            $("#subirModalCapacidad")
+                            $("#subirModalEstado")
                                 .find("tbody")
                                 .prepend(nuevaFila);
 
-                            $("#mensaje-success-capacidad")
+                            $("#mensaje-success-estado")
                                 .removeClass("text-danger")
                                 .addClass("text-success")
-                                .text("Capacidad guardada exitosamente.")
+                                .text("Estado guardado exitosamente.")
                                 .show();
                             setTimeout(function () {
-                                $("#mensaje-success-capacidad").hide();
+                                $("#mensaje-success-estado").hide();
                             }, 4000);
                         } else {
                             alert("No se pudo guardar");
@@ -90,12 +90,12 @@ $(document).ready(function () {
             }
         });
 
-        $(document).off("click", ".btn-eliminar-capacidad");
+        $(document).off("click", ".btn-eliminar-estado");
 
-        $(document).on("click", ".btn-eliminar-capacidad", function (event) {
+        $(document).on("click", ".btn-eliminar-estado", function (event) {
             event.preventDefault();
 
-            var capacidadId = $(this).data("id");
+            var estadoId = $(this).data("id");
             var row = $(this).closest("tr");
 
             $.ajaxSetup({
@@ -107,22 +107,22 @@ $(document).ready(function () {
             });
 
             $.ajax({
-                url: "/eliminar/capacidad/" + capacidadId,
+                url: "/eliminar/estado/" + estadoId,
                 type: "DELETE",
                 dataType: "json",
                 success: function (response) {
                     if (response.success) {
                         row.remove();
-                        $("#mensaje-eliminado-capacidad")
+                        $("#mensaje-eliminado-estado")
                             .removeClass("text-danger")
                             .addClass("text-success")
-                            .text("Capacidad eliminada exitosamente.")
+                            .text("Estado eliminado exitosamente.")
                             .show();
                         setTimeout(function () {
-                            $("#mensaje-eliminado-capacidad").hide();
+                            $("#mensaje-eliminado-estado").hide();
                         }, 4000);
                     } else {
-                        alert("No se pudo eliminar la capacidad");
+                        alert("No se pudo eliminar el estado");
                     }
                 },
                 error: function (xhr) {

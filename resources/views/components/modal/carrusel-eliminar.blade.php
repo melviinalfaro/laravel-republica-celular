@@ -5,13 +5,13 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title text-color" id="confirmacionModalLabel{{ $carrusel->id }}">
-                    Confirmar eliminación</h5>
+                    Confirma la eliminación</h5>
                 <button class="btn-cerrar">
                     <i class="icon material-icons-round" data-bs-dismiss="modal">close</i>
                 </button>
             </div>
             <div class="modal-body text-color">
-                ¿Está seguro de que desea eliminar la imagen?
+                ¿Estas seguro que deseas eliminar la imagen?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">

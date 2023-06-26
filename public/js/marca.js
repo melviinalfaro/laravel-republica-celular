@@ -50,11 +50,11 @@ $(document).ready(function () {
                             var nuevaFila = $("<tr>")
                                 .append(
                                     $(
-                                        "<td style='vertical-align: middle;'>"
+                                        "<td class='td-modal'>"
                                     ).text(response.data.nombre)
                                 )
                                 .append(
-                                    $("<td>").html(
+                                    $("<td class='td-modal'>").html(
                                         '<div class="d-flex flex-column align-items-center">' +
                                             '<div class="btn-group m-1" role="group">' +
                                             '<button type="button" class="btn btn-danger btn-eliminar-marca" data-id="' +
@@ -69,7 +69,7 @@ $(document).ready(function () {
 
                             $("#subirModalMarca")
                                 .find("tbody")
-                                .append(nuevaFila);
+                                .prepend(nuevaFila);
 
                             $("#mensaje-success-marca")
                                 .removeClass("text-danger")

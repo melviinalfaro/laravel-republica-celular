@@ -12,27 +12,27 @@
     <ul class="dropdown__menu">
         <li class="dropdown__item" data-bs-toggle="modal" data-bs-target="#subirModalCapacidad">
             <i class="material-icons-outlined dropdown__icon icon">storage</i>
-            <a href="#" class="dropdown__name text">Capacidad</a>
+            <span class="dropdown__name">Capacidad</span>
         </li>
         <li class="dropdown__item" data-bs-toggle="modal" data-bs-target="#subirModalLiberacion">
             <i class="material-icons-outlined dropdown__icon icon">sim_card</i>
-            <a href="#" class="dropdown__name text">Tipo de liberación</a>
+            <span class="dropdown__name">Liberación</span>
         </li>
         <li class="dropdown__item" data-bs-toggle="modal" data-bs-target="#subirModalEstado">
             <i class="material-icons-outlined dropdown__icon icon">verified</i>
-            <a href="#" class="dropdown__name text">Estado</a>
+            <span class="dropdown__name">Estado</span>
         </li>
         <li class="dropdown__item" data-bs-toggle="modal" data-bs-target="#subirModalMarca">
             <i class="material-icons-outlined dropdown__icon icon">loyalty</i>
-            <a href="#" class="dropdown__name text">Marca</a>
+            <span class="dropdown__name">Marca</span>
         </li>
         <li class="dropdown__item" data-bs-toggle="modal" data-bs-target="#subirModalCategoria">
             <i class="material-icons-outlined dropdown__icon icon">category</i>
-            <a href="#" class="dropdown__name text">Categoría</a>
+            <span class="dropdown__name">Categoría</span>
         </li>
         <li class="dropdown__item" data-bs-toggle="modal" data-bs-target="#subirModalProducto">
             <i class="material-icons-outlined dropdown__icon icon">inventory</i>
-            <a href="#" class="dropdown__name text">Producto</a>
+            <span class="dropdown__name">Producto</span>
         </li>
     </ul>
 </div>

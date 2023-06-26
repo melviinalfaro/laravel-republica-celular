@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5 text-color">Categorías</h1>
+                <h1 class="modal-title fs-4 text-color">Categorías de los productos</h1>
                 <button class="btn-cerrar">
                     <i class="icon material-icons-round" data-bs-dismiss="modal">close</i>
                 </button>
@@ -15,14 +15,14 @@
                     <div class="container-fluid px-0">
                         <div class="row">
                             <div class="col-md-6 text-color add-modal">
-                                <h6 class="modal-title fs-5 py-2">Registradas</h6>
+                                <h6 class="modal-title fs-6">Registradas</h6>
                                 <div class="table-scroll">
                                     <table class="table">
                                         <tbody>
                                             @foreach ($categorias as $categoria)
                                                 <tr>
-                                                    <td style='vertical-align: middle;'>{{ $categoria->nombre }}</td>
-                                                    <td data-label="Acciones">
+                                                    <td class="td-modal">{{ $categoria->nombre }}</td>
+                                                    <td class="td-modal" data-label="Acciones">
                                                         <div class="d-flex flex-column align-items-center">
                                                             <div class="btn-group m-1" role="group">
                                                                 <button type="button"
@@ -40,31 +40,25 @@
                                 </div>
                             </div>
                             <div class="col-md-6 text-color">
-                                <h6 class="modal-title fs-5 py-2">Agregar nueva</h6>
-                                <div class="form-group pt-2">
-                                    <label for="categoria-input"
-                                        class="label-file text-color">{{ __('Nombre') }}</label>
+                                <h6 class="modal-title fs-6">Agregar nueva categoría</h6>
+                                <div class="form-group">
                                     <input type="text" name="nombre" autofocus class="form-control"
-                                        id="categoria-input" required>
+                                        id="categoria-input" required placeholder="Ingrese el nombre de la categoría">
                                     <div class="invalid-feedback invalid-feedback-categoria">Por favor ingresa una
-                                        categoría
-                                        válida
+                                        categoría válida
+                                    </div>
+                                    <div class="text-success" id="mensaje-success-categoria">
+                                    </div>
+                                    <div class="text-success" id="mensaje-eliminado-categoria">
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer d-flex justify-content-between">
-                    <div class="d-flex align-items-center">
-                        <div id="mensaje-success-categoria" style="display: none;"></div>
-                        <div id="mensaje-eliminado-categoria" style="display: none;"></div>
-                    </div>
-
-                    <div>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        <button id="subir" type="submit" class="btn btn-primary">Guardar categoría</button>
-                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button id="subir" type="submit" class="btn btn-primary">Guardar categoría</button>
                 </div>
             </form>
         </div>

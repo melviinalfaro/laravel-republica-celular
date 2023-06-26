@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5 text-color" id="exampleModalLabel">Producto</h1>
+                <h1 class="modal-title fs-4 text-color">Producto</h1>
                 <button class="btn-cerrar">
                     <i class="icon material-icons-round" data-bs-dismiss="modal">close</i>
                 </button>
@@ -31,14 +31,14 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="categoria-select"
-                                        class="label-file text-color">{{ __('Categoría') }}</label>
-                                    <select name="categoria" id="categoria-select" class="form-control">
-                                        <option value="" disabled selected>Seleccione la categoría</option>
-                                        @foreach ($categorias as $categoria)
-                                            <option value="{{ $categoria->id }}">{{ $categoria->nombre }}</option>
-                                        @endforeach
-                                    </select>
+                                    <label for="inventario-input"
+                                        class="label-file text-color">{{ __('Cantidad en inventario') }}</label>
+                                    <input type="text" name="inventario" autofocus class="form-control"
+                                        id="inventario-input" oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                                        required min="0"
+                                        step="0" placeholder="0">
+                                    <div class="invalid-feedback invalid-feedback-inventario">Por favor ingresa una
+                                        cantidad numérica.</div>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -102,7 +102,15 @@
                                         liberación</div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="stock-toggle"
+                                    <label for="categoria-select"
+                                        class="label-file text-color">{{ __('Categoría') }}</label>
+                                    <select name="categoria" id="categoria-select" class="form-control">
+                                        <option value="" disabled selected>Seleccione la categoría</option>
+                                        @foreach ($categorias as $categoria)
+                                            <option value="{{ $categoria->id }}">{{ $categoria->nombre }}</option>
+                                        @endforeach
+                                    </select>
+                                    {{-- <label for="stock-toggle"
                                         class="label-file text-color">{{ __('En venta') }}</label>
                                     <div class="toggle-switch-venta">
                                         <div class="toggle-container">
@@ -110,11 +118,11 @@
                                                 class="toggle-input" required>
                                             <label for="stock-toggle" class="toggle-label"></label>
                                         </div>
-                                        <span class="availability-text text-color">No</span>
+                                        <span class="availability-text text-color">Agotado</span>
                                     </div>
                                     <div class="invalid-feedback invalid-feedback-venta">Por favor selecciona una
                                         opción</div>
-                                    <input type="hidden" name="stock" id="stock-input" value="false">
+                                    <input type="hidden" name="stock" id="stock-input" value="false"> --}}
                                 </div>
                             </div>
                             <div class="col-md-6">

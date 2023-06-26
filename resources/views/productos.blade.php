@@ -66,6 +66,8 @@
     <x-modal.categoria-agregar :categorias="$categorias" />
     <x-modal.capacidad-agregar :capacidades="$capacidades" />
     <x-modal.marca-agregar :marcas="$marcas" />
+    <x-modal.liberacion-agregar :liberaciones="$liberaciones" />
+    <x-modal.estado-agregar :estados="$estados" />
 
     <x-utils.btn-add-producto />
     <x-utils.notificaciones />

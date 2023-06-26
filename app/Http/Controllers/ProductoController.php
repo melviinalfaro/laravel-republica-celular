@@ -8,17 +8,21 @@ use App\Models\Marca;
 use App\Models\Categoria;
 use App\Models\Capacidad;
 use App\Models\Producto;
+use App\Models\Liberacion;
+use App\Models\Estado;
 
 class ProductoController extends Controller
 {
     public function index()
     {
-        $productos = Producto::with('marcas', 'categorias', 'capacidades')->get();
+        $productos = Producto::with('marcas', 'categorias', 'capacidades', 'liberaciones', 'estados')->get();
         $marcas = Marca::all();
         $categorias = Categoria::all();
         $capacidades = Capacidad::all();
+        $liberaciones = Liberacion::all();
+        $estados = Estado::all();
         
-        return view('productos', compact('productos', 'marcas', 'categorias', 'capacidades'));
+        return view('productos', compact('productos', 'marcas', 'categorias', 'capacidades', 'liberaciones', 'estados'));
     }
 
 

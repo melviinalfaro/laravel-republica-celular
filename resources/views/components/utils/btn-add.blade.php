@@ -10,14 +10,13 @@
     </button>
 
     <ul class="dropdown__menu">
-        <li class="dropdown__item">
-            <i class="material-icons-outlined dropdown__icon icon">inventory_2</i>
-            <a href="{{ route('productos') }}" class="dropdown__name text">Producto</a>
-        </li>
-
-        <li class="dropdown__item">
+        <li class="dropdown__item" onclick="redirectTo('{{ route('ver.carrusel') }}')">
             <i class="material-icons-outlined dropdown__icon icon">add_photo_alternate</i>
-            <a href="{{ route('ver.carrusel') }}" class="dropdown__name text">Carrusel</a>
+            <span class="dropdown__name text">Carrusel</span>
+        </li>
+        <li class="dropdown__item" onclick="redirectTo('{{ route('productos') }}')">
+            <i class="material-icons-outlined dropdown__icon icon">inventory_2</i>
+            <span class="dropdown__name text">Producto</span>
         </li>
     </ul>
 </div>

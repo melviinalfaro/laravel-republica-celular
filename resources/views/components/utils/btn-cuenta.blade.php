@@ -12,17 +12,17 @@
     <ul class="dropdown-new__menu">
         <li class="dropdown-new__item">
             <i class="material-icons-outlined dropdown-new__icon icon">face</i>
-            <a href="#" class="dropdown-new__name text">Mi perfil</a>
+            <a href="#" class="dropdown-new__name">Mi perfil</a>
         </li>
 
         <li class="dropdown-new__item">
             <i class="material-icons-outlined dropdown-new__icon icon">settings</i>
-            <a href="#" class="dropdown-new__name text">Configuración</a>
+            <a href="#" class="dropdown-new__name">Configuración</a>
         </li>
 
-        <li class="dropdown-new__item">
+        <li class="dropdown-new__item" onclick="redirectTo('{{ route('cerrar.sesion') }}')">
             <i class="material-icons-outlined dropdown-new__icon icon">logout</i>
-            <a href="{{ route('cerrar.sesion') }}" class="dropdown-new__name text">Cerrar sesión</a>
+            <span class="dropdown-new__name">Cerrar sesión</span>
         </li>
     </ul>
 </div>

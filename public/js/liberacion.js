@@ -1,29 +1,29 @@
 $(document).ready(function () {
-    const formCapacidad = $("#capacidadForm");
-    const nombreCapacidadInput = $("#capacidad-input");
-    const invalidNombreCapacidadFeedback = $(".invalid-feedback-capacidad");
+    const formLiberacion = $("#liberacionForm");
+    const nombreLiberacionInput = $("#liberacion-input");
+    const invalidNombreLiberacionFeedback = $(".invalid-feedback-liberacion");
 
-    nombreCapacidadInput.on("input", () => {
-        nombreCapacidadInput.removeClass("is-invalid");
-        invalidNombreCapacidadFeedback.hide();
+    nombreLiberacionInput.on("input", () => {
+        nombreLiberacionInput.removeClass("is-invalid");
+        invalidNombreLiberacionFeedback.hide();
     });
 
-    $("#subirModalCapacidad").on("hidden.bs.modal", function () {
-        formCapacidad[0].reset();
-        nombreCapacidadInput.removeClass("is-invalid");
-        invalidNombreCapacidadFeedback.hide();
+    $("#subirModalLiberacion").on("hidden.bs.modal", function () {
+        formLiberacion[0].reset();
+        nombreLiberacionInput.removeClass("is-invalid");
+        invalidNombreLiberacionFeedback.hide();
     });
 
-    $("#subirModalCapacidad").on("shown.bs.modal", function () {
-        formCapacidad.off("submit");
+    $("#subirModalLiberacion").on("shown.bs.modal", function () {
+        formLiberacion.off("submit");
 
-        formCapacidad.on("submit", function (event) {
+        formLiberacion.on("submit", function (event) {
             event.preventDefault();
-            const nombreInput = nombreCapacidadInput.val();
+            const nombreInput = nombreLiberacionInput.val();
 
             if (!nombreInput) {
-                nombreCapacidadInput.addClass("is-invalid");
-                invalidNombreCapacidadFeedback.show();
+                nombreLiberacionInput.addClass("is-invalid");
+                invalidNombreLiberacionFeedback.show();
             } else {
                 $.ajaxSetup({
                     headers: {
@@ -34,18 +34,18 @@ $(document).ready(function () {
                 });
 
                 $.ajax({
-                    url: formCapacidad.attr("action"),
+                    url: formLiberacion.attr("action"),
                     type: "POST",
-                    data: formCapacidad.serialize(),
+                    data: formLiberacion.serialize(),
                     dataType: "json",
                     success: function (response) {
                         if (response.success) {
-                            $("#mensaje-success-capacidad")
+                            $("#mensaje-success-liberacion")
                                 .removeClass("text-danger")
                                 .addClass("text-success")
                                 .text(response.message)
                                 .show();
-                            formCapacidad.trigger("reset");
+                            formLiberacion.trigger("reset");
 
                             var nuevaFila = $("<tr>")
                                 .append(
@@ -57,7 +57,7 @@ $(document).ready(function () {
                                     $("<td class='td-modal'>").html(
                                         '<div class="d-flex flex-column align-items-center">' +
                                             '<div class="btn-group m-1" role="group">' +
-                                            '<button type="button" class="btn btn-danger btn-eliminar-capacidad" data-id="' +
+                                            '<button type="button" class="btn btn-danger btn-eliminar-liberacion" data-id="' +
                                             response.data.id +
                                             '">' +
                                             '<i class="material-icons-outlined">delete</i>' +
@@ -67,17 +67,17 @@ $(document).ready(function () {
                                     )
                                 );
 
-                            $("#subirModalCapacidad")
+                            $("#subirModalLiberacion")
                                 .find("tbody")
                                 .prepend(nuevaFila);
 
-                            $("#mensaje-success-capacidad")
+                            $("#mensaje-success-liberacion")
                                 .removeClass("text-danger")
                                 .addClass("text-success")
-                                .text("Capacidad guardada exitosamente.")
+                                .text("Liberación guardada exitosamente.")
                                 .show();
                             setTimeout(function () {
-                                $("#mensaje-success-capacidad").hide();
+                                $("#mensaje-success-liberacion").hide();
                             }, 4000);
                         } else {
                             alert("No se pudo guardar");
@@ -90,12 +90,12 @@ $(document).ready(function () {
             }
         });
 
-        $(document).off("click", ".btn-eliminar-capacidad");
+        $(document).off("click", ".btn-eliminar-liberacion");
 
-        $(document).on("click", ".btn-eliminar-capacidad", function (event) {
+        $(document).on("click", ".btn-eliminar-liberacion", function (event) {
             event.preventDefault();
 
-            var capacidadId = $(this).data("id");
+            var liberacionId = $(this).data("id");
             var row = $(this).closest("tr");
 
             $.ajaxSetup({
@@ -107,22 +107,22 @@ $(document).ready(function () {
             });
 
             $.ajax({
-                url: "/eliminar/capacidad/" + capacidadId,
+                url: "/eliminar/liberacion/" + liberacionId,
                 type: "DELETE",
                 dataType: "json",
                 success: function (response) {
                     if (response.success) {
                         row.remove();
-                        $("#mensaje-eliminado-capacidad")
+                        $("#mensaje-eliminado-liberacion")
                             .removeClass("text-danger")
                             .addClass("text-success")
-                            .text("Capacidad eliminada exitosamente.")
+                            .text("Liberación eliminada exitosamente.")
                             .show();
                         setTimeout(function () {
-                            $("#mensaje-eliminado-capacidad").hide();
+                            $("#mensaje-eliminado-liberacion").hide();
                         }, 4000);
                     } else {
-                        alert("No se pudo eliminar la capacidad");
+                        alert("No se pudo eliminar la liberación");
                     }
                 },
                 error: function (xhr) {
