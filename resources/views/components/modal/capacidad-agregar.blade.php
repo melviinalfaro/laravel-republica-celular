@@ -1,4 +1,4 @@
-<div class="modal fade" id="subirModalCapacidad" tabindex="-1" aria-labelledby="subirModalCapacidadLabel"
+{{-- <div class="modal fade" id="subirModalCapacidad" tabindex="-1" aria-labelledby="subirModalCapacidadLabel"
     data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
@@ -66,4 +66,4 @@
     </div>
 </div>
 
-<script src="{{ asset('js/capacidad.js') }}"></script>
+<script src="{{ asset('js/capacidad.js') }}"></script> --}}

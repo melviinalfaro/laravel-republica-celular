@@ -6,7 +6,13 @@ use Illuminate\Http\Request;
 use App\Models\Categoria;
 
 class CategoriaController extends Controller
-{   
+{  
+    public function obtenerCategorias()
+    {
+        $categorias = Categoria::all();
+        
+        return response()->json($categorias);
+    } 
     public function store(Request $request)
     {
         $this->validate($request, [

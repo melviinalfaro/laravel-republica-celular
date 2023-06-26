@@ -13,92 +13,59 @@ use App\Models\Estado;
 
 class ProductoController extends Controller
 {
+    public function obtenerProductos()
+    {
+        $productos = Producto::all();
+
+        return response()->json($productos);
+    }
     public function index()
     {
-        $productos = Producto::with('marcas', 'categorias', 'capacidades', 'liberaciones', 'estados')->get();
-        $marcas = Marca::all();
-        $categorias = Categoria::all();
-        $capacidades = Capacidad::all();
-        $liberaciones = Liberacion::all();
-        $estados = Estado::all();
-        
-        return view('productos', compact('productos', 'marcas', 'categorias', 'capacidades', 'liberaciones', 'estados'));
+        $productos = Producto::all();
+        //     // $productos = Producto::with('marcas', 'categorias', 'capacidades', 'liberaciones', 'estados')->get();
+        //     // $marcas = Marca::all();
+        //     // $categorias = Categoria::all();
+        //     // $capacidades = Capacidad::all();
+        //     // $liberaciones = Liberacion::all();
+        //     // $estados = Estado::all();
+
+        return view('productos', compact('productos'));
+        //     // return view('productos', compact('productos', 'marcas', 'categorias', 'capacidades', 'liberaciones', 'estados'));
     }
 
+    public function store(Request $request)
+    {
+        $this->validate($request, [
+            'nombre' => 'required|string|max:255',
+            'imagen' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+        ]);
 
+        try {
+            $producto = new Producto();
+            $producto->nombre = $request->input('nombre');
 
-    // public function store(Request $request)
-    // {
-    //     $validatedData = $request->validate([
-    //         'nombre' => 'required|string|max:255',
-    //         'imagen' => 'required|image',
-    //         'precio' => 'required|numeric',
-    //         'descripcion' => 'required|string',
-    //         'stock' => 'required|boolean',
-    //         'estado' => 'required|string',
-    //         'color' => 'required|string',
-    //         'almacenamiento' => 'nullable|string',
-    //         'liberacion' => 'nullable|string',
-    //         'categoria_id' => 'nullable|exists:categorias,id',
-    //         'marca_id' => 'nullable|exists:marcas,id',
-    //     ]);
+            $imagen = $request->file('imagen');
+            $path = $imagen->store('productos', 'public');
+            $producto->imagen = $path;
 
-    //     $producto = new Producto();
-    //     $producto->fill($validatedData);
+            $producto->save();
 
-    //     if ($request->has('nombre')) {
-    //         $producto->nombre = $request->input('nombre');
-    //     }
-        
-    //     if ($request->hasFile('imagen')) {
-    //         $image = $request->file("imagen");
-    //         $producto->imagen = $image->getClientOriginalName();
-    //     }
-        
-    //     if ($request->has('precio')) {
-    //         $producto->precio = $request->input('precio');
-    //     }
-        
-    //     if ($request->has('descripcion')) {
-    //         $producto->descripcion = $request->input('descripcion');
-    //     }
-        
-    //     if ($request->has('stock')) {
-    //         $producto->stock = $request->input('stock');
-    //     }
-        
-    //     if ($request->has('estado')) {
-    //         $producto->estado = $request->input('estado');
-    //     }
-        
-    //     if ($request->has('color')) {
-    //         $producto->color = $request->input('color');
-    //     }
-        
-    //     if ($request->has('almacenamiento')) {
-    //         $producto->almacenamiento = $request->input('almacenamiento');
-    //     }
-        
-    //     if ($request->has('liberacion')) {
-    //         $producto->liberacion = $request->input('liberacion');
-    //     }
-        
-    //     if ($request->filled('categoria_id')) {
-    //         $producto->categoria_id = $request->input('categoria_id');
-    //     }
-        
-    //     if ($request->filled('marca_id')) {
-    //         $producto->marca_id = $request->input('marca_id');
-    //     }
+            return response()->json(['success' => true, 'message' => 'Agregaste un nuevo producto.'], 200);
+        } catch (\Exception $e) {
+            session()->flash('error', 'No se pudo guardar: ' . $e->getMessage());
+            return response()->json(['success' => false, 'error' => 'No se pudo guardar: ' . $e->getMessage()], 500);
+        }
+    }
 
-    //     $producto->save();
+    public function destroy(Request $request, $id)
+    {
+        $producto = Producto::find($id);
 
-    //     $image->move(public_path('productos/' . $producto->id), $image->getClientOriginalName());
-
-    //     try {
-    //         return redirect()->back()->with('success', 'Guardado exitosamente.');
-    //     } catch (\Exception $e) {
-    //         return redirect()->back()->with('error', 'No se pudo guardar: ' . $e->getMessage());
-    //     }
-    // }
+        if ($producto) {
+            $producto->delete();
+            return response()->json(['success' => true, 'message' => 'Producto eliminado correctamente']);
+        } else {
+            return response()->json(['success' => false, 'error' => 'No se pudo encontrar el producto']);
+        }
+    }
 }

@@ -1,4 +1,4 @@
-<div class="modal fade" id="subirModalMarca" tabindex="-1" aria-labelledby="subirModalMarcaLabel" data-bs-backdrop="static"
+{{-- <div class="modal fade" id="subirModalMarca" tabindex="-1" aria-labelledby="subirModalMarcaLabel" data-bs-backdrop="static"
     data-bs-keyboard="false" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
@@ -65,4 +65,4 @@
     </div>
 </div>
 
-<script src="{{ asset('js/marca.js') }}"></script>
+<script src="{{ asset('js/marca.js') }}"></script> --}}

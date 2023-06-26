@@ -7,6 +7,12 @@ use App\Models\Marca;
 
 class MarcaController extends Controller
 {   
+    public function obtenerMarcas()
+    {
+        $marcas = Marca::all();
+        
+        return response()->json($marcas);
+    }
     public function store(Request $request)
     {
         $this->validate($request, [

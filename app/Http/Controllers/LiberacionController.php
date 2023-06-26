@@ -7,6 +7,12 @@ use App\Models\Liberacion;
 
 class LiberacionController extends Controller
 {
+    public function obtenerLiberaciones()
+    {
+        $liberaciones = Liberacion::all();
+        
+        return response()->json($liberaciones);
+    }
     public function store(Request $request)
     {
         $this->validate($request, [

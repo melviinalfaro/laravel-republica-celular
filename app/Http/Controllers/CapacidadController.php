@@ -7,6 +7,12 @@ use App\Models\Capacidad;
 
 class CapacidadController extends Controller
 {
+    public function obtenerCapacidades()
+    {
+        $capacidades = Capacidad::all();
+        
+        return response()->json($capacidades);
+    }
     public function store(Request $request)
     {
         $this->validate($request, [
