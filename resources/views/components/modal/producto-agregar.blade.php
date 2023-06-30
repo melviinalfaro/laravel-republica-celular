@@ -1,24 +1,64 @@
-<div class="modal fade" id="subirModalProducto" tabindex="-1" aria-labelledby="subirModalLabel" data-bs-backdrop="static"
-    data-bs-keyboard="false" aria-hidden="true">
+<div class="modal fade" id="subirModalProducto" tabindex="-1" aria-labelledby="subirModalProductoLabel"
+    data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-4 text-color">Agregar un producto</h1>
                 <button class="btn-cerrar">
-                    <i class="icon material-icons-round" data-bs-dismiss="modal">close</i>
+                    <i class="icon material-icons-outlined" data-bs-dismiss="modal">close</i>
                 </button>
             </div>
-            <form id="productoForm" method="POST" action="{{ route('agregar.producto') }}" class="form" enctype="multipart/form-data"
-                novalidate>
+            <form id="productoForm" method="POST" action="{{ route('agregar.producto') }}" class="form"
+                enctype="multipart/form-data" novalidate>
                 @csrf
                 <div class="modal-body">
                     <div class="container-fluid px-0">
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="nombre-input" class="label-file text-color">{{ __('Nombre') }}</label>
+                                    <label for="nombre-producto-input"
+                                        class="label-file text-color">{{ __('Nombre') }}</label>
                                     <input type="text" name="nombre" autofocus class="form-control"
-                                        id="nombre-input" required>
+                                        id="nombre-producto-input" required>
+                                    <div class="invalid-feedback invalid-feedback-nombre">
+                                        Por favor ingresa un nombre válido
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="image-producto-input"
+                                        class="label-file text-color">{{ __('Imagen principal') }}</label>
+                                    <label for="image-producto-input" class="file-upload-producto">
+                                        <p>Selecciona la imagen</p>
+                                        <span class="image-producto-name"></span>
+                                    </label>
+                                    <input type="file" name="imagen" accept=".jpg, .jpeg, .png, .gif, .webp"
+                                        id="image-producto-input" class="file-upload-input" required>
+                                    <div class="invalid-feedback invalid-feedback-imagen">Por favor selecciona una
+                                        imagen válida</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button id="subir" type="submit" class="btn btn-primary">Guardar producto</button>
+                </div>
+            </form>
+
+            {{-- <form id="productoForm" method="POST" action="{{ route('agregar.producto') }}" class="form"
+                enctype="multipart/form-data" novalidate>
+                @csrf
+                <div class="modal-body">
+                    <div class="container-fluid px-0">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="nombre-producto-input" class="label-file text-color">{{ __('Nombre') }}</label>
+                                    <input type="text" name="nombre" autofocus class="form-control"
+                                        id="nombre-producto-input" required>
                                     <div class="invalid-feedback invalid-feedback-nombre">
                                         Por favor ingresa un nombre válido
                                     </div>
@@ -40,8 +80,8 @@
                                     <div class="invalid-feedback invalid-feedback-inventario">Por favor ingresa una
                                         cantidad numérica.</div>
                                 </div> --}}
-                            </div>
-                            {{-- <div class="col-md-4">
+            {{-- </div> --}}
+            {{-- <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="estado-select" class="label-file text-color">{{ __('Estado') }}</label>
                                     <select name="estado" id="estado-select" class="form-control">
@@ -107,21 +147,20 @@
                                         descripción</div>
                                 </div>
                             </div> --}}
-                            <div class="col-md-6">
+            {{-- <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="image-upload-input"
+                                    <label for="image-producto-input"
                                         class="label-file text-color">{{ __('Imagen principal') }}</label>
-                                    <label for="image-upload-input" class="file-upload-producto">
+                                    <label for="image-producto-input" class="file-upload-producto">
                                         <p>Selecciona la imagen</p>
-                                        <span class="image-upload-name"></span>
+                                        <span class="image-producto-name"></span>
                                     </label>
-                                    <input type="file" name="imagen" accept=".jpg, .jpeg, .png, .gif .webp"
-                                        id="image-upload-input" class="file-upload-input" required>
+                                    <input type="file" name="imagen" accept=".jpg, .jpeg, .png, .gif, .webp"
+                                        id="image-producto-input" class="file-upload-input" required>
                                     <div class="invalid-feedback invalid-feedback-imagen">Por favor selecciona una
                                         imagen válida</div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -129,7 +168,7 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                     <button id="subir" type="submit" class="btn btn-primary">Guardar producto</button>
                 </div>
-            </form>
+            {{-- </form> --}}
         </div>
     </div>
 </div>

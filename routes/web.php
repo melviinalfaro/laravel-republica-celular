@@ -17,7 +17,6 @@ Route::group(['middleware' => 'App\Http\Middleware\AuthAdmin'], function () {
     Route::get('/admin-carrusel', [CarruselController::class, 'index'])->name('ver.carrusel');
     Route::get('/productos', [ProductoController::class, 'index'])->name('productos');
 
-    Route::get('/obtener-productos', [ProductoController::class, 'obtenerProductos']);
     // Route::get('/obtener-estados', [EstadoController::class, 'obtenerEstados']);
     // Route::get('/obtener-capacidades', [CapacidadController::class, 'obtenerCapacidades']);
     // Route::get('/obtener-liberaciones', [LiberacionController::class, 'obtenerLiberaciones']);

@@ -5,7 +5,7 @@
             <div class="modal-header">
                 <h1 class="modal-title fs-5 text-color">Imagen para carrusel</h1>
                 <button class="btn-cerrar">
-                    <i class="icon material-icons-round" data-bs-dismiss="modal">close</i>
+                    <i class="icon material-icons-outlined" data-bs-dismiss="modal">close</i>
                 </button>
             </div>
             <form id="carruselForm" method="POST" action="{{ route('agregar.carrusel') }}" class="form"
@@ -14,7 +14,8 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="nombre-input" class="label-file text-color">{{ __('Nombre') }}</label>
-                        <input type="text" name="nombre" autofocus class="form-control" id="nombre-input" required placeholder="Ingresa el nombre de la campaña">
+                        <input type="text" name="nombre" autofocus class="form-control" id="nombre-input" required
+                            placeholder="Ingresa el nombre de la campaña">
                         <div class="invalid-feedback invalid-feedback-nombre">Por favor ingresa un nombre
                             válido</div>
                     </div>
@@ -31,6 +32,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                     <button id="subir" type="submit" class="btn btn-primary">Guardar imagen</button>
                 </div>
             </form>

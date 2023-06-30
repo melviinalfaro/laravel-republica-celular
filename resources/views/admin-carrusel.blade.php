@@ -27,7 +27,7 @@
                                     <div class="btn-group m-1" role="group" data-bs-toggle="modal"
                                         data-bs-target="#modal{{ $carrusel->id }}">
                                         <button type="button" class="btn btn-primary">
-                                            <i class="material-icons-round">image_search</i>
+                                            <i class="material-icons-outlined">image_search</i>
                                         </button>
                                     </div>
 
@@ -36,7 +36,7 @@
                                     <div class="btn-group m-1" role="group" data-bs-toggle="modal"
                                         data-bs-target="#modalEditar{{ $carrusel->id }}">
                                         <button type="submit" class="btn btn-warning">
-                                            <i class="material-icons-round">edit</i>
+                                            <i class="material-icons-outlined">edit</i>
                                         </button>
                                     </div>
 
@@ -45,7 +45,7 @@
                                     <div class="btn-group m-1" role="group" data-bs-toggle="modal"
                                         data-bs-target="#confirmacionModal{{ $carrusel->id }}">
                                         <button type="button" class="btn btn-danger" onclick="event.stopPropagation()">
-                                            <i class="material-icons-round">delete_outline</i>
+                                            <i class="material-icons-outlined">delete_outline</i>
                                         </button>
                                     </div>
 

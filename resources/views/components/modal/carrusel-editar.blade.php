@@ -5,7 +5,7 @@
             <div class="modal-header">
                 <h1 class="modal-title fs-5 text-color" id="imagenModalLabel">Editar el carrusel - "{{ $carrusel->nombre }}"</h1>
                 <button class="btn-cerrar">
-                    <i class="icon material-icons-round" data-bs-dismiss="modal">close</i>
+                    <i class="icon material-icons-outlined" data-bs-dismiss="modal">close</i>
                 </button>
             </div>
             <form id="modalForm{{ $carrusel->id }}" action="{{ route('actualizar-carrusel', ['id' => $carrusel->id]) }}"

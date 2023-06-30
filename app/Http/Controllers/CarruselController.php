@@ -37,9 +37,9 @@ class CarruselController extends Controller
         $image->move(public_path('carrusel/' . $carrusel->id), $image->getClientOriginalName());
 
         try {
-            return redirect()->back()->with('success', 'Guardado exitosamente.');
+            return redirect()->back()->with('success', '¡Has añadido un nuevo carrusel!');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'No se pudo guardar: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'No se pudo guardar el carrusel: ' . $e->getMessage());
         }
     }
 
@@ -65,7 +65,7 @@ class CarruselController extends Controller
         $carrusel->save();
 
         try {
-            return redirect()->back()->with('success', 'Actualizado exitosamente.');
+            return redirect()->back()->with('success', 'El carrusel se ha actualizado');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'No se pudo actualizar: ' . $e->getMessage());
         }
@@ -85,7 +85,7 @@ class CarruselController extends Controller
             $carrusel->delete();
 
             try {
-                return redirect()->back()->with('success', 'Eliminado exitosamente.');
+                return redirect()->back()->with('success', 'Se ha eliminado exitosamente.');
             } catch (\Exception $e) {
                 return redirect()->back()->with('error', 'No se pudo eliminar: ' . $e->getMessage());
             }

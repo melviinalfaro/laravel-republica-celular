@@ -7,7 +7,7 @@
                 <h5 class="modal-title text-color" id="confirmacionModalLabel{{ $carrusel->id }}">
                     Confirma la eliminación</h5>
                 <button class="btn-cerrar">
-                    <i class="icon material-icons-round" data-bs-dismiss="modal">close</i>
+                    <i class="icon material-icons-outlined" data-bs-dismiss="modal">close</i>
                 </button>
             </div>
             <div class="modal-body text-color">

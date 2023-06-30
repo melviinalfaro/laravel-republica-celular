@@ -7,7 +7,7 @@
                 <h5 class="modal-title text-color" id="confirmacionModalLabel{{ $producto->id }}">
                     Confirma la eliminación</h5>
                 <button class="btn-cerrar">
-                    <i class="icon material-icons-round" data-bs-dismiss="modal">close</i>
+                    <i class="icon material-icons-outlined" data-bs-dismiss="modal">close</i>
                 </button>
             </div>
             <div class="modal-body text-color">
@@ -16,7 +16,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                     Cancelar</button>
-                <form action="{{ route('eliminar-producto', ['id' => $producto->id]) }}" method="POST">
+                <form action="{{ route('eliminar.producto', ['id' => $producto->id]) }}" method="POST">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger">Eliminar</button>
