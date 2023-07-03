@@ -17,41 +17,55 @@ class ProductoController extends Controller
 {
     public function index()
     {
-        $productos = Producto::all();
+        $productos = Producto::with('estado', 'marca', 'capacidad', 'categoria', 'liberacion')->paginate(9);
+        $estados = Estado::all();
+        $marcas = Marca::all();
+        $capacidades = Capacidad::all();
+        $categorias = Categoria::all();
+        $liberaciones = Liberacion::all();
 
-        return view('productos', compact('productos'));
+        return view('productos', compact('productos', 'estados', 'marcas', 'capacidades', 'categorias', 'liberaciones'));
     }
-
-    //     // $productos = Producto::with('marcas', 'categorias', 'capacidades', 'liberaciones', 'estados')->get();
-    //     // $marcas = Marca::all();
-    //     // $categorias = Categoria::all();
-    //     // $capacidades = Capacidad::all();
-    //     // $liberaciones = Liberacion::all();
-    //     // $estados = Estado::all();
-    //     // return view('productos', compact('productos', 'marcas', 'categorias', 'capacidades', 'liberaciones', 'estados'));
-
 
     public function store(Request $request)
     {
         $this->validate($request, [
             'nombre' => 'required|string|max:255',
-            'imagen' => 'required|image'
+            'precio' => 'required|numeric',
+            'color' => 'required|string|max:128',
+            'stock' => 'required|integer',
+            'imagen' => 'required|image',
+            'descripcion' => 'required|string|max:255',
+            'estado' => 'required',
+            'marca' => 'required',
+            'capacidad' => 'required',
+            'categoria' => 'required',
+            'liberacion' => 'required'
         ]);
 
         try {
-            $producto = $this->crearProducto($request->input('nombre'));
+            $producto = $this->crearProducto($request);
             $this->guardarImagen($request->file('imagen'), $producto);
 
-            return redirect()->back()->with('success', '¡Has añadido un nuevo producto!');
+            return redirect()->back()->with('success', '¡Producto agregado exitosamente!');
         } catch (Exception $e) {
             return redirect()->back()->with('error', 'Error al guardar el producto: ' . $e->getMessage());
         }
     }
 
-    private function crearProducto($nombre)
+    private function crearProducto(Request $request)
     {
         $producto = new Producto();
-        $producto->nombre = $nombre;
+        $producto->nombre = $request->input('nombre');
+        $producto->precio = $request->input('precio');
+        $producto->color = $request->input('color');
+        $producto->stock = $request->input('stock');
+        $producto->descripcion = $request->input('descripcion');
+        $producto->estado_id = $request->input('estado');
+        $producto->marca_id = $request->input('marca');
+        $producto->capacidad_id = $request->input('capacidad');
+        $producto->categoria_id = $request->input('categoria');
+        $producto->liberacion_id = $request->input('liberacion');
         $producto->save();
 
         return $producto;
@@ -83,9 +97,9 @@ class ProductoController extends Controller
             $producto->delete();
 
             try {
-                return redirect()->back()->with('success', 'Se ha eliminado exitosamente.');
-            } catch (\Exception $e) {
-                return redirect()->back()->with('error', 'No se pudo eliminar: ' . $e->getMessage());
+                return redirect()->back()->with('success', '¡Producto eliminado exitosamente!');
+            } catch (Exception $e) {
+                return redirect()->back()->with('error', 'Error al guardar el producto: ' . $e->getMessage());
             }
         }
     }

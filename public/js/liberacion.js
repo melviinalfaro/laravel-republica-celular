@@ -1,7 +1,54 @@
 $(document).ready(function () {
+    var liberacionSelect = $("#liberacion-select");
+    var ultimaVersion = null;
+    var intervalID;
+
+    function obtenerLiberaciones() {
+        $.ajax({
+            url: "/obtener-liberaciones",
+            type: "GET",
+            dataType: "json",
+            data: { version: ultimaVersion },
+            success: function (data) {
+                var selectedValue = liberacionSelect.val();
+
+                liberacionSelect.empty();
+
+                liberacionSelect.append(
+                    '<option value="">Selecciona la liberación</option>'
+                );
+
+                $.each(data, function (key, value) {
+                    liberacionSelect.append(
+                        '<option value="' +
+                            value.id +
+                            '">' +
+                            value.nombre +
+                            "</option>"
+                    );
+                });
+
+                if (selectedValue) {
+                    liberacionSelect.val(selectedValue);
+                } else {
+                    liberacionSelect.val("");
+                }
+
+                ultimaVersion = data.version;
+
+                clearInterval(intervalID);
+            },
+        });
+    }
+
+    obtenerLiberaciones();
+
+    intervalID = setInterval(obtenerLiberaciones, 1000);
+
     const formLiberacion = $("#liberacionForm");
     const nombreLiberacionInput = $("#liberacion-input");
     const invalidNombreLiberacionFeedback = $(".invalid-feedback-liberacion");
+    const tablaLiberaciones = $("#tabla-liberaciones");
 
     nombreLiberacionInput.on("input", () => {
         nombreLiberacionInput.removeClass("is-invalid");
@@ -40,18 +87,11 @@ $(document).ready(function () {
                     dataType: "json",
                     success: function (response) {
                         if (response.success) {
-                            $("#mensaje-success-liberacion")
-                                .removeClass("text-danger")
-                                .addClass("text-success")
-                                .text(response.message)
-                                .show();
-                            formLiberacion.trigger("reset");
-
                             var nuevaFila = $("<tr>")
                                 .append(
-                                    $(
-                                        "<td class='td-modal'>"
-                                    ).text(response.data.nombre)
+                                    $("<td class='td-modal'>").text(
+                                        response.data.nombre
+                                    )
                                 )
                                 .append(
                                     $("<td class='td-modal'>").html(
@@ -67,14 +107,15 @@ $(document).ready(function () {
                                     )
                                 );
 
-                            $("#subirModalLiberacion")
-                                .find("tbody")
-                                .prepend(nuevaFila);
+                            tablaLiberaciones.find("tbody").append(nuevaFila);
 
+                            obtenerLiberaciones();
+
+                            formLiberacion.trigger("reset");
                             $("#mensaje-success-liberacion")
                                 .removeClass("text-danger")
                                 .addClass("text-success")
-                                .text("Liberación guardada exitosamente.")
+                                .text(response.message)
                                 .show();
                             setTimeout(function () {
                                 $("#mensaje-success-liberacion").hide();
@@ -113,6 +154,10 @@ $(document).ready(function () {
                 success: function (response) {
                     if (response.success) {
                         row.remove();
+                        liberacionSelect
+                            .find('option[value="' + liberacionId + '"]')
+                            .remove();
+
                         $("#mensaje-eliminado-liberacion")
                             .removeClass("text-danger")
                             .addClass("text-success")

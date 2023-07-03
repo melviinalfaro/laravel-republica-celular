@@ -10,7 +10,7 @@ class EstadoController extends Controller
     public function obtenerEstados()
     {
         $estados = Estado::all();
-        
+
         return response()->json($estados);
     }
     public function store(Request $request)

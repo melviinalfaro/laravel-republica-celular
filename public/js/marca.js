@@ -1,7 +1,54 @@
 $(document).ready(function () {
+    var marcaSelect = $("#marca-select");
+    var ultimaVersion = null;
+    var intervalID;
+
+    function obtenerMarcas() {
+        $.ajax({
+            url: "/obtener-marcas",
+            type: "GET",
+            dataType: "json",
+            data: { version: ultimaVersion },
+            success: function (data) {
+                var selectedValue = marcaSelect.val();
+
+                marcaSelect.empty();
+
+                marcaSelect.append(
+                    '<option value="">Selecciona la marca</option>'
+                );
+
+                $.each(data, function (key, value) {
+                    marcaSelect.append(
+                        '<option value="' +
+                            value.id +
+                            '">' +
+                            value.nombre +
+                            "</option>"
+                    );
+                });
+
+                if (selectedValue) {
+                    marcaSelect.val(selectedValue);
+                } else {
+                    marcaSelect.val("");
+                }
+
+                ultimaVersion = data.version;
+
+                clearInterval(intervalID);
+            },
+        });
+    }
+
+    obtenerMarcas();
+
+    intervalID = setInterval(obtenerMarcas, 1000);
+
     const formMarca = $("#marcaForm");
     const nombreMarcaInput = $("#marca-input");
     const invalidNombreMarcaFeedback = $(".invalid-feedback-marca");
+    const tablaMarcas = $("#tabla-marcas");
 
     nombreMarcaInput.on("input", () => {
         nombreMarcaInput.removeClass("is-invalid");
@@ -40,19 +87,8 @@ $(document).ready(function () {
                     dataType: "json",
                     success: function (response) {
                         if (response.success) {
-                            $("#mensaje-success-marca")
-                                .removeClass("text-danger")
-                                .addClass("text-success")
-                                .text(response.message)
-                                .show();
-                            formMarca.trigger("reset");
-
                             var nuevaFila = $("<tr>")
-                                .append(
-                                    $(
-                                        "<td class='td-modal'>"
-                                    ).text(response.data.nombre)
-                                )
+                                .append($("<td class='td-modal'>").text(response.data.nombre))
                                 .append(
                                     $("<td class='td-modal'>").html(
                                         '<div class="d-flex flex-column align-items-center">' +
@@ -67,14 +103,15 @@ $(document).ready(function () {
                                     )
                                 );
 
-                            $("#subirModalMarca")
-                                .find("tbody")
-                                .prepend(nuevaFila);
+                            tablaMarcas.find("tbody").append(nuevaFila);
 
+                            obtenerMarcas();
+
+                            formMarca.trigger("reset");
                             $("#mensaje-success-marca")
                                 .removeClass("text-danger")
                                 .addClass("text-success")
-                                .text("Marca guardada exitosamente.")
+                                .text(response.message)
                                 .show();
                             setTimeout(function () {
                                 $("#mensaje-success-marca").hide();
@@ -113,6 +150,10 @@ $(document).ready(function () {
                 success: function (response) {
                     if (response.success) {
                         row.remove();
+                        marcaSelect
+                            .find('option[value="' + marcaId + '"]')
+                            .remove();
+
                         $("#mensaje-eliminado-marca")
                             .removeClass("text-danger")
                             .addClass("text-success")

@@ -1,7 +1,54 @@
 $(document).ready(function () {
+    var estadoSelect = $("#estado-select");
+    var ultimaVersion = null;
+    var intervalID;
+
+    function obtenerEstados() {
+        $.ajax({
+            url: "/obtener-estados",
+            type: "GET",
+            dataType: "json",
+            data: { version: ultimaVersion },
+            success: function (data) {
+                var selectedValue = estadoSelect.val();
+
+                estadoSelect.empty();
+
+                estadoSelect.append(
+                    '<option value="">Selecciona el estado</option>'
+                );
+
+                $.each(data, function (key, value) {
+                    estadoSelect.append(
+                        '<option value="' +
+                            value.id +
+                            '">' +
+                            value.nombre +
+                            "</option>"
+                    );
+                });
+
+                if (selectedValue) {
+                    estadoSelect.val(selectedValue);
+                } else {
+                    estadoSelect.val("");
+                }
+
+                ultimaVersion = data.version;
+
+                clearInterval(intervalID);
+            },
+        });
+    }
+
+    obtenerEstados();
+
+    intervalID = setInterval(obtenerEstados, 1000);
+
     const formEstado = $("#estadoForm");
     const nombreEstadoInput = $("#estado-input");
     const invalidNombreEstadoFeedback = $(".invalid-feedback-estado");
+    const tablaEstados = $("#tabla-estados");
 
     nombreEstadoInput.on("input", () => {
         nombreEstadoInput.removeClass("is-invalid");
@@ -40,19 +87,8 @@ $(document).ready(function () {
                     dataType: "json",
                     success: function (response) {
                         if (response.success) {
-                            $("#mensaje-success-estado")
-                                .removeClass("text-danger")
-                                .addClass("text-success")
-                                .text(response.message)
-                                .show();
-                            formEstado.trigger("reset");
-
                             var nuevaFila = $("<tr>")
-                                .append(
-                                    $("<td class='td-modal'>").text(
-                                        response.data.nombre
-                                    )
-                                )
+                                .append($("<td class='td-modal'>").text(response.data.nombre))
                                 .append(
                                     $("<td class='td-modal'>").html(
                                         '<div class="d-flex flex-column align-items-center">' +
@@ -67,14 +103,15 @@ $(document).ready(function () {
                                     )
                                 );
 
-                            $("#subirModalEstado")
-                                .find("tbody")
-                                .prepend(nuevaFila);
+                            tablaEstados.find("tbody").append(nuevaFila);
 
+                            obtenerEstados();
+
+                            formEstado.trigger("reset");
                             $("#mensaje-success-estado")
                                 .removeClass("text-danger")
                                 .addClass("text-success")
-                                .text("Estado guardado exitosamente.")
+                                .text(response.message)
                                 .show();
                             setTimeout(function () {
                                 $("#mensaje-success-estado").hide();
@@ -113,10 +150,14 @@ $(document).ready(function () {
                 success: function (response) {
                     if (response.success) {
                         row.remove();
+                        estadoSelect
+                            .find('option[value="' + estadoId + '"]')
+                            .remove();
+
                         $("#mensaje-eliminado-estado")
                             .removeClass("text-danger")
                             .addClass("text-success")
-                            .text("Estado eliminado exitosamente.")
+                            .text("Estado eliminada exitosamente.")
                             .show();
                         setTimeout(function () {
                             $("#mensaje-eliminado-estado").hide();

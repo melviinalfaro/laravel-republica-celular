@@ -1,7 +1,54 @@
 $(document).ready(function () {
+    var capacidadSelect = $("#capacidad-select");
+    var ultimaVersion = null;
+    var intervalID;
+
+    function obtenerCapacidades() {
+        $.ajax({
+            url: "/obtener-capacidades",
+            type: "GET",
+            dataType: "json",
+            data: { version: ultimaVersion },
+            success: function (data) {
+                var selectedValue = capacidadSelect.val();
+
+                capacidadSelect.empty();
+
+                capacidadSelect.append(
+                    '<option value="">Selecciona la capacidad</option>'
+                );
+
+                $.each(data, function (key, value) {
+                    capacidadSelect.append(
+                        '<option value="' +
+                            value.id +
+                            '">' +
+                            value.nombre +
+                            "</option>"
+                    );
+                });
+
+                if (selectedValue) {
+                    capacidadSelect.val(selectedValue);
+                } else {
+                    capacidadSelect.val("");
+                }
+
+                ultimaVersion = data.version;
+
+                clearInterval(intervalID);
+            },
+        });
+    }
+
+    obtenerCapacidades();
+
+    intervalID = setInterval(obtenerCapacidades, 1000);
+
     const formCapacidad = $("#capacidadForm");
     const nombreCapacidadInput = $("#capacidad-input");
     const invalidNombreCapacidadFeedback = $(".invalid-feedback-capacidad");
+    const tablaCapacidades = $("#tabla-capacidades");
 
     nombreCapacidadInput.on("input", () => {
         nombreCapacidadInput.removeClass("is-invalid");
@@ -40,19 +87,8 @@ $(document).ready(function () {
                     dataType: "json",
                     success: function (response) {
                         if (response.success) {
-                            $("#mensaje-success-capacidad")
-                                .removeClass("text-danger")
-                                .addClass("text-success")
-                                .text(response.message)
-                                .show();
-                            formCapacidad.trigger("reset");
-
                             var nuevaFila = $("<tr>")
-                                .append(
-                                    $(
-                                        "<td class='td-modal'>"
-                                    ).text(response.data.nombre)
-                                )
+                                .append($("<td class='td-modal'>").text(response.data.nombre))
                                 .append(
                                     $("<td class='td-modal'>").html(
                                         '<div class="d-flex flex-column align-items-center">' +
@@ -67,14 +103,15 @@ $(document).ready(function () {
                                     )
                                 );
 
-                            $("#subirModalCapacidad")
-                                .find("tbody")
-                                .prepend(nuevaFila);
+                            tablaCapacidades.find("tbody").append(nuevaFila);
 
+                            obtenerCapacidades();
+
+                            formCapacidad.trigger("reset");
                             $("#mensaje-success-capacidad")
                                 .removeClass("text-danger")
                                 .addClass("text-success")
-                                .text("Capacidad guardada exitosamente.")
+                                .text(response.message)
                                 .show();
                             setTimeout(function () {
                                 $("#mensaje-success-capacidad").hide();
@@ -113,6 +150,10 @@ $(document).ready(function () {
                 success: function (response) {
                     if (response.success) {
                         row.remove();
+                        capacidadSelect
+                            .find('option[value="' + capacidadId + '"]')
+                            .remove();
+
                         $("#mensaje-eliminado-capacidad")
                             .removeClass("text-danger")
                             .addClass("text-success")

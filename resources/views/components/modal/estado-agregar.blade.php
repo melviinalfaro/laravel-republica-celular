@@ -1,11 +1,11 @@
-{{-- <div class="modal fade" id="subirModalEstado" tabindex="-1" aria-labelledby="subirModalEstadoLabel" data-bs-backdrop="static"
-    data-bs-keyboard="false" aria-hidden="true">
+<div class="modal fade" id="subirModalEstado" tabindex="-1" aria-labelledby="subirModalEstadoLabel"
+    data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-4 text-color">Estados de los productos</h1>
                 <button class="btn-cerrar">
-                    <i class="icon material-icons-round" data-bs-dismiss="modal">close</i>
+                    <i class="icon material-icons-outlined" data-bs-dismiss="modal">close</i>
                 </button>
             </div>
             <form id="estadoForm" method="POST" action="{{ route('agregar.estado') }}" class="form"
@@ -17,7 +17,7 @@
                             <div class="col-md-6 text-color">
                                 <h6 class="modal-title fs-6">Registrados</h6>
                                 <div class="table-scroll">
-                                    <table class="table">
+                                    <table class="table" id="tabla-estados">
                                         <tbody>
                                             @foreach ($estados as $estado)
                                                 <tr>
@@ -42,8 +42,8 @@
                             <div class="col-md-6 text-color">
                                 <h6 class="modal-title fs-6">Agregar nuevo</h6>
                                 <div class="form-group">
-                                    <input type="text" name="nombre" autofocus class="form-control" id="estado-input"
-                                        required placeholder="Ingrese el nombre del estado">
+                                    <input type="text" name="nombre" autofocus class="form-control"
+                                        id="estado-input" required placeholder="Ingrese el nombre del estado">
                                     <div class="invalid-feedback invalid-feedback-estado">Por favor ingresa un estado
                                         válido
                                     </div>
@@ -65,4 +65,4 @@
     </div>
 </div>
 
-<script src="{{ asset('js/estado.js') }}"></script> --}}
+<script src="{{ asset('js/estado.js') }}"></script>

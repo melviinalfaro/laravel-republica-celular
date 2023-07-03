@@ -1,7 +1,54 @@
 $(document).ready(function () {
+    var categoriaSelect = $("#categoria-select");
+    var ultimaVersion = null;
+    var intervalID;
+
+    function obtenerCategorias() {
+        $.ajax({
+            url: "/obtener-categorias",
+            type: "GET",
+            dataType: "json",
+            data: { version: ultimaVersion },
+            success: function (data) {
+                var selectedValue = categoriaSelect.val();
+
+                categoriaSelect.empty();
+
+                categoriaSelect.append(
+                    '<option value="">Selecciona la categoría</option>'
+                );
+
+                $.each(data, function (key, value) {
+                    categoriaSelect.append(
+                        '<option value="' +
+                            value.id +
+                            '">' +
+                            value.nombre +
+                            "</option>"
+                    );
+                });
+
+                if (selectedValue) {
+                    categoriaSelect.val(selectedValue);
+                } else {
+                    categoriaSelect.val("");
+                }
+
+                ultimaVersion = data.version;
+
+                clearInterval(intervalID);
+            },
+        });
+    }
+
+    obtenerCategorias();
+
+    intervalID = setInterval(obtenerCategorias, 1000);
+
     const formCategoria = $("#categoriaForm");
     const nombreCategoriaInput = $("#categoria-input");
     const invalidNombreCategoriaFeedback = $(".invalid-feedback-categoria");
+    const tablaCategorias = $("#tabla-categorias");
 
     nombreCategoriaInput.on("input", () => {
         nombreCategoriaInput.removeClass("is-invalid");
@@ -40,13 +87,6 @@ $(document).ready(function () {
                     dataType: "json",
                     success: function (response) {
                         if (response.success) {
-                            $("#mensaje-success-categoria")
-                                .removeClass("text-danger")
-                                .addClass("text-success")
-                                .text(response.message)
-                                .show();
-                            formCategoria.trigger("reset");
-
                             var nuevaFila = $("<tr>")
                                 .append($("<td class='td-modal'>").text(response.data.nombre))
                                 .append(
@@ -63,14 +103,15 @@ $(document).ready(function () {
                                     )
                                 );
 
-                            $("#subirModalCategoria")
-                                .find("tbody")
-                                .prepend(nuevaFila);
+                            tablaCategorias.find("tbody").append(nuevaFila);
 
+                            obtenerCategorias();
+
+                            formCategoria.trigger("reset");
                             $("#mensaje-success-categoria")
                                 .removeClass("text-danger")
                                 .addClass("text-success")
-                                .text("Categoría guardada exitosamente.")
+                                .text(response.message)
                                 .show();
                             setTimeout(function () {
                                 $("#mensaje-success-categoria").hide();
@@ -109,6 +150,10 @@ $(document).ready(function () {
                 success: function (response) {
                     if (response.success) {
                         row.remove();
+                        categoriaSelect
+                            .find('option[value="' + categoriaId + '"]')
+                            .remove();
+
                         $("#mensaje-eliminado-categoria")
                             .removeClass("text-danger")
                             .addClass("text-success")
@@ -118,7 +163,7 @@ $(document).ready(function () {
                             $("#mensaje-eliminado-categoria").hide();
                         }, 4000);
                     } else {
-                        alert("No se pudo eliminar la categoría: ");
+                        alert("No se pudo eliminar la categoría");
                     }
                 },
                 error: function (xhr) {

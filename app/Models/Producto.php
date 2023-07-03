@@ -11,22 +11,25 @@ class Producto extends Model
 
     protected $table = 'productos';
 
-    protected $fillable = [
-        'nombre', 'imagen'
-    ];
-
-    public function categoria()
+    protected $fillable = ['nombre', 'precio', 'color', 'stock', 'imagen', 'descripcion', 'estado_id', 'marca_id', 'capacidad_id', 'categoria_id', 'liberacion_id'];
+    public function estado()
     {
-        return $this->belongsTo(Categoria::class);
+        return $this->belongsTo(Estado::class, 'estado_id');
     }
-
     public function marca()
     {
-        return $this->belongsTo(Marca::class);
+        return $this->belongsTo(Marca::class, 'marca_id');
     }
-
-    public function imagenes()
+    public function capacidad()
     {
-        return $this->hasMany(ImagenProducto::class);
+        return $this->belongsTo(Capacidad::class, 'capacidad_id');
+    }
+    public function categoria()
+    {
+        return $this->belongsTo(Categoria::class, 'categoria_id');
+    }
+    public function liberacion()
+    {
+        return $this->belongsTo(Liberacion::class, 'liberacion_id');
     }
 }

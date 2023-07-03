@@ -1,11 +1,11 @@
-{{-- <div class="modal fade" id="subirModalMarca" tabindex="-1" aria-labelledby="subirModalMarcaLabel" data-bs-backdrop="static"
+<div class="modal fade" id="subirModalMarca" tabindex="-1" aria-labelledby="subirModalMarcaLabel" data-bs-backdrop="static"
     data-bs-keyboard="false" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-4 text-color">Marcas de los productos</h1>
                 <button class="btn-cerrar">
-                    <i class="icon material-icons-round" data-bs-dismiss="modal">close</i>
+                    <i class="icon material-icons-outlined" data-bs-dismiss="modal">close</i>
                 </button>
             </div>
             <form id="marcaForm" method="POST" action="{{ route('agregar.marca') }}" class="form"
@@ -17,7 +17,7 @@
                             <div class="col-md-6 text-color">
                                 <h6 class="modal-title fs-6">Registradas</h6>
                                 <div class="table-scroll">
-                                    <table class="table">
+                                    <table class="table" id="tabla-marcas">
                                         <tbody>
                                             @foreach ($marcas as $marca)
                                                 <tr>
@@ -65,4 +65,4 @@
     </div>
 </div>
 
-<script src="{{ asset('js/marca.js') }}"></script> --}}
+<script src="{{ asset('js/marca.js') }}"></script>

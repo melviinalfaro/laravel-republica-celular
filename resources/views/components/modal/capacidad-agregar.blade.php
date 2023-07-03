@@ -1,11 +1,11 @@
-{{-- <div class="modal fade" id="subirModalCapacidad" tabindex="-1" aria-labelledby="subirModalCapacidadLabel"
+<div class="modal fade" id="subirModalCapacidad" tabindex="-1" aria-labelledby="subirModalCapacidadLabel"
     data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-4 text-color">Capacidades de almacenamiento</h1>
                 <button class="btn-cerrar">
-                    <i class="icon material-icons-round" data-bs-dismiss="modal">close</i>
+                    <i class="icon material-icons-outlined" data-bs-dismiss="modal">close</i>
                 </button>
             </div>
             <form id="capacidadForm" method="POST" action="{{ route('agregar.capacidad') }}" class="form"
@@ -17,7 +17,7 @@
                             <div class="col-md-6 text-color">
                                 <h6 class="modal-title fs-6">Registradas</h6>
                                 <div class="table-scroll">
-                                    <table class="table">
+                                    <table class="table" id="tabla-capacidades">
                                         <tbody>
                                             @foreach ($capacidades as $capacidad)
                                                 <tr>
@@ -66,4 +66,4 @@
     </div>
 </div>
 
-<script src="{{ asset('js/capacidad.js') }}"></script> --}}
+<script src="{{ asset('js/capacidad.js') }}"></script>

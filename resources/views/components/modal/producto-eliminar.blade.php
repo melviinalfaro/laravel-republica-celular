@@ -10,8 +10,9 @@
                     <i class="icon material-icons-outlined" data-bs-dismiss="modal">close</i>
                 </button>
             </div>
-            <div class="modal-body text-color">
-                ¿Estas seguro de que deseas eliminar el producto?
+            <div class="modal-body text-color text-center">
+                <span>¿Estás seguro que deseas eliminar el producto?</span>
+                <h6>{{ $producto->nombre }}</h6>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
