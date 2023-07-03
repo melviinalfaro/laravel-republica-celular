@@ -24,7 +24,7 @@ class CategoriaController extends Controller
             $categoria->nombre = $request->input('nombre');
             $categoria->save();
 
-            return response()->json(['success' => true, 'message' => 'Guardado exitosamente.', 'data' => $categoria]);
+            return response()->json(['success' => true, 'message' => 'Categoría guardada exitosamente.', 'data' => $categoria]);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'error' => 'No se pudo guardar: ' . $e->getMessage()]);
         }
