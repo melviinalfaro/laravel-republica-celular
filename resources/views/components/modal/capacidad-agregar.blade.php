@@ -42,7 +42,7 @@
                             <div class="col-md-6 text-color">
                                 <h6 class="modal-title fs-6">Agregar nueva</h6>
                                 <div class="form-group">
-                                    <input type="text" name="nombre" autofocus class="form-control"
+                                    <input autocomplete="off" type="text" name="nombre" autofocus class="form-control"
                                         id="capacidad-input" placeholder="Ingresa el almacenamiento"
                                         required>
                                     <div class="invalid-feedback invalid-feedback-capacidad">Por favor ingresa una

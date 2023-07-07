@@ -14,7 +14,7 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="nombre-input" class="label-file text-color">{{ __('Nombre') }}</label>
-                        <input type="text" name="nombre" autofocus class="form-control" id="nombre-input" required
+                        <input autocomplete="off" type="text" name="nombre" autofocus class="form-control" id="nombre-input" required
                             placeholder="Ingresa el nombre de la campaña">
                         <div class="invalid-feedback invalid-feedback-nombre">Por favor ingresa un nombre
                             válido</div>

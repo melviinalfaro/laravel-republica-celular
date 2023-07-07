@@ -392,6 +392,10 @@ h3 {
     margin: 0;
 }
 
+.label-file {
+    font-weight: 500;
+}
+
 /* Rows */
 .columna {
     padding-right: 0;
@@ -553,6 +557,7 @@ h3 {
 .form input {
     outline: 0;
     background: var(--body-color);
+    color: var(--text-color);
     border-radius: 4px;
     border: 0;
     margin: 10px 0 10px 0;
@@ -560,8 +565,18 @@ h3 {
     font-size: 14px;
 }
 
+.form input:focus {
+    background: var(--body-color) !important;
+    color: var(--text-color) !important;
+}
+
 .form input::placeholder {
     color: var(--text-color);
+}
+
+.form-control {
+    color: var(--text-color);
+    background-color: var(--body-color);
 }
 
 .form-control:focus {
@@ -569,6 +584,17 @@ h3 {
     background-color: var(--body-color);
     outline: none;
     color: var(--text-color);
+}
+
+.form-select {
+    outline: 0;
+    background: var(--body-color);
+    color: var(--text-color);
+    border-radius: 4px;
+    border: 0;
+    margin: 8px 0 15px 0;
+    padding: 15px;
+    font-size: 14px;
 }
 
 .form select {
@@ -606,17 +632,6 @@ h3 {
     font-weight: bold;
     text-align: center;
     margin-bottom: 20px;
-}
-
-.form-select {
-    outline: 0;
-    background: var(--body-color);
-    color: var(--text-color);
-    border-radius: 4px;
-    border: 0;
-    margin: 8px 0 15px 0;
-    padding: 15px;
-    font-size: 14px;
 }
 
 .file-upload-form p {

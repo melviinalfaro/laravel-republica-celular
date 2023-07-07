@@ -42,7 +42,7 @@
                             <div class="col-md-6 text-color">
                                 <h6 class="modal-title fs-6">Agregar nueva</h6>
                                 <div class="form-group">
-                                    <input type="text" name="nombre" autofocus class="form-control" id="marca-input"
+                                    <input autocomplete="off" type="text" name="nombre" autofocus class="form-control" id="marca-input"
                                         required placeholder="Ingrese el nombre de la marca">
                                     <div class="invalid-feedback invalid-feedback-marca">Por favor ingresa una marca
                                         válida

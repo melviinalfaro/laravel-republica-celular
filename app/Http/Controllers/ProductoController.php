@@ -47,7 +47,7 @@ class ProductoController extends Controller
             $producto = $this->crearProducto($request);
             $this->guardarImagen($request->file('imagen'), $producto);
 
-            return redirect()->back()->with('success', '¡Producto agregado exitosamente!');
+            return redirect()->back()->with('success', 'Producto agregado exitosamente');
         } catch (Exception $e) {
             return redirect()->back()->with('error', 'Error al guardar el producto: ' . $e->getMessage());
         }
@@ -97,7 +97,7 @@ class ProductoController extends Controller
             $producto->delete();
 
             try {
-                return redirect()->back()->with('success', '¡Producto eliminado exitosamente!');
+                return redirect()->back()->with('success', 'Producto eliminado exitosamente');
             } catch (Exception $e) {
                 return redirect()->back()->with('error', 'Error al guardar el producto: ' . $e->getMessage());
             }

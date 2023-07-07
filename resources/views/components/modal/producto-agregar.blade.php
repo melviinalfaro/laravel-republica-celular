@@ -18,7 +18,7 @@
                                 <div class="form-group">
                                     <label for="nombre-producto-input"
                                         class="label-file text-color">{{ __('Nombre') }}</label>
-                                    <input type="text" name="nombre" autofocus class="form-control"
+                                    <input autocomplete="off" type="text" name="nombre" autofocus class="form-control"
                                         id="nombre-producto-input" required>
                                     <div class="invalid-feedback invalid-feedback-nombre">
                                         Por favor ingresa un nombre
@@ -48,7 +48,7 @@
                                 <div class="form-group">
                                     <label for="precio-producto-input"
                                         class="label-file text-color">{{ __('Precio') }}</label>
-                                    <input type="number" name="precio" class="form-control" id="precio-producto-input"
+                                    <input autocomplete="off" type="number" name="precio" class="form-control" id="precio-producto-input"
                                         required pattern="[0-9]+(\.[0-9]+)?" min="0" step="0.01"
                                         placeholder="0.00">
                                     <div class="invalid-feedback invalid-feedback-precio">Por favor ingresa un precio
@@ -78,7 +78,7 @@
                                 <div class="form-group">
                                     <label for="color-producto-input"
                                         class="label-file text-color">{{ __('Color') }}</label>
-                                    <input type="text" name="color" class="form-control" id="color-producto-input"
+                                    <input autocomplete="off" type="text" name="color" class="form-control" id="color-producto-input"
                                         required>
                                     <div class="invalid-feedback invalid-feedback-color">Por favor ingresa un color
                                         válido
@@ -97,7 +97,7 @@
                                 <div class="form-group">
                                     <label for="stock-producto-input"
                                         class="label-file text-color">{{ __('Cantidad en inventario') }}</label>
-                                    <input type="text" name="stock" class="form-control" id="stock-producto-input"
+                                    <input autocomplete="off" type="text" name="stock" class="form-control" id="stock-producto-input"
                                         oninput="this.value = this.value.replace(/[^0-9]/g, '')" required
                                         min="0" step="0" placeholder="0">
                                     <div class="invalid-feedback invalid-feedback-stock">Por favor ingresa una
@@ -108,7 +108,7 @@
                                 <div class="form-group">
                                     <label for="descripcion-textarea"
                                         class="label-file text-color">{{ __('Descripción del producto') }}</label>
-                                    <textarea name="descripcion" class="form-control" id="descripcion-textarea" required maxlength="250"></textarea>
+                                    <textarea autocomplete="off" name="descripcion" class="form-control" id="descripcion-textarea" required maxlength="250"></textarea>
                                     <div class="invalid-feedback invalid-feedback-descripcion">Por favor ingresa una
                                         descripción válida</div>
                                 </div>

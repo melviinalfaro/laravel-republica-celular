@@ -42,7 +42,7 @@
                             <div class="col-md-6 text-color">
                                 <h6 class="modal-title fs-6">Agregar nuevo</h6>
                                 <div class="form-group">
-                                    <input type="text" name="nombre" autofocus class="form-control"
+                                    <input autocomplete="off" type="text" name="nombre" autofocus class="form-control"
                                         id="estado-input" required placeholder="Ingrese el nombre del estado">
                                     <div class="invalid-feedback invalid-feedback-estado">Por favor ingresa un estado
                                         válido

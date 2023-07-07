@@ -42,7 +42,7 @@
                             <div class="col-md-6 text-color">
                                 <h6 class="modal-title fs-6">Agregar nueva categoría</h6>
                                 <div class="form-group">
-                                    <input type="text" name="nombre" autofocus class="form-control"
+                                    <input autocomplete="off" type="text" name="nombre" autofocus class="form-control"
                                         id="categoria-input" required placeholder="Ingrese el nombre de la categoría">
                                     <div class="invalid-feedback invalid-feedback-categoria">Por favor ingresa una
                                         categoría válida
