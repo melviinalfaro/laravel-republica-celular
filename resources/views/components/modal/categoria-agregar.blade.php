@@ -27,7 +27,9 @@
                                                             <div class="btn-group m-1" role="group">
                                                                 <button type="button"
                                                                     class="btn btn-danger btn-eliminar-categoria"
-                                                                    data-id="{{ $categoria->id }}">
+                                                                    data-id="{{ $categoria->id }}"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#confirmarEliminacionModal">
                                                                     <i class="material-icons-outlined">delete</i>
                                                                 </button>
                                                             </div>
@@ -42,27 +44,52 @@
                             <div class="col-md-6 text-color">
                                 <h6 class="modal-title fs-6">Agregar nueva categoría</h6>
                                 <div class="form-group">
-                                    <input autocomplete="off" type="text" name="nombre" autofocus class="form-control"
-                                        id="categoria-input" required placeholder="Ingrese el nombre de la categoría">
+                                    <input autocomplete="off" type="text" name="nombre" autofocus
+                                        class="form-control" id="categoria-input" required
+                                        placeholder="Ingrese el nombre de la categoría">
                                     <div class="invalid-feedback invalid-feedback-categoria">Por favor ingresa una
                                         categoría válida
-                                    </div>
-                                    <div class="text-success" id="mensaje-success-categoria">
-                                    </div>
-                                    <div class="text-success" id="mensaje-eliminado-categoria">
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button id="subir" type="submit" class="btn btn-primary">Guardar categoría</button>
+                <div class="modal-footer d-flex justify-content-between">
+                    <div class="d-none d-sm-block">
+                        <div class="text-success" id="mensaje-success-categoria"></div>
+                        <div class="text-success" id="mensaje-eliminado-categoria"></div>
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button id="subir" type="submit" class="btn btn-primary">Guardar categoría</button>
+                    </div>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="confirmarEliminacionModal" tabindex="-1" role="dialog"
+    aria-labelledby="confirmarEliminacionModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-4 text-color" id="confirmarEliminacionModalLabel">Confirmar Eliminación</h1>
+                <button class="btn-cerrar">
+                    <i class="icon material-icons-outlined" data-bs-dismiss="modal">close</i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="text-color">¿Estás seguro de que deseas eliminar esta categoría?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-danger" id="btn-confirmar-eliminacion">Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <script src="{{ asset('js/categoria.js') }}"></script>

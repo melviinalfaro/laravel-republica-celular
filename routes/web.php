@@ -23,6 +23,8 @@ Route::group(['middleware' => 'App\Http\Middleware\AuthAdmin'], function () {
     Route::get('/obtener-marcas', [MarcaController::class, 'obtenerMarcas']);
     Route::get('/obtener-categorias', [CategoriaController::class, 'obtenerCategorias']);
 
+    Route::put('/asignar/categoria/sin-categoria', [CategoriaController::class, 'asignarCategoriaSinCategoria']);
+
     Route::post('/admin-carrusel/registrar', [CarruselController::class, 'store'])->name('agregar.carrusel');
     Route::post('/productos/registrar', [ProductoController::class, 'store'])->name('agregar.producto');
     Route::post('/productos/registrar/marca', [MarcaController::class, 'store'])->name('agregar.marca');

@@ -5,75 +5,73 @@
 @section('content')
     <div class="container-lg py-3">
         <div class="table-responsive pt-3">
-            <div class="dataTables_wrapper">
-                <table id="miTabla" class="table">
-                    <thead>
+            <table id="miTabla" class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Color</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">Capacidad</th>
+                        <th scope="col">Categoría</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($productos as $producto)
                         <tr>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Precio</th>
-                            <th scope="col">Color</th>
-                            <th scope="col">Estado</th>
-                            <th scope="col">Capacidad</th>
-                            <th scope="col">Inventario</th>
-                            <th scope="col">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($productos as $producto)
-                            <tr>
-                                <td class="td-modal" data-label="Nombre">{{ $producto->nombre }}</td>
-                                <td class="td-modal" data-label="Precio">${{ $producto->precio }}</td>
-                                <td class="td-modal" data-label="Color">{{ $producto->color }}</td>
-                                <td class="td-modal" data-label="Estado">{{ $producto->estado->nombre }}</td>
-                                <td class="td-modal" data-label="Capacidad">{{ $producto->capacidad->nombre }}</td>
-                                <td class="td-modal" data-label="Stock">{{ $producto->stock }}</td>
-                                <td data-label="Acciones">
-                                    <div class="d-flex flex-column flex-sm-row align-items-center">
-                                        <div class="btn-group m-1" role="group" data-bs-toggle="modal"
-                                            data-bs-target="#modal{{ $producto->id }}">
-                                            <button type="button" class="btn btn-primary">
-                                                <i class="material-icons-outlined">visibility</i>
-                                            </button>
-                                        </div>
-
-                                        <x-modal.producto-ver :producto="$producto" />
-
-                                        <div class="btn-group m-1" role="group" data-bs-toggle="modal"
-                                            data-bs-target="#modal{{ $producto->id }}">
-                                            <button type="button" class="btn btn-success">
-                                                <i class="material-icons-outlined">add_photo_alternate</i>
-                                            </button>
-                                        </div>
-
-                                        <div class="btn-group m-1" role="group" data-bs-toggle="modal"
-                                            data-bs-target="#modalEditar{{ $producto->id }}">
-                                            <button type="submit" class="btn btn-warning">
-                                                <i class="material-icons-outlined">edit</i>
-                                            </button>
-                                        </div>
-
-                                        <x-modal.producto-editar :producto="$producto" />
-
-                                        <div class="btn-group m-1" role="group" data-bs-toggle="modal"
-                                            data-bs-target="#confirmacionModal{{ $producto->id }}">
-                                            <button type="button" class="btn btn-danger" onclick="event.stopPropagation()">
-                                                <i class="material-icons-outlined">delete</i>
-                                            </button>
-                                        </div>
-                                        <x-modal.producto-eliminar :producto="$producto" />
+                            <td class="td-modal" data-label="Nombre">{{ $producto->nombre }}</td>
+                            <td class="td-modal" data-label="Precio">${{ $producto->precio }}</td>
+                            <td class="td-modal" data-label="Color">{{ $producto->color }}</td>
+                            <td class="td-modal" data-label="Estado">{{ $producto->estado->nombre }}</td>
+                            <td class="td-modal" data-label="Capacidad">{{ $producto->capacidad->nombre }}</td>
+                            <td class="td-modal" data-label="Categoria">{{ $producto->categoria->nombre }}</td>
+                            <td data-label="Acciones">
+                                <div class="align-items-center">
+                                    <div class="btn-group m-1" role="group" data-bs-toggle="modal"
+                                        data-bs-target="#modal{{ $producto->id }}">
+                                        <button type="button" class="btn btn-primary">
+                                            <i class="material-icons-outlined">visibility</i>
+                                        </button>
                                     </div>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                @php
-                    use Illuminate\Pagination\Paginator;
-                    Paginator::useBootstrap();
-                @endphp
-                <div class="d-flex justify-content-center pt-3 paginacion-estilo">
-                    {{ $productos->links('pagination::bootstrap-4')->withClass('pagination-sm') }}
-                </div>
+
+                                    <x-modal.producto-ver :producto="$producto" />
+
+                                    <div class="btn-group m-1" role="group" data-bs-toggle="modal"
+                                        data-bs-target="#modal{{ $producto->id }}">
+                                        <button type="button" class="btn btn-success">
+                                            <i class="material-icons-outlined">add_photo_alternate</i>
+                                        </button>
+                                    </div>
+
+                                    <div class="btn-group m-1" role="group" data-bs-toggle="modal"
+                                        data-bs-target="#modalEditar{{ $producto->id }}">
+                                        <button type="submit" class="btn btn-warning">
+                                            <i class="material-icons-outlined">edit</i>
+                                        </button>
+                                    </div>
+
+                                    <x-modal.producto-editar :producto="$producto" />
+
+                                    <div class="btn-group m-1" role="group" data-bs-toggle="modal"
+                                        data-bs-target="#confirmacionModal{{ $producto->id }}">
+                                        <button type="button" class="btn btn-danger" onclick="event.stopPropagation()">
+                                            <i class="material-icons-outlined">delete</i>
+                                        </button>
+                                    </div>
+                                    <x-modal.producto-eliminar :producto="$producto" />
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            @php
+                use Illuminate\Pagination\Paginator;
+                Paginator::useBootstrap();
+            @endphp
+            <div class="d-flex justify-content-center pt-3 paginacion-estilo">
+                {{ $productos->links('pagination::bootstrap-4')->withClass('pagination-sm') }}
             </div>
         </div>
     </div>
@@ -127,7 +125,7 @@
                 paging: false,
                 lengthChange: true,
                 searching: true,
-                ordering: true,
+                ordering: false,
                 info: false,
                 autoWidth: true,
             });

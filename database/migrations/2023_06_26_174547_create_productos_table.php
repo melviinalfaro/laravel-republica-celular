@@ -21,15 +21,13 @@ class CreateProductosTable extends Migration
             $table->string('descripcion');
             $table->timestamps();
 
-            $table->foreignId('estado_id')->constrained('estados')->onDelete('cascade');
-            $table->foreignId('marca_id')->constrained('marcas')->onDelete('cascade');
-            $table->foreignId('capacidad_id')->constrained('capacidades')->onDelete('cascade');
-            $table->foreignId('categoria_id')->constrained('categorias')->onDelete('cascade');
-            $table->foreignId('liberacion_id')->constrained('liberaciones')->onDelete('cascade');
+            $table->foreignId('estado_id')->constrained('estados');
+            $table->foreignId('marca_id')->constrained('marcas');
+            $table->foreignId('capacidad_id')->constrained('capacidades');
+            $table->foreignId('categoria_id')->constrained('categorias');
+            $table->foreignId('liberacion_id')->constrained('liberaciones');
         });
     }
-
-
     /**
      * Reverse the migrations.
      */

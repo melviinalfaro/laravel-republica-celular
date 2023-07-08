@@ -88,12 +88,17 @@ $(document).ready(function () {
                     success: function (response) {
                         if (response.success) {
                             var nuevaFila = $("<tr>")
-                                .append($("<td class='td-modal'>").text(response.data.nombre))
+                                .append(
+                                    $("<td class='td-modal'>").text(
+                                        response.data.nombre
+                                    )
+                                )
                                 .append(
                                     $("<td class='td-modal'>").html(
                                         '<div class="d-flex flex-column align-items-center">' +
                                             '<div class="btn-group m-1" role="group">' +
-                                            '<button type="button" class="btn btn-danger btn-eliminar-categoria" data-id="' +
+                                            '<button type="button" class="btn btn-danger btn-eliminar-categoria" data-bs-toggle="modal" ' +
+                                            'data-bs-target="#confirmarEliminacionModal" data-id="' +
                                             response.data.id +
                                             '">' +
                                             '<i class="material-icons-outlined">delete</i>' +
@@ -126,50 +131,90 @@ $(document).ready(function () {
                 });
             }
         });
+    });
 
-        $(document).off("click", ".btn-eliminar-categoria");
+    var confirmarModal = $("#confirmarEliminacionModal");
+    var eliminarModal;
 
-        $(document).on("click", ".btn-eliminar-categoria", function (event) {
-            event.preventDefault();
+    tablaCategorias.on("click", ".btn-eliminar-categoria", function (event) {
+        event.preventDefault();
 
-            var categoriaId = $(this).data("id");
-            var row = $(this).closest("tr");
+        var categoriaId = $(this).data("id");
+        var row = $(this).closest("tr");
 
-            $.ajaxSetup({
-                headers: {
-                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
-                        "content"
-                    ),
-                },
-            });
+        eliminarModal = $(this).closest(".modal");
 
-            $.ajax({
-                url: "/eliminar/categoria/" + categoriaId,
-                type: "DELETE",
-                dataType: "json",
-                success: function (response) {
-                    if (response.success) {
-                        row.remove();
-                        categoriaSelect
-                            .find('option[value="' + categoriaId + '"]')
-                            .remove();
+        $("#btn-confirmar-eliminacion").data("categoria-id", categoriaId);
 
+        eliminarModal.modal("hide");
+        confirmarModal.modal("show");
+    });
+
+    $("#btn-confirmar-eliminacion").click(function () {
+        var categoriaId = $(this).data("categoria-id");
+        var row = $(
+            ".btn-eliminar-categoria[data-id='" + categoriaId + "']"
+        ).closest("tr");
+
+        $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+        });
+
+        $.ajax({
+            url: "/eliminar/categoria/" + categoriaId,
+            type: "DELETE",
+            dataType: "json",
+            success: function (response) {
+                if (response.success) {
+                    row.remove();
+                    categoriaSelect
+                        .find('option[value="' + categoriaId + '"]')
+                        .remove();
+
+                    var mensajeExito = response.message;
+
+                    if (
+                        $("#mensaje-eliminado-categoria").hasClass(
+                            "text-success"
+                        )
+                    ) {
                         $("#mensaje-eliminado-categoria")
                             .removeClass("text-danger")
                             .addClass("text-success")
-                            .text("Categoría eliminada exitosamente.")
+                            .text(mensajeExito)
                             .show();
-                        setTimeout(function () {
-                            $("#mensaje-eliminado-categoria").hide();
-                        }, 4000);
+                        location.reload();
                     } else {
-                        alert("No se pudo eliminar la categoría");
+                        location.reload();
                     }
-                },
-                error: function (xhr) {
-                    alert("Error en la solicitud");
-                },
-            });
+                } else {
+                    confirmarModal.modal("hide");
+                    eliminarModal.modal("show");
+                    $("#mensaje-eliminado-categoria")
+                        .removeClass("text-success")
+                        .addClass("text-danger")
+                        .text(response.error)
+                        .show();
+                    setTimeout(function () {
+                        $("#mensaje-eliminado-categoria").hide();
+                    }, 4000);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log(xhr.responseText);
+                confirmarModal.modal("hide");
+                eliminarModal.modal("show");
+                $("#mensaje-eliminado-categoria")
+                    .removeClass("text-success")
+                    .addClass("text-danger")
+                    .text("No se puede eliminar esta categoría")
+                    .show();
+                setTimeout(function () {
+                    $("#mensaje-eliminado-categoria").hide();
+                }, 4000);
+            },
         });
     });
 });
