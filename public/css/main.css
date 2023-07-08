@@ -100,7 +100,7 @@ body.dark {
     --btn-danger-color: #ffcddf;
     --btn-danger-hover: #d51746;
     --btn-secondary-bg: #616161;
-    --btn-secondary-color: #e5e5e5;
+    --btn-secondary-color: #ffffff;
     --btn-secondary-hover: #535353;
     --btn-warning-bg: #ffd700;
     --btn-warning-color: #917800;
@@ -840,7 +840,7 @@ select {
 
 table.dataTable thead th,
 table.dataTable thead td {
-    padding: 10px 18px;
+    padding: 10px 10px !important;
     border-bottom: 1px solid var(--body-color) !important;
 }
 
@@ -1093,8 +1093,8 @@ input:checked + .slider:before {
 /* Dropup menu */
 .dropdown {
     position: fixed;
-    bottom: 15px;
-    right: 10px;
+    bottom: 8px;
+    right: 8px;
     z-index: 1;
 }
 
@@ -1208,7 +1208,7 @@ input:checked + .slider:before {
 .dropdown-new {
     position: fixed;
     top: 8px;
-    right: 10px;
+    right: 8px;
     z-index: 1;
 }
 

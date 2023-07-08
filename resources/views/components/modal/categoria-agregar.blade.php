@@ -81,10 +81,10 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p class="text-color">¿Estás seguro de que deseas eliminar esta categoría?</p>
+                <p class="text-color text-center">¿Estás seguro de que deseas eliminar esta categoría?</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                 <button type="button" class="btn btn-danger" id="btn-confirmar-eliminacion">Eliminar</button>
             </div>
         </div>

@@ -120,7 +120,7 @@ $(document).ready(function () {
                                 .show();
                             setTimeout(function () {
                                 $("#mensaje-success-categoria").hide();
-                            }, 4000);
+                            }, 2000);
                         } else {
                             alert("No se pudo guardar");
                         }
@@ -175,20 +175,22 @@ $(document).ready(function () {
 
                     var mensajeExito = response.message;
 
-                    if (
-                        $("#mensaje-eliminado-categoria").hasClass(
-                            "text-success"
-                        )
-                    ) {
-                        $("#mensaje-eliminado-categoria")
-                            .removeClass("text-danger")
-                            .addClass("text-success")
-                            .text(mensajeExito)
-                            .show();
-                        location.reload();
-                    } else {
-                        location.reload();
-                    }
+                    $("#mensaje-eliminado-categoria")
+                        .removeClass("text-danger")
+                        .addClass("text-success")
+                        .text(mensajeExito)
+                        .show();
+                        setTimeout(function () {
+                            $("#mensaje-eliminado-categoria").hide();
+                        }, 2000);
+
+                    confirmarModal.modal("hide");
+
+                    confirmarModal.on("hidden.bs.modal", function () {
+                        eliminarModal.modal("hide");
+                        confirmarModal.off("hidden.bs.modal");
+                        $("#subirModalCategoria").modal("show");
+                    });
                 } else {
                     confirmarModal.modal("hide");
                     eliminarModal.modal("show");
@@ -199,7 +201,7 @@ $(document).ready(function () {
                         .show();
                     setTimeout(function () {
                         $("#mensaje-eliminado-categoria").hide();
-                    }, 4000);
+                    }, 3000);
                 }
             },
             error: function (xhr, status, error) {
@@ -213,7 +215,7 @@ $(document).ready(function () {
                     .show();
                 setTimeout(function () {
                     $("#mensaje-eliminado-categoria").hide();
-                }, 4000);
+                }, 2000);
             },
         });
     });
