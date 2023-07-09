@@ -134,7 +134,7 @@ $(document).ready(function () {
     });
 
     var confirmarModal = $("#confirmarEliminacionModal");
-    var eliminarModal;
+    var subirModalCategoria = $("#subirModalCategoria");
 
     tablaCategorias.on("click", ".btn-eliminar-categoria", function (event) {
         event.preventDefault();
@@ -142,11 +142,8 @@ $(document).ready(function () {
         var categoriaId = $(this).data("id");
         var row = $(this).closest("tr");
 
-        eliminarModal = $(this).closest(".modal");
-
         $("#btn-confirmar-eliminacion").data("categoria-id", categoriaId);
 
-        eliminarModal.modal("hide");
         confirmarModal.modal("show");
     });
 
@@ -180,20 +177,13 @@ $(document).ready(function () {
                         .addClass("text-success")
                         .text(mensajeExito)
                         .show();
-                        setTimeout(function () {
-                            $("#mensaje-eliminado-categoria").hide();
-                        }, 2000);
+                    setTimeout(function () {
+                        $("#mensaje-eliminado-categoria").hide();
+                    }, 2000);
 
                     confirmarModal.modal("hide");
-
-                    confirmarModal.on("hidden.bs.modal", function () {
-                        eliminarModal.modal("hide");
-                        confirmarModal.off("hidden.bs.modal");
-                        $("#subirModalCategoria").modal("show");
-                    });
                 } else {
                     confirmarModal.modal("hide");
-                    eliminarModal.modal("show");
                     $("#mensaje-eliminado-categoria")
                         .removeClass("text-success")
                         .addClass("text-danger")
@@ -207,7 +197,6 @@ $(document).ready(function () {
             error: function (xhr, status, error) {
                 console.log(xhr.responseText);
                 confirmarModal.modal("hide");
-                eliminarModal.modal("show");
                 $("#mensaje-eliminado-categoria")
                     .removeClass("text-success")
                     .addClass("text-danger")
@@ -218,5 +207,9 @@ $(document).ready(function () {
                 }, 2000);
             },
         });
+    });
+
+    confirmarModal.on("hidden.bs.modal", function () {
+        subirModalCategoria.modal("show");
     });
 });
