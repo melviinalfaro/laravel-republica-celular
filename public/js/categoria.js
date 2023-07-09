@@ -108,7 +108,7 @@ $(document).ready(function () {
                                     )
                                 );
 
-                            tablaCategorias.find("tbody").append(nuevaFila);
+                            tablaCategorias.find("tbody").prepend(nuevaFila);
 
                             obtenerCategorias();
 

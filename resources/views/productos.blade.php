@@ -10,10 +10,11 @@
                     <tr>
                         <th scope="col">Nombre</th>
                         <th scope="col">Precio</th>
+                        <th scope="col">Marca</th>
                         <th scope="col">Color</th>
                         <th scope="col">Estado</th>
                         <th scope="col">Capacidad</th>
-                        <th scope="col">Categoría</th>
+                        <th scope="col">Disponibles</th>
                         <th scope="col">Acciones</th>
                     </tr>
                 </thead>
@@ -22,10 +23,11 @@
                         <tr>
                             <td class="td-modal" data-label="Nombre">{{ $producto->nombre }}</td>
                             <td class="td-modal" data-label="Precio">${{ $producto->precio }}</td>
+                            <td class="td-modal" data-label="Marca">{{ $producto->marca->nombre }}</td>
                             <td class="td-modal" data-label="Color">{{ $producto->color }}</td>
                             <td class="td-modal" data-label="Estado">{{ $producto->estado->nombre }}</td>
                             <td class="td-modal" data-label="Capacidad">{{ $producto->capacidad->nombre }}</td>
-                            <td class="td-modal" data-label="Categoria">{{ $producto->categoria->nombre }}</td>
+                            <td class="td-modal" data-label="Inventario">{{ $producto->stock }}</td>
                             <td data-label="Acciones">
                                 <div class="align-items-center">
                                     <div class="btn-group m-1" role="group" data-bs-toggle="modal"

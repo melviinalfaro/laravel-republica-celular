@@ -15,7 +15,7 @@
                     <div class="container-fluid px-0">
                         <div class="row">
                             <div class="col-md-6 text-color add-modal">
-                                <h6 class="modal-title fs-6">Registradas</h6>
+                                <h6 class="modal-title fs-6 text-center pb-2">Categorías registradas</h6>
                                 <div class="table-scroll">
                                     <table class="table" id="tabla-categorias">
                                         <tbody>
@@ -42,7 +42,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6 text-color">
-                                <h6 class="modal-title fs-6">Agregar nueva categoría</h6>
+                                <h6 class="modal-title fs-6 text-center pb-2">Agregar nueva categoría</h6>
                                 <div class="form-group">
                                     <input autocomplete="off" type="text" name="nombre" autofocus
                                         class="form-control" id="categoria-input" required
@@ -61,7 +61,7 @@
                         <div class="text-success" id="mensaje-eliminado-categoria"></div>
                     </div>
                     <div>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-secondary m-1" data-bs-dismiss="modal">Cerrar</button>
                         <button id="subir" type="submit" class="btn btn-primary">Guardar categoría</button>
                     </div>
                 </div>
@@ -75,7 +75,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-4 text-color" id="confirmarEliminacionModalLabel">Confirmar Eliminación</h1>
+                <h1 class="modal-title fs-4 text-color" id="confirmarEliminacionModalLabel">Confirmar eliminación</h1>
                 <button class="btn-cerrar">
                     <i class="icon material-icons-outlined" data-bs-dismiss="modal">close</i>
                 </button>

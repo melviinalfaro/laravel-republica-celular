@@ -148,9 +148,8 @@ h1 {
     left: 0;
     height: 100%;
     width: 90px;
-    padding: 14px 14px 20px 14px;
+    padding: 14px;
     background: var(--sidebar-bg);
-    backdrop-filter: blur(15px);
     z-index: 100;
     transition: var(--tran-05);
 }
@@ -835,13 +834,13 @@ select {
 
 /* Tabla */
 .dataTables_wrapper {
-    padding-inline: 10px;
+    padding-inline: 15px;
 }
 
 table.dataTable thead th,
 table.dataTable thead td {
     padding: 10px 10px !important;
-    border-bottom: 1px solid var(--body-color) !important;
+    border-bottom: 1px solid #383838 !important;
 }
 
 .dataTables_wrapper .dataTables_filter input[type="search"] {
@@ -890,7 +889,7 @@ div.dataTables_wrapper div.dataTables_filter {
 }
 
 .table-scroll {
-    height: 205px;
+    height: 210px;
     overflow-y: auto;
 }
 
