@@ -88,13 +88,20 @@ $(document).ready(function () {
                     success: function (response) {
                         if (response.success) {
                             var nuevaFila = $("<tr>")
-                                .append($("<td class='td-modal'>").text(response.data.nombre))
+                                .append(
+                                    $("<td class='td-modal'>").text(
+                                        response.data.nombre
+                                    )
+                                )
                                 .append(
                                     $("<td class='td-modal'>").html(
                                         '<div class="d-flex flex-column align-items-center">' +
                                             '<div class="btn-group m-1" role="group">' +
-                                            '<button type="button" class="btn btn-danger btn-eliminar-estado" data-id="' +
+                                            '<button type="button" class="btn btn-danger btn-eliminar-estado" data-bs-toggle="modal" ' +
+                                            'data-bs-target="#confirmarEliminacionEstado" data-id="' +
                                             response.data.id +
+                                            '" data-nombre="' +
+                                            response.data.nombre +
                                             '">' +
                                             '<i class="material-icons-outlined">delete</i>' +
                                             "</button>" +
@@ -103,7 +110,7 @@ $(document).ready(function () {
                                     )
                                 );
 
-                            tablaEstados.find("tbody").append(nuevaFila);
+                            tablaEstados.find("tbody").prepend(nuevaFila);
 
                             obtenerEstados();
 
@@ -115,7 +122,7 @@ $(document).ready(function () {
                                 .show();
                             setTimeout(function () {
                                 $("#mensaje-success-estado").hide();
-                            }, 4000);
+                            }, 2000);
                         } else {
                             alert("No se pudo guardar");
                         }
@@ -126,50 +133,91 @@ $(document).ready(function () {
                 });
             }
         });
+    });
 
-        $(document).off("click", ".btn-eliminar-estado");
+    var confirmarModalEstado = $("#confirmarEliminacionEstado");
+    var subirModalEstado = $("#subirModalEstado");
 
-        $(document).on("click", ".btn-eliminar-estado", function (event) {
-            event.preventDefault();
+    tablaEstados.on("click", ".btn-eliminar-estado", function (event) {
+        event.preventDefault();
 
-            var estadoId = $(this).data("id");
-            var row = $(this).closest("tr");
+        var estadoId = $(this).data("id");
+        var estadoNombre = $(this).data("nombre");
+        var row = $(this).closest("tr");
 
-            $.ajaxSetup({
-                headers: {
-                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
-                        "content"
-                    ),
-                },
-            });
+        $("#btn-confirmar-eliminacion")
+            .data("estado-id", estadoId)
+            .data("estado-nombre", estadoNombre);
 
-            $.ajax({
-                url: "/eliminar/estado/" + estadoId,
-                type: "DELETE",
-                dataType: "json",
-                success: function (response) {
-                    if (response.success) {
-                        row.remove();
-                        estadoSelect
-                            .find('option[value="' + estadoId + '"]')
-                            .remove();
+        $("#nombre-estado").text(estadoNombre);
 
-                        $("#mensaje-eliminado-estado")
-                            .removeClass("text-danger")
-                            .addClass("text-success")
-                            .text("Estado eliminada exitosamente.")
-                            .show();
-                        setTimeout(function () {
-                            $("#mensaje-eliminado-estado").hide();
-                        }, 4000);
-                    } else {
-                        alert("No se pudo eliminar el estado");
-                    }
-                },
-                error: function (xhr) {
-                    alert("Error en la solicitud");
-                },
-            });
+        confirmarModalEstado.modal("show");
+    });
+
+    $("#btn-confirmar-eliminacion").click(function () {
+        var estadoId = $(this).data("estado-id");
+        var estadoNombre = $(this).data("estado-nombre");
+        var row = $(".btn-eliminar-estado[data-id='" + estadoId + "']").closest(
+            "tr"
+        );
+
+        $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
         });
+
+        $.ajax({
+            url: "/eliminar/estado/" + estadoId,
+            type: "DELETE",
+            dataType: "json",
+            success: function (response) {
+                if (response.success) {
+                    row.remove();
+                    estadoSelect
+                        .find('option[value="' + estadoId + '"]')
+                        .remove();
+
+                    var mensajeExito = response.message;
+
+                    $("#mensaje-eliminado-estado")
+                        .removeClass("text-danger")
+                        .addClass("text-success")
+                        .text(mensajeExito)
+                        .show();
+                    setTimeout(function () {
+                        $("#mensaje-eliminado-estado").hide();
+                    }, 2000);
+
+                    confirmarModalEstado.modal("hide");
+                } else {
+                    confirmarModalEstado.modal("hide");
+                    $("#mensaje-eliminado-estado")
+                        .removeClass("text-success")
+                        .addClass("text-danger")
+                        .text(response.error)
+                        .show();
+                    setTimeout(function () {
+                        $("#mensaje-eliminado-estado").hide();
+                    }, 3000);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log(xhr.responseText);
+                confirmarModalEstado.modal("hide");
+                $("#mensaje-eliminado-estado")
+                    .removeClass("text-success")
+                    .addClass("text-danger")
+                    .text("No se puede eliminar este estado")
+                    .show();
+                setTimeout(function () {
+                    $("#mensaje-eliminado-estado").hide();
+                }, 2000);
+            },
+        });
+    });
+
+    confirmarModalEstado.on("hidden.bs.modal", function () {
+        subirModalEstado.modal("show");
     });
 });

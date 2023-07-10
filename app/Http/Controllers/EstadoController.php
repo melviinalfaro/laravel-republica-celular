@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Estado;
+use App\Models\Producto;
 
 class EstadoController extends Controller
 {
@@ -35,10 +36,43 @@ class EstadoController extends Controller
         $estado = Estado::find($id);
 
         if ($estado) {
+            if ($estado->nombre === 'Sin estado') {
+                return response()->json(['success' => false, 'error' => 'No se puede eliminar el estado "Sin estado"']);
+            }
+
+            $sinEstado = Estado::where('nombre', 'Sin estado')->first();
+            $sinEstadoId = $sinEstado->id;
+
+            Producto::where('estado_id', $estado->id)->update(['estado_id' => $sinEstadoId]);
+
             $estado->delete();
-            return response()->json(['success' => true, 'message' => 'Estado eliminado correctamente']);
+
+            return response()->json(['success' => true, 'message' => 'Estado eliminado exitosamente']);
         } else {
             return response()->json(['success' => false, 'error' => 'No se pudo encontrar el estado']);
         }
+    }
+
+    public function asignarEstadoSinEstado(Request $request)
+    {
+        $estadoId = $request->input('estadoId');
+        $productos = Producto::where('estado_id', $estadoId)->get();
+
+        if ($productos->isNotEmpty()) {
+            $sinEstado = Estado::where('nombre', 'Sin estado')->first();
+
+            if ($sinEstado) {
+                foreach ($productos as $producto) {
+                    $producto->estado_id = $sinEstado->id;
+                    $producto->save();
+                }
+
+                return response()->json(['success' => true, 'message' => 'Estado asignado correctamente']);
+            } else {
+                return response()->json(['success' => false, 'error' => 'No se encontró el estado "Sin estado"']);
+            }
+        }
+
+        return response()->json(['success' => true, 'message' => 'No hay productos asociados a este estado']);
     }
 }

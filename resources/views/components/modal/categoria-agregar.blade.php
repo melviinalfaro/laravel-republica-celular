@@ -92,5 +92,4 @@
     </div>
 </div>
 
-
 <script src="{{ asset('js/categoria.js') }}"></script>
