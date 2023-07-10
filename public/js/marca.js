@@ -88,13 +88,20 @@ $(document).ready(function () {
                     success: function (response) {
                         if (response.success) {
                             var nuevaFila = $("<tr>")
-                                .append($("<td class='td-modal'>").text(response.data.nombre))
+                                .append(
+                                    $("<td class='td-modal'>").text(
+                                        response.data.nombre
+                                    )
+                                )
                                 .append(
                                     $("<td class='td-modal'>").html(
                                         '<div class="d-flex flex-column align-items-center">' +
                                             '<div class="btn-group m-1" role="group">' +
-                                            '<button type="button" class="btn btn-danger btn-eliminar-marca" data-id="' +
+                                            '<button type="button" class="btn btn-danger btn-eliminar-marca" data-bs-toggle="modal" ' +
+                                            'data-bs-target="#confirmarEliminacionMarca" data-id="' +
                                             response.data.id +
+                                            '" data-nombre="' +
+                                            response.data.nombre +
                                             '">' +
                                             '<i class="material-icons-outlined">delete</i>' +
                                             "</button>" +
@@ -103,7 +110,7 @@ $(document).ready(function () {
                                     )
                                 );
 
-                            tablaMarcas.find("tbody").append(nuevaFila);
+                            tablaMarcas.find("tbody").prepend(nuevaFila);
 
                             obtenerMarcas();
 
@@ -115,7 +122,7 @@ $(document).ready(function () {
                                 .show();
                             setTimeout(function () {
                                 $("#mensaje-success-marca").hide();
-                            }, 4000);
+                            }, 2000);
                         } else {
                             alert("No se pudo guardar");
                         }
@@ -126,50 +133,91 @@ $(document).ready(function () {
                 });
             }
         });
+    });
 
-        $(document).off("click", ".btn-eliminar-marca");
+    var confirmarModalMarca = $("#confirmarEliminacionMarca");
+    var subirModalMarca = $("#subirModalMarca");
 
-        $(document).on("click", ".btn-eliminar-marca", function (event) {
-            event.preventDefault();
+    tablaMarcas.on("click", ".btn-eliminar-marca", function (event) {
+        event.preventDefault();
 
-            var marcaId = $(this).data("id");
-            var row = $(this).closest("tr");
+        var marcaId = $(this).data("id");
+        var marcaNombre = $(this).data("nombre");
+        var row = $(this).closest("tr");
 
-            $.ajaxSetup({
-                headers: {
-                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
-                        "content"
-                    ),
-                },
-            });
+        $("#btn-confirmar-eliminacion")
+            .data("marca-id", marcaId)
+            .data("marca-nombre", marcaNombre);
 
-            $.ajax({
-                url: "/eliminar/marca/" + marcaId,
-                type: "DELETE",
-                dataType: "json",
-                success: function (response) {
-                    if (response.success) {
-                        row.remove();
-                        marcaSelect
-                            .find('option[value="' + marcaId + '"]')
-                            .remove();
+        $("#nombre-marca").text(marcaNombre);
 
-                        $("#mensaje-eliminado-marca")
-                            .removeClass("text-danger")
-                            .addClass("text-success")
-                            .text("Marca eliminada exitosamente.")
-                            .show();
-                        setTimeout(function () {
-                            $("#mensaje-eliminado-marca").hide();
-                        }, 4000);
-                    } else {
-                        alert("No se pudo eliminar la marca");
-                    }
-                },
-                error: function (xhr) {
-                    alert("Error en la solicitud");
-                },
-            });
+        confirmarModalMarca.modal("show");
+    });
+
+    $("#btn-confirmar-eliminacion").click(function () {
+        var marcaId = $(this).data("marca-id");
+        var marcaNombre = $(this).data("marca-nombre");
+        var row = $(".btn-eliminar-marca[data-id='" + marcaId + "']").closest(
+            "tr"
+        );
+
+        $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
         });
+
+        $.ajax({
+            url: "/eliminar/marca/" + marcaId,
+            type: "DELETE",
+            dataType: "json",
+            success: function (response) {
+                if (response.success) {
+                    row.remove();
+                    marcaSelect
+                        .find('option[value="' + marcaId + '"]')
+                        .remove();
+
+                    var mensajeExito = response.message;
+
+                    $("#mensaje-eliminado-marca")
+                        .removeClass("text-danger")
+                        .addClass("text-success")
+                        .text(mensajeExito)
+                        .show();
+                    setTimeout(function () {
+                        $("#mensaje-eliminado-marca").hide();
+                    }, 2000);
+
+                    confirmarModalMarca.modal("hide");
+                } else {
+                    confirmarModalMarca.modal("hide");
+                    $("#mensaje-eliminado-marca")
+                        .removeClass("text-success")
+                        .addClass("text-danger")
+                        .text(response.error)
+                        .show();
+                    setTimeout(function () {
+                        $("#mensaje-eliminado-marca").hide();
+                    }, 3000);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log(xhr.responseText);
+                confirmarModalMarca.modal("hide");
+                $("#mensaje-eliminado-marca")
+                    .removeClass("text-success")
+                    .addClass("text-danger")
+                    .text("No se puede eliminar esta marca")
+                    .show();
+                setTimeout(function () {
+                    $("#mensaje-eliminado-marca").hide();
+                }, 2000);
+            },
+        });
+    });
+
+    confirmarModalMarca.on("hidden.bs.modal", function () {
+        subirModalMarca.modal("show");
     });
 });

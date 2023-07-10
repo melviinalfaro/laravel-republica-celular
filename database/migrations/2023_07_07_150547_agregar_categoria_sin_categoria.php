@@ -14,7 +14,6 @@ class AgregarCategoriaSinCategoria extends Migration
      */
     public function up()
     {
-        // Crear la categoría "Sin categoría"
         $categoria = new Categoria();
         $categoria->nombre = "Sin categoría";
         $categoria->save();

@@ -14,7 +14,7 @@
                 <div class="modal-body">
                     <div class="container-fluid px-0">
                         <div class="row">
-                            <div class="col-md-6 text-color add-modal">
+                            <div class="col-md-6 text-color">
                                 <h6 class="modal-title fs-6 text-center pb-2">Categorías registradas</h6>
                                 <div class="table-scroll">
                                     <table class="table" id="tabla-categorias">
@@ -28,6 +28,7 @@
                                                                 <button type="button"
                                                                     class="btn btn-danger btn-eliminar-categoria"
                                                                     data-id="{{ $categoria->id }}"
+                                                                    data-nombre="{{ $categoria->nombre }}"
                                                                     data-bs-toggle="modal"
                                                                     data-bs-target="#confirmarEliminacionModal">
                                                                     <i class="material-icons-outlined">delete</i>
@@ -44,9 +45,8 @@
                             <div class="col-md-6 text-color">
                                 <h6 class="modal-title fs-6 text-center pb-2">Agregar nueva categoría</h6>
                                 <div class="form-group">
-                                    <input autocomplete="off" type="text" name="nombre" autofocus
-                                        class="form-control" id="categoria-input" required
-                                        placeholder="Ingrese el nombre de la categoría">
+                                    <input autocomplete="off" type="text" name="nombre" class="form-control"
+                                        id="categoria-input" required placeholder="Ingrese el nombre de la categoría">
                                     <div class="invalid-feedback invalid-feedback-categoria">Por favor ingresa una
                                         categoría válida
                                     </div>
@@ -81,7 +81,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p class="text-color text-center">¿Estás seguro de que deseas eliminar esta categoría?</p>
+                <p class="text-color text-center">¿Estás seguro de que deseas eliminar la categoría <span
+                    id="nombre-categoria"></span>?</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>

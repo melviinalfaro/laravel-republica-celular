@@ -100,6 +100,8 @@ $(document).ready(function () {
                                             '<button type="button" class="btn btn-danger btn-eliminar-categoria" data-bs-toggle="modal" ' +
                                             'data-bs-target="#confirmarEliminacionModal" data-id="' +
                                             response.data.id +
+                                            '" data-nombre="' +
+                                            response.data.nombre +
                                             '">' +
                                             '<i class="material-icons-outlined">delete</i>' +
                                             "</button>" +
@@ -140,15 +142,21 @@ $(document).ready(function () {
         event.preventDefault();
 
         var categoriaId = $(this).data("id");
+        var categoriaNombre = $(this).data("nombre");
         var row = $(this).closest("tr");
 
-        $("#btn-confirmar-eliminacion").data("categoria-id", categoriaId);
+        $("#btn-confirmar-eliminacion")
+            .data("categoria-id", categoriaId)
+            .data("categoria-nombre", categoriaNombre);
+
+        $("#nombre-categoria").text(categoriaNombre);
 
         confirmarModal.modal("show");
     });
 
     $("#btn-confirmar-eliminacion").click(function () {
         var categoriaId = $(this).data("categoria-id");
+        var categoriaNombre = $(this).data("categoria-nombre");
         var row = $(
             ".btn-eliminar-categoria[data-id='" + categoriaId + "']"
         ).closest("tr");
