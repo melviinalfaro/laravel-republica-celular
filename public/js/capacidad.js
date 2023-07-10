@@ -88,13 +88,20 @@ $(document).ready(function () {
                     success: function (response) {
                         if (response.success) {
                             var nuevaFila = $("<tr>")
-                                .append($("<td class='td-modal'>").text(response.data.nombre))
+                                .append(
+                                    $("<td class='td-modal'>").text(
+                                        response.data.nombre
+                                    )
+                                )
                                 .append(
                                     $("<td class='td-modal'>").html(
                                         '<div class="d-flex flex-column align-items-center">' +
                                             '<div class="btn-group m-1" role="group">' +
-                                            '<button type="button" class="btn btn-danger btn-eliminar-capacidad" data-id="' +
+                                            '<button type="button" class="btn btn-danger btn-eliminar-capacidad" data-bs-toggle="modal" ' +
+                                            'data-bs-target="#confirmarEliminacionCapacidad" data-id="' +
                                             response.data.id +
+                                            '" data-nombre="' +
+                                            response.data.nombre +
                                             '">' +
                                             '<i class="material-icons-outlined">delete</i>' +
                                             "</button>" +
@@ -103,7 +110,7 @@ $(document).ready(function () {
                                     )
                                 );
 
-                            tablaCapacidades.find("tbody").append(nuevaFila);
+                            tablaCapacidades.find("tbody").prepend(nuevaFila);
 
                             obtenerCapacidades();
 
@@ -115,7 +122,7 @@ $(document).ready(function () {
                                 .show();
                             setTimeout(function () {
                                 $("#mensaje-success-capacidad").hide();
-                            }, 4000);
+                            }, 2000);
                         } else {
                             alert("No se pudo guardar");
                         }
@@ -126,50 +133,91 @@ $(document).ready(function () {
                 });
             }
         });
+    });
 
-        $(document).off("click", ".btn-eliminar-capacidad");
+    var confirmarModalCapacidad = $("#confirmarEliminacionCapacidad");
+    var subirModalCapacidad = $("#subirModalCapacidad");
 
-        $(document).on("click", ".btn-eliminar-capacidad", function (event) {
-            event.preventDefault();
+    tablaCapacidades.on("click", ".btn-eliminar-capacidad", function (event) {
+        event.preventDefault();
 
-            var capacidadId = $(this).data("id");
-            var row = $(this).closest("tr");
+        var capacidadId = $(this).data("id");
+        var capacidadNombre = $(this).data("nombre");
+        var row = $(this).closest("tr");
 
-            $.ajaxSetup({
-                headers: {
-                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
-                        "content"
-                    ),
-                },
-            });
+        $("#btn-confirmar-eliminacion-capacidad")
+            .data("capacidad-id", capacidadId)
+            .data("capacidad-nombre", capacidadNombre);
 
-            $.ajax({
-                url: "/eliminar/capacidad/" + capacidadId,
-                type: "DELETE",
-                dataType: "json",
-                success: function (response) {
-                    if (response.success) {
-                        row.remove();
-                        capacidadSelect
-                            .find('option[value="' + capacidadId + '"]')
-                            .remove();
+        $("#nombre-capacidad").text(capacidadNombre);
 
-                        $("#mensaje-eliminado-capacidad")
-                            .removeClass("text-danger")
-                            .addClass("text-success")
-                            .text("Capacidad eliminada exitosamente.")
-                            .show();
-                        setTimeout(function () {
-                            $("#mensaje-eliminado-capacidad").hide();
-                        }, 4000);
-                    } else {
-                        alert("No se pudo eliminar la capacidad");
-                    }
-                },
-                error: function (xhr) {
-                    alert("Error en la solicitud");
-                },
-            });
+        confirmarModalCapacidad.modal("show");
+    });
+
+    $("#btn-confirmar-eliminacion-capacidad").click(function () {
+        var capacidadId = $(this).data("capacidad-id");
+        var capacidadNombre = $(this).data("capacidad-nombre");
+        var row = $(".btn-eliminar-capacidad[data-id='" + capacidadId + "']").closest(
+            "tr"
+        );
+
+        $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
         });
+
+        $.ajax({
+            url: "/eliminar/capacidad/" + capacidadId,
+            type: "DELETE",
+            dataType: "json",
+            success: function (response) {
+                if (response.success) {
+                    row.remove();
+                    capacidadSelect
+                        .find('option[value="' + capacidadId + '"]')
+                        .remove();
+
+                    var mensajeExito = response.message;
+
+                    $("#mensaje-eliminado-capacidad")
+                        .removeClass("text-danger")
+                        .addClass("text-success")
+                        .text(mensajeExito)
+                        .show();
+                    setTimeout(function () {
+                        $("#mensaje-eliminado-capacidad").hide();
+                    }, 2000);
+
+                    confirmarModalCapacidad.modal("hide");
+                } else {
+                    confirmarModalCapacidad.modal("hide");
+                    $("#mensaje-eliminado-capacidad")
+                        .removeClass("text-success")
+                        .addClass("text-danger")
+                        .text(response.error)
+                        .show();
+                    setTimeout(function () {
+                        $("#mensaje-eliminado-capacidad").hide();
+                    }, 3000);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log(xhr.responseText);
+                confirmarModalCapacidad.modal("hide");
+                $("#mensaje-eliminado-capacidad")
+                    .removeClass("text-success")
+                    .addClass("text-danger")
+                    .text("No se puede eliminar esta capacidad")
+                    .show();
+                setTimeout(function () {
+                    $("#mensaje-eliminado-capacidad").hide();
+                }, 2000);
+            },
+        });
+    });
+
+    confirmarModalCapacidad.on("hidden.bs.modal", function () {
+        subirModalCapacidad.modal("show");
     });
 });
