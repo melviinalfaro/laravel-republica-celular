@@ -145,7 +145,7 @@ $(document).ready(function () {
         var estadoNombre = $(this).data("nombre");
         var row = $(this).closest("tr");
 
-        $("#btn-confirmar-eliminacion")
+        $("#btn-confirmar-eliminacion-estado")
             .data("estado-id", estadoId)
             .data("estado-nombre", estadoNombre);
 
@@ -154,7 +154,7 @@ $(document).ready(function () {
         confirmarModalEstado.modal("show");
     });
 
-    $("#btn-confirmar-eliminacion").click(function () {
+    $("#btn-confirmar-eliminacion-estado").click(function () {
         var estadoId = $(this).data("estado-id");
         var estadoNombre = $(this).data("estado-nombre");
         var row = $(".btn-eliminar-estado[data-id='" + estadoId + "']").closest(

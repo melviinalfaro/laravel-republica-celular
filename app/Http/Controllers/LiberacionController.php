@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Liberacion;
+use App\Models\Producto;
 
 class LiberacionController extends Controller
 {
@@ -24,7 +25,7 @@ class LiberacionController extends Controller
             $liberacion->nombre = $request->input('nombre');
             $liberacion->save();
 
-            return response()->json(['success' => true, 'message' => 'Guardado exitosamente.', 'data' => $liberacion]);
+            return response()->json(['success' => true, 'message' => 'Liberación guardada exitosamente', 'data' => $liberacion]);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'error' => 'No se pudo guardar: ' . $e->getMessage()]);
         }
@@ -35,10 +36,43 @@ class LiberacionController extends Controller
         $liberacion = Liberacion::find($id);
 
         if ($liberacion) {
+            if ($liberacion->nombre === 'Sin liberación') {
+                return response()->json(['success' => false, 'error' => 'No se puede eliminar la liberación "Sin liberación"']);
+            }
+
+            $sinLiberacion = Liberacion::where('nombre', 'Sin liberación')->first();
+            $sinLiberacionId = $sinLiberacion->id;
+
+            Producto::where('liberacion_id', $liberacion->id)->update(['liberacion_id' => $sinLiberacionId]);
+
             $liberacion->delete();
-            return response()->json(['success' => true, 'message' => 'Liberación eliminada correctamente']);
+
+            return response()->json(['success' => true, 'message' => 'Liberación eliminada exitosamente']);
         } else {
             return response()->json(['success' => false, 'error' => 'No se pudo encontrar la liberación']);
         }
+    }
+
+    public function asignarLiberacionSinLiberacion(Request $request)
+    {
+        $liberacionId = $request->input('liberacionId');
+        $productos = Producto::where('liberacion_id', $liberacionId)->get();
+
+        if ($productos->isNotEmpty()) {
+            $sinLiberacion = Liberacion::where('nombre', 'Sin liberación')->first();
+
+            if ($sinLiberacion) {
+                foreach ($productos as $producto) {
+                    $producto->liberacion_id = $sinLiberacion->id;
+                    $producto->save();
+                }
+
+                return response()->json(['success' => true, 'message' => 'Liberación asignada correctamente']);
+            } else {
+                return response()->json(['success' => false, 'error' => 'No se encontró la liberación "Sin liberación"']);
+            }
+        }
+
+        return response()->json(['success' => true, 'message' => 'No hay productos asociados a esta liberación']);
     }
 }

@@ -145,7 +145,7 @@ $(document).ready(function () {
         var marcaNombre = $(this).data("nombre");
         var row = $(this).closest("tr");
 
-        $("#btn-confirmar-eliminacion")
+        $("#btn-confirmar-eliminacion-marca")
             .data("marca-id", marcaId)
             .data("marca-nombre", marcaNombre);
 
@@ -154,7 +154,7 @@ $(document).ready(function () {
         confirmarModalMarca.modal("show");
     });
 
-    $("#btn-confirmar-eliminacion").click(function () {
+    $("#btn-confirmar-eliminacion-marca").click(function () {
         var marcaId = $(this).data("marca-id");
         var marcaNombre = $(this).data("marca-nombre");
         var row = $(".btn-eliminar-marca[data-id='" + marcaId + "']").closest(

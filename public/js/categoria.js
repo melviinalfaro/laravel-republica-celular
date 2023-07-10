@@ -145,7 +145,7 @@ $(document).ready(function () {
         var categoriaNombre = $(this).data("nombre");
         var row = $(this).closest("tr");
 
-        $("#btn-confirmar-eliminacion")
+        $("#btn-confirmar-eliminacion-categoria")
             .data("categoria-id", categoriaId)
             .data("categoria-nombre", categoriaNombre);
 
@@ -154,7 +154,7 @@ $(document).ready(function () {
         confirmarModal.modal("show");
     });
 
-    $("#btn-confirmar-eliminacion").click(function () {
+    $("#btn-confirmar-eliminacion-categoria").click(function () {
         var categoriaId = $(this).data("categoria-id");
         var categoriaNombre = $(this).data("categoria-nombre");
         var row = $(

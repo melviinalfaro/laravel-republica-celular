@@ -97,8 +97,11 @@ $(document).ready(function () {
                                     $("<td class='td-modal'>").html(
                                         '<div class="d-flex flex-column align-items-center">' +
                                             '<div class="btn-group m-1" role="group">' +
-                                            '<button type="button" class="btn btn-danger btn-eliminar-liberacion" data-id="' +
+                                            '<button type="button" class="btn btn-danger btn-eliminar-liberacion" data-bs-toggle="modal" ' +
+                                            'data-bs-target="#confirmarEliminacionLiberacion" data-id="' +
                                             response.data.id +
+                                            '" data-nombre="' +
+                                            response.data.nombre +
                                             '">' +
                                             '<i class="material-icons-outlined">delete</i>' +
                                             "</button>" +
@@ -107,7 +110,7 @@ $(document).ready(function () {
                                     )
                                 );
 
-                            tablaLiberaciones.find("tbody").append(nuevaFila);
+                            tablaLiberaciones.find("tbody").prepend(nuevaFila);
 
                             obtenerLiberaciones();
 
@@ -119,7 +122,7 @@ $(document).ready(function () {
                                 .show();
                             setTimeout(function () {
                                 $("#mensaje-success-liberacion").hide();
-                            }, 4000);
+                            }, 2000);
                         } else {
                             alert("No se pudo guardar");
                         }
@@ -130,50 +133,100 @@ $(document).ready(function () {
                 });
             }
         });
+    });
 
-        $(document).off("click", ".btn-eliminar-liberacion");
+    var confirmarModalLiberacion = $("#confirmarEliminacionLiberacion");
+    var subirModalLiberacion = $("#subirModalLiberacion");
 
-        $(document).on("click", ".btn-eliminar-liberacion", function (event) {
-            event.preventDefault();
+    tablaLiberaciones.on("click", ".btn-eliminar-liberacion", function (event) {
+        event.preventDefault();
 
-            var liberacionId = $(this).data("id");
-            var row = $(this).closest("tr");
+        var liberacionId = $(this).data("id");
+        var liberacionNombre = $(this).data("nombre");
+        var row = $(this).closest("tr");
 
-            $.ajaxSetup({
-                headers: {
-                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
-                        "content"
-                    ),
-                },
-            });
+        $("#btn-confirmar-eliminacion-liberacion")
+            .data("liberacion-id", liberacionId)
+            .data("liberacion-nombre", liberacionNombre);
 
-            $.ajax({
-                url: "/eliminar/liberacion/" + liberacionId,
-                type: "DELETE",
-                dataType: "json",
-                success: function (response) {
-                    if (response.success) {
-                        row.remove();
-                        liberacionSelect
-                            .find('option[value="' + liberacionId + '"]')
-                            .remove();
+        $("#nombre-liberacion").text(liberacionNombre);
 
-                        $("#mensaje-eliminado-liberacion")
-                            .removeClass("text-danger")
-                            .addClass("text-success")
-                            .text("Liberación eliminada exitosamente.")
-                            .show();
-                        setTimeout(function () {
-                            $("#mensaje-eliminado-liberacion").hide();
-                        }, 4000);
-                    } else {
-                        alert("No se pudo eliminar la liberación");
-                    }
-                },
-                error: function (xhr) {
-                    alert("Error en la solicitud");
-                },
-            });
+        confirmarModalLiberacion.modal("show");
+    });
+
+    $("#btn-confirmar-eliminacion-liberacion").click(function () {
+        var liberacionId = $(this).data("liberacion-id");
+        var liberacionNombre = $(this).data("liberacion-nombre");
+        var row = $(
+            ".btn-eliminar-liberacion[data-id='" + liberacionId + "']"
+        ).closest("tr");
+
+        $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
         });
+
+        $.ajax({
+            url: "/eliminar/liberacion/" + liberacionId,
+            type: "DELETE",
+            dataType: "json",
+            success: function (response) {
+                if (response.success) {
+                    row.remove();
+                    liberacionSelect
+                        .find('option[value="' + liberacionId + '"]')
+                        .remove();
+
+                    var mensajeExito = response.message;
+
+                    $("#mensaje-eliminado-liberacion")
+                        .removeClass("text-danger")
+                        .addClass("text-success")
+                        .text(mensajeExito)
+                        .show();
+                    setTimeout(function () {
+                        $("#mensaje-eliminado-liberacion").hide();
+                    }, 2000);
+
+                    confirmarModalLiberacion.modal("hide");
+                } else {
+                    confirmarModalLiberacion.modal("hide");
+                    $("#mensaje-eliminado-liberacion")
+                        .removeClass("text-success")
+                        .addClass("text-danger")
+                        .text(response.error)
+                        .show();
+                    setTimeout(function () {
+                        $("#mensaje-eliminado-liberacion").hide();
+                    }, 3000);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log(xhr.responseText);
+                console.log(status);
+                console.log(error);
+
+                var errorMessage = "Ocurrió un error en la solicitud";
+
+                if (xhr.responseJSON && xhr.responseJSON.error) {
+                    errorMessage = xhr.responseJSON.error;
+                }
+
+                confirmarModalLiberacion.modal("hide");
+                $("#mensaje-eliminado-liberacion")
+                    .removeClass("text-success")
+                    .addClass("text-danger")
+                    .text(errorMessage)
+                    .show();
+                setTimeout(function () {
+                    $("#mensaje-eliminado-liberacion").hide();
+                }, 3000);
+            },
+        });
+    });
+
+    confirmarModalLiberacion.on("hidden.bs.modal", function () {
+        subirModalLiberacion.modal("show");
     });
 });
