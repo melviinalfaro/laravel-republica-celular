@@ -21,11 +21,15 @@ class CapacidadController extends Controller
         ]);
 
         try {
-            $capacidad = new Capacidad();
-            $capacidad->nombre = $request->input('nombre');
-            $capacidad->save();
+            $nombreCapacidad = $request->input('nombre');
 
-            return response()->json(['success' => true, 'message' => 'Capacidad guardada exitosamente', 'data' => $capacidad]);
+            $capacidad = Capacidad::firstOrCreate(['nombre' => $nombreCapacidad]);
+
+            if ($capacidad->wasRecentlyCreated) {
+                return response()->json(['success' => true, 'message' => 'Capacidad creada exitosamente', 'data' => $capacidad]);
+            } else {
+                return response()->json(['success' => false, 'error' => 'La capacidad ya existe']);
+            }
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'error' => 'No se pudo guardar: ' . $e->getMessage()]);
         }

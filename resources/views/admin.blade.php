@@ -66,7 +66,9 @@
                 </div>
             </div>
         </div>
-        <x-utils.btn-add />
-        <x-utils.btn-cuenta />
+        <footer>
+            <x-navbars.nav-md-inicio />
+            <x-navbars.nav-inicio />
+        </footer>
     </div>
 @endsection

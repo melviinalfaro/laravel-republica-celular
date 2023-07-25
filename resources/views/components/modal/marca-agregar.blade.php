@@ -57,6 +57,7 @@
                 <div class="modal-footer d-flex justify-content-between">
                     <div class="d-none d-sm-block">
                         <div class="text-success" id="mensaje-success-marca"></div>
+                        <div class="text-danger" id="mensaje-error-marca"></div>
                         <div class="text-success" id="mensaje-eliminado-marca"></div>
                     </div>
                     <div>

@@ -18,6 +18,7 @@ class ProductoController extends Controller
     public function index()
     {
         $productos = Producto::with('estado', 'marca', 'capacidad', 'categoria', 'liberacion')->paginate(9);
+
         $estados = Estado::all();
         $marcas = Marca::all();
         $capacidades = Capacidad::all();
@@ -35,7 +36,7 @@ class ProductoController extends Controller
             'color' => 'required|string|max:128',
             'stock' => 'required|integer',
             'imagen' => 'required|image',
-            'descripcion' => 'required|string|max:255',
+            'descripcion' => 'required|string|max:512',
             'estado' => 'required',
             'marca' => 'required',
             'capacidad' => 'required',

@@ -21,11 +21,15 @@ class LiberacionController extends Controller
         ]);
 
         try {
-            $liberacion = new Liberacion();
-            $liberacion->nombre = $request->input('nombre');
-            $liberacion->save();
+            $nombreLiberacion = $request->input('nombre');
 
-            return response()->json(['success' => true, 'message' => 'Liberación guardada exitosamente', 'data' => $liberacion]);
+            $liberacion = Liberacion::firstOrCreate(['nombre' => $nombreLiberacion]);
+
+            if ($liberacion->wasRecentlyCreated) {
+                return response()->json(['success' => true, 'message' => 'Liberación creada exitosamente', 'data' => $liberacion]);
+            } else {
+                return response()->json(['success' => false, 'error' => 'La liberación ya existe']);
+            }
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'error' => 'No se pudo guardar: ' . $e->getMessage()]);
         }

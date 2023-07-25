@@ -21,16 +21,19 @@ class CategoriaController extends Controller
         ]);
 
         try {
-            $categoria = new Categoria();
-            $categoria->nombre = $request->input('nombre');
-            $categoria->save();
+            $nombreCategoria = $request->input('nombre');
 
-            return response()->json(['success' => true, 'message' => 'Categoría guardada exitosamente', 'data' => $categoria]);
+            $categoria = Categoria::firstOrCreate(['nombre' => $nombreCategoria]);
+
+            if ($categoria->wasRecentlyCreated) {
+                return response()->json(['success' => true, 'message' => 'Categoría creada exitosamente', 'data' => $categoria]);
+            } else {
+                return response()->json(['success' => false, 'error' => 'La categoría ya existe']);
+            }
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'error' => 'No se pudo guardar: ' . $e->getMessage()]);
         }
     }
-
     public function destroy(Request $request, $id)
     {
         $categoria = Categoria::find($id);

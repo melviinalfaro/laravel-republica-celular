@@ -21,16 +21,19 @@ class EstadoController extends Controller
         ]);
 
         try {
-            $estado = new Estado();
-            $estado->nombre = $request->input('nombre');
-            $estado->save();
+            $nombreEstado = $request->input('nombre');
 
-            return response()->json(['success' => true, 'message' => 'Guardado exitosamente.', 'data' => $estado]);
+            $estado = Estado::firstOrCreate(['nombre' => $nombreEstado]);
+
+            if ($estado->wasRecentlyCreated) {
+                return response()->json(['success' => true, 'message' => 'Estado creado exitosamente', 'data' => $estado]);
+            } else {
+                return response()->json(['success' => false, 'error' => 'El estado ya existe']);
+            }
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'error' => 'No se pudo guardar: ' . $e->getMessage()]);
         }
     }
-
     public function destroy(Request $request, $id)
     {
         $estado = Estado::find($id);
@@ -52,7 +55,6 @@ class EstadoController extends Controller
             return response()->json(['success' => false, 'error' => 'No se pudo encontrar el estado']);
         }
     }
-
     public function asignarEstadoSinEstado(Request $request)
     {
         $estadoId = $request->input('estadoId');

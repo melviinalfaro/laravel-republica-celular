@@ -3,12 +3,12 @@
 @section('title', 'Imágenes del carrusel')
 
 @section('content')
-    <div class="container-lg py-3">
+    <div class="container-lg">
         <div class="table-responsive py-3">
             <table id="miTabla" class="table">
                 <thead>
                     <tr>
-                        <th scope="col" class="text-center">#</th>
+                        <th scope="col">#</th>
                         <th scope="col">Título</th>
                         <th scope="col">Imagen</th>
                         <th scope="col">Acciones</th>
@@ -18,7 +18,7 @@
                     <?php $c = 1; ?>
                     @foreach ($carruseles as $carrusel)
                         <tr>
-                            <td class="text-center">{{ $c++ }}</td>
+                            <td>{{ $c++ }}</td>
                             <td data-label="Nombre">{{ $carrusel->nombre }}</td>
                             <td data-label="Imagen"><img class="imagen"
                                     src="{{ URL::to('/') . '/carrusel/' . $carrusel->id . '/' . $carrusel->imagen }}"></td>
@@ -57,13 +57,15 @@
                 </tbody>
             </table>
         </div>
+        <footer>
+            <x-navbars.nav-md-admin-carrusel />
+            <x-navbars.nav-carrusel-admin />
+        </footer>
     </div>
 
     <x-modal.carrusel-agregar />
 
-    <x-utils.btn-add-carrusel />
     <x-utils.notificaciones />
-    <x-utils.btn-cuenta />
 
     </div>
 @endsection

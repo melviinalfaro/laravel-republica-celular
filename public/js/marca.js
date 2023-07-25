@@ -115,20 +115,44 @@ $(document).ready(function () {
                             obtenerMarcas();
 
                             formMarca.trigger("reset");
-                            $("#mensaje-success-marca")
-                                .removeClass("text-danger")
-                                .addClass("text-success")
-                                .text(response.message)
-                                .show();
+                            if (response.data.wasRecentlyCreated) {
+                                $("#mensaje-success-marca")
+                                    .removeClass("text-success")
+                                    .addClass("text-danger")
+                                    .text(response.message)
+                                    .show();
+                                $("#mensaje-error-marca").hide();
+                            } else {
+                                $("#mensaje-success-marca").hide();
+                                $("#mensaje-error-marca")
+                                    .removeClass("text-danger")
+                                    .addClass("text-success")
+                                    .text(response.message)
+                                    .show();
+                            }
                             setTimeout(function () {
                                 $("#mensaje-success-marca").hide();
-                            }, 2000);
+                                $("#mensaje-error-marca").hide();
+                            }, 3000);
                         } else {
-                            alert("No se pudo guardar");
+                            $("#mensaje-success-marca").hide();
+                            $("#mensaje-error-marca")
+                                .removeClass("text-success")
+                                .addClass("text-danger")
+                                .text("No se pudo guardar: " + response.error)
+                                .show();
+                            setTimeout(function () {
+                                $("#mensaje-error-marca").hide();
+                            }, 3000);
                         }
                     },
                     error: function (xhr) {
-                        alert("Error en la solicitud");
+                        $("#mensaje-success-marca").hide();
+                        $("#mensaje-error-marca")
+                            .removeClass("text-success")
+                            .addClass("text-danger")
+                            .text("Error en la solicitud")
+                            .show();
                     },
                 });
             }
@@ -178,16 +202,14 @@ $(document).ready(function () {
                         .find('option[value="' + marcaId + '"]')
                         .remove();
 
-                    var mensajeExito = response.message;
-
                     $("#mensaje-eliminado-marca")
                         .removeClass("text-danger")
                         .addClass("text-success")
-                        .text(mensajeExito)
+                        .text(response.message)
                         .show();
                     setTimeout(function () {
                         $("#mensaje-eliminado-marca").hide();
-                    }, 2000);
+                    }, 3000);
 
                     confirmarModalMarca.modal("hide");
                 } else {
@@ -212,7 +234,7 @@ $(document).ready(function () {
                     .show();
                 setTimeout(function () {
                     $("#mensaje-eliminado-marca").hide();
-                }, 2000);
+                }, 3000);
             },
         });
     });

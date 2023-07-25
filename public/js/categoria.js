@@ -115,20 +115,44 @@ $(document).ready(function () {
                             obtenerCategorias();
 
                             formCategoria.trigger("reset");
-                            $("#mensaje-success-categoria")
-                                .removeClass("text-danger")
-                                .addClass("text-success")
-                                .text(response.message)
-                                .show();
+                            if (response.data.wasRecentlyCreated) {
+                                $("#mensaje-success-categoria")
+                                    .removeClass("text-success")
+                                    .addClass("text-danger")
+                                    .text(response.message)
+                                    .show();
+                                $("#mensaje-error-categoria").hide();
+                            } else {
+                                $("#mensaje-success-categoria").hide();
+                                $("#mensaje-error-categoria")
+                                    .removeClass("text-danger")
+                                    .addClass("text-success")
+                                    .text(response.message)
+                                    .show();
+                            }
                             setTimeout(function () {
                                 $("#mensaje-success-categoria").hide();
-                            }, 2000);
+                                $("#mensaje-error-categoria").hide();
+                            }, 3000);
                         } else {
-                            alert("No se pudo guardar");
+                            $("#mensaje-success-categoria").hide();
+                            $("#mensaje-error-categoria")
+                                .removeClass("text-success")
+                                .addClass("text-danger")
+                                .text("No se pudo guardar: " + response.error)
+                                .show();
+                            setTimeout(function () {
+                                $("#mensaje-error-categoria").hide();
+                            }, 3000);
                         }
                     },
                     error: function (xhr) {
-                        alert("Error en la solicitud");
+                        $("#mensaje-success-categoria").hide();
+                        $("#mensaje-error-categoria")
+                            .removeClass("text-success")
+                            .addClass("text-danger")
+                            .text("Error en la solicitud")
+                            .show();
                     },
                 });
             }
@@ -178,16 +202,14 @@ $(document).ready(function () {
                         .find('option[value="' + categoriaId + '"]')
                         .remove();
 
-                    var mensajeExito = response.message;
-
                     $("#mensaje-eliminado-categoria")
                         .removeClass("text-danger")
                         .addClass("text-success")
-                        .text(mensajeExito)
+                        .text(response.message)
                         .show();
                     setTimeout(function () {
                         $("#mensaje-eliminado-categoria").hide();
-                    }, 2000);
+                    }, 3000);
 
                     confirmarModal.modal("hide");
                 } else {
@@ -212,7 +234,7 @@ $(document).ready(function () {
                     .show();
                 setTimeout(function () {
                     $("#mensaje-eliminado-categoria").hide();
-                }, 2000);
+                }, 3000);
             },
         });
     });

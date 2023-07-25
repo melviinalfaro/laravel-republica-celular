@@ -1,4 +1,4 @@
-<nav class="sidebar close">
+<nav class="sidebar">
     <header>
         <div class="image-text">
             <span class="image">
@@ -21,6 +21,12 @@
                     </a>
                 </li>
                 <li class="nav-link">
+                    <a href="#">
+                        <i class="icon material-icons-outlined">shopping_bag</i>
+                        <span class="text nav-text">Venta</span>
+                    </a>
+                </li>
+                <li class="nav-link">
                     <a href="{{ route('productos') }}" class="{{ Request::is('productos') ? 'active' : '' }}">
                         <i class="icon material-icons-outlined">inventory_2</i>
                         <span class="text nav-text">Inventario</span>
@@ -30,12 +36,6 @@
                     <a href="#">
                         <i class="icon material-icons-outlined">delivery_dining</i>
                         <span class="text nav-text">Entregas</span>
-                    </a>
-                </li>
-                <li class="nav-link">
-                    <a href="#">
-                        <i class="icon material-icons-outlined">storefront</i>
-                        <span class="text nav-text">Proveedores</span>
                     </a>
                 </li>
                 <li class="nav-link">

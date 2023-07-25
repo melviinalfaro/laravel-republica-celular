@@ -13,13 +13,13 @@
                 @csrf
                 @method('PUT')
                 <div class="modal-body">
-                    <div class="container-fluid">
+                    <div class="container-fluid px-0">
                         <div class="row">
-                            <div class="columna col-md-7">
+                            <div class="col-md-7">
                                 <img class="editar-imagen"
                                     src="{{ URL::to('/') . '/carrusel/' . $carrusel->id . '/' . $carrusel->imagen }}">
                             </div>
-                            <div class="columna col-md-5">
+                            <div class="col-md-5">
                                 <div class="form-group">
                                     <label for="nombre-input-editar{{ $carrusel->id }}"
                                         class="label-nombre text-color">{{ __('Título') }}</label>

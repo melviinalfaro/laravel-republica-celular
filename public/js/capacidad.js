@@ -115,20 +115,44 @@ $(document).ready(function () {
                             obtenerCapacidades();
 
                             formCapacidad.trigger("reset");
-                            $("#mensaje-success-capacidad")
-                                .removeClass("text-danger")
-                                .addClass("text-success")
-                                .text(response.message)
-                                .show();
+                            if (response.data.wasRecentlyCreated) {
+                                $("#mensaje-success-capacidad")
+                                    .removeClass("text-success")
+                                    .addClass("text-danger")
+                                    .text(response.message)
+                                    .show();
+                                $("#mensaje-error-capacidad").hide();
+                            } else {
+                                $("#mensaje-success-capacidad").hide();
+                                $("#mensaje-error-capacidad")
+                                    .removeClass("text-danger")
+                                    .addClass("text-success")
+                                    .text(response.message)
+                                    .show();
+                            }
                             setTimeout(function () {
                                 $("#mensaje-success-capacidad").hide();
-                            }, 2000);
+                                $("#mensaje-error-capacidad").hide();
+                            }, 3000);
                         } else {
-                            alert("No se pudo guardar");
+                            $("#mensaje-success-capacidad").hide();
+                            $("#mensaje-error-capacidad")
+                                .removeClass("text-success")
+                                .addClass("text-danger")
+                                .text("No se pudo guardar: " + response.error)
+                                .show();
+                            setTimeout(function () {
+                                $("#mensaje-error-capacidad").hide();
+                            }, 3000);
                         }
                     },
                     error: function (xhr) {
-                        alert("Error en la solicitud");
+                        $("#mensaje-success-capacidad").hide();
+                        $("#mensaje-error-capacidad")
+                            .removeClass("text-success")
+                            .addClass("text-danger")
+                            .text("Error en la solicitud")
+                            .show();
                     },
                 });
             }
@@ -178,16 +202,14 @@ $(document).ready(function () {
                         .find('option[value="' + capacidadId + '"]')
                         .remove();
 
-                    var mensajeExito = response.message;
-
                     $("#mensaje-eliminado-capacidad")
                         .removeClass("text-danger")
                         .addClass("text-success")
-                        .text(mensajeExito)
+                        .text(response.message)
                         .show();
                     setTimeout(function () {
                         $("#mensaje-eliminado-capacidad").hide();
-                    }, 2000);
+                    }, 3000);
 
                     confirmarModalCapacidad.modal("hide");
                 } else {
@@ -212,7 +234,7 @@ $(document).ready(function () {
                     .show();
                 setTimeout(function () {
                     $("#mensaje-eliminado-capacidad").hide();
-                }, 2000);
+                }, 3000);
             },
         });
     });

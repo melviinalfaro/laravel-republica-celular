@@ -21,16 +21,19 @@ class MarcaController extends Controller
         ]);
 
         try {
-            $marca = new Marca();
-            $marca->nombre = $request->input('nombre');
-            $marca->save();
+            $nombreMarca = $request->input('nombre');
 
-            return response()->json(['success' => true, 'message' => 'Guardado exitosamente.', 'data' => $marca]);
+            $marca = Marca::firstOrCreate(['nombre' => $nombreMarca]);
+
+            if ($marca->wasRecentlyCreated) {
+                return response()->json(['success' => true, 'message' => 'Marca creada exitosamente', 'data' => $marca]);
+            } else {
+                return response()->json(['success' => false, 'error' => 'La marca ya existe']);
+            }
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'error' => 'No se pudo guardar: ' . $e->getMessage()]);
         }
     }
-
     public function destroy(Request $request, $id)
     {
         $marca = Marca::find($id);
@@ -52,7 +55,6 @@ class MarcaController extends Controller
             return response()->json(['success' => false, 'error' => 'No se pudo encontrar la marca']);
         }
     }
-
     public function asignarMarcaSinMarca(Request $request)
     {
         $marcaId = $request->input('marcaId');

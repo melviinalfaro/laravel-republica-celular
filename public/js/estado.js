@@ -115,20 +115,44 @@ $(document).ready(function () {
                             obtenerEstados();
 
                             formEstado.trigger("reset");
-                            $("#mensaje-success-estado")
-                                .removeClass("text-danger")
-                                .addClass("text-success")
-                                .text(response.message)
-                                .show();
+                            if (response.data.wasRecentlyCreated) {
+                                $("#mensaje-success-estado")
+                                    .removeClass("text-success")
+                                    .addClass("text-danger")
+                                    .text(response.message)
+                                    .show();
+                                $("#mensaje-error-estado").hide();
+                            } else {
+                                $("#mensaje-success-estado").hide();
+                                $("#mensaje-error-estado")
+                                    .removeClass("text-danger")
+                                    .addClass("text-success")
+                                    .text(response.message)
+                                    .show();
+                            }
                             setTimeout(function () {
                                 $("#mensaje-success-estado").hide();
-                            }, 2000);
+                                $("#mensaje-error-estado").hide();
+                            }, 3000);
                         } else {
-                            alert("No se pudo guardar");
+                            $("#mensaje-success-estado").hide();
+                            $("#mensaje-error-estado")
+                                .removeClass("text-success")
+                                .addClass("text-danger")
+                                .text("No se pudo guardar: " + response.error)
+                                .show();
+                            setTimeout(function () {
+                                $("#mensaje-error-estado").hide();
+                            }, 3000);
                         }
                     },
                     error: function (xhr) {
-                        alert("Error en la solicitud");
+                        $("#mensaje-success-estado").hide();
+                        $("#mensaje-error-estado")
+                            .removeClass("text-success")
+                            .addClass("text-danger")
+                            .text("Error en la solicitud")
+                            .show();
                     },
                 });
             }
@@ -157,9 +181,9 @@ $(document).ready(function () {
     $("#btn-confirmar-eliminacion-estado").click(function () {
         var estadoId = $(this).data("estado-id");
         var estadoNombre = $(this).data("estado-nombre");
-        var row = $(".btn-eliminar-estado[data-id='" + estadoId + "']").closest(
-            "tr"
-        );
+        var row = $(
+            ".btn-eliminar-estado[data-id='" + estadoId + "']"
+        ).closest("tr");
 
         $.ajaxSetup({
             headers: {
@@ -178,16 +202,14 @@ $(document).ready(function () {
                         .find('option[value="' + estadoId + '"]')
                         .remove();
 
-                    var mensajeExito = response.message;
-
                     $("#mensaje-eliminado-estado")
                         .removeClass("text-danger")
                         .addClass("text-success")
-                        .text(mensajeExito)
+                        .text(response.message)
                         .show();
                     setTimeout(function () {
                         $("#mensaje-eliminado-estado").hide();
-                    }, 2000);
+                    }, 3000);
 
                     confirmarModalEstado.modal("hide");
                 } else {
@@ -212,7 +234,7 @@ $(document).ready(function () {
                     .show();
                 setTimeout(function () {
                     $("#mensaje-eliminado-estado").hide();
-                }, 2000);
+                }, 3000);
             },
         });
     });

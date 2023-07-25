@@ -39,7 +39,7 @@
     </div>
 
     <header>
-        <x-navbar />
+        <x-navbars.navbar />
     </header>
 
     <main>

@@ -108,7 +108,7 @@
                                 <div class="form-group">
                                     <label for="descripcion-textarea"
                                         class="label-file text-color">{{ __('Descripción del producto') }}</label>
-                                    <textarea autocomplete="off" name="descripcion" class="form-control" id="descripcion-textarea" required maxlength="250"></textarea>
+                                    <textarea autocomplete="off" name="descripcion" class="form-control" id="descripcion-textarea" required maxlength="512"></textarea>
                                     <div class="invalid-feedback invalid-feedback-descripcion">Por favor ingresa una
                                         descripción válida</div>
                                 </div>
@@ -118,7 +118,7 @@
                                     <label for="image-producto-input"
                                         class="label-file text-color">{{ __('Imagen principal') }}</label>
                                     <label for="image-producto-input" class="file-upload-producto">
-                                        <p>Selecciona la imagen</p>
+                                        <p>Clic para seleccionar la imagen</p>
                                         <p class="image-producto-name"></p>
                                     </label>
                                     <input type="file" name="imagen" accept=".jpg, .jpeg, .png, .gif, .webp"

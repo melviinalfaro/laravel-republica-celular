@@ -58,6 +58,7 @@
                 <div class="modal-footer d-flex justify-content-between">
                     <div class="d-none d-sm-block">
                         <div class="text-success" id="mensaje-success-categoria"></div>
+                        <div class="text-danger" id="mensaje-error-categoria"></div>
                         <div class="text-success" id="mensaje-eliminado-categoria"></div>
                     </div>
                     <div>
@@ -82,7 +83,7 @@
             </div>
             <div class="modal-body">
                 <p class="text-color text-center">¿Estás seguro de que deseas eliminar la categoría <span
-                    id="nombre-categoria"></span>?</p>
+                        id="nombre-categoria"></span>?</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>

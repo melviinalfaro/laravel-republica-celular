@@ -115,20 +115,44 @@ $(document).ready(function () {
                             obtenerLiberaciones();
 
                             formLiberacion.trigger("reset");
-                            $("#mensaje-success-liberacion")
-                                .removeClass("text-danger")
-                                .addClass("text-success")
-                                .text(response.message)
-                                .show();
+                            if (response.data.wasRecentlyCreated) {
+                                $("#mensaje-success-liberacion")
+                                    .removeClass("text-success")
+                                    .addClass("text-danger")
+                                    .text(response.message)
+                                    .show();
+                                $("#mensaje-error-liberacion").hide();
+                            } else {
+                                $("#mensaje-success-liberacion").hide();
+                                $("#mensaje-error-liberacion")
+                                    .removeClass("text-danger")
+                                    .addClass("text-success")
+                                    .text(response.message)
+                                    .show();
+                            }
                             setTimeout(function () {
                                 $("#mensaje-success-liberacion").hide();
-                            }, 2000);
+                                $("#mensaje-error-liberacion").hide();
+                            }, 3000);
                         } else {
-                            alert("No se pudo guardar");
+                            $("#mensaje-success-liberacion").hide();
+                            $("#mensaje-error-liberacion")
+                                .removeClass("text-success")
+                                .addClass("text-danger")
+                                .text("No se pudo guardar: " + response.error)
+                                .show();
+                            setTimeout(function () {
+                                $("#mensaje-error-liberacion").hide();
+                            }, 3000);
                         }
                     },
                     error: function (xhr) {
-                        alert("Error en la solicitud");
+                        $("#mensaje-success-liberacion").hide();
+                        $("#mensaje-error-liberacion")
+                            .removeClass("text-success")
+                            .addClass("text-danger")
+                            .text("Error en la solicitud")
+                            .show();
                     },
                 });
             }
@@ -157,9 +181,9 @@ $(document).ready(function () {
     $("#btn-confirmar-eliminacion-liberacion").click(function () {
         var liberacionId = $(this).data("liberacion-id");
         var liberacionNombre = $(this).data("liberacion-nombre");
-        var row = $(
-            ".btn-eliminar-liberacion[data-id='" + liberacionId + "']"
-        ).closest("tr");
+        var row = $(".btn-eliminar-liberacion[data-id='" + liberacionId + "']").closest(
+            "tr"
+        );
 
         $.ajaxSetup({
             headers: {
@@ -178,16 +202,14 @@ $(document).ready(function () {
                         .find('option[value="' + liberacionId + '"]')
                         .remove();
 
-                    var mensajeExito = response.message;
-
                     $("#mensaje-eliminado-liberacion")
                         .removeClass("text-danger")
                         .addClass("text-success")
-                        .text(mensajeExito)
+                        .text(response.message)
                         .show();
                     setTimeout(function () {
                         $("#mensaje-eliminado-liberacion").hide();
-                    }, 2000);
+                    }, 3000);
 
                     confirmarModalLiberacion.modal("hide");
                 } else {
@@ -204,20 +226,11 @@ $(document).ready(function () {
             },
             error: function (xhr, status, error) {
                 console.log(xhr.responseText);
-                console.log(status);
-                console.log(error);
-
-                var errorMessage = "Ocurrió un error en la solicitud";
-
-                if (xhr.responseJSON && xhr.responseJSON.error) {
-                    errorMessage = xhr.responseJSON.error;
-                }
-
                 confirmarModalLiberacion.modal("hide");
                 $("#mensaje-eliminado-liberacion")
                     .removeClass("text-success")
                     .addClass("text-danger")
-                    .text(errorMessage)
+                    .text("No se puede eliminar esta liberación")
                     .show();
                 setTimeout(function () {
                     $("#mensaje-eliminado-liberacion").hide();

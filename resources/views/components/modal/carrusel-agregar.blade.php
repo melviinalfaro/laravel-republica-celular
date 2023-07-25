@@ -22,7 +22,7 @@
                     <div class="form-group">
                         <label for="image-upload-input" class="label-file text-color">{{ __('Imagen') }}</label>
                         <label for="image-upload-input" class="file-upload">
-                            <p>Selecciona la imagen</p>
+                            <p>Clic para seleccionar la imagen</p>
                             <small>800x450 píxeles</small>
                             <span class="image-upload-name"></span>
                         </label>

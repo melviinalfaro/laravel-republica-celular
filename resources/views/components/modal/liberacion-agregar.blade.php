@@ -58,6 +58,7 @@
                 <div class="modal-footer d-flex justify-content-between">
                     <div class="d-none d-sm-block">
                         <div class="text-success" id="mensaje-success-liberacion"></div>
+                        <div class="text-danger" id="mensaje-error-liberacion"></div>
                         <div class="text-success" id="mensaje-eliminado-liberacion"></div>
                     </div>
                     <div>
